@@ -17,7 +17,7 @@ export class CreateUserValidations {
 
 
     private length_name_is_valid(): void {
-        if(this.name.length == 0 || this.name.length > 85){
+        if(this.name.length < 3 || this.name.length > 85){
             throw new AppError("Length of name not valid !" , "LENGTH_NAME_NOT_VALID");
         }
     }
