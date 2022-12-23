@@ -1,4 +1,4 @@
-import { LoginUserDTO } from "../../dtos/loginUserDTO";
+import { LoginUserDTO } from "../../../user/dtos/loginUserDTO";
 import { VerifyTokenDTO } from "../../dtos/verifyTokenDTO";
 
 export class VerifyTokenUseCase {

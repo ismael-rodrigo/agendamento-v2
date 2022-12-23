@@ -1,4 +1,4 @@
-import { db } from "../../../../prisma/client";
+import { db } from "../../../../prisma-client/client";
 import { UserGenericDTO } from "../../dtos/userGenericDTO";
 
 
@@ -8,6 +8,7 @@ export class FindAllUsersUseCase {
         select:{
             id:true,
             name:true,
+            password:true
         }
     });
     return users

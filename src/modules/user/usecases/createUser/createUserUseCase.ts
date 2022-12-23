@@ -1,6 +1,7 @@
 import { AppError } from "../../../../errors/appError";
-import { db } from "../../../../prisma/client";
+import { db } from "../../../../prisma-client/client";
 import { CreateUserDTO } from "../../dtos/createUserDTO";
+import { PasswordEncryptProvider } from "../../../../utils/password-encrypt";
 
 
 
@@ -17,11 +18,14 @@ export class CreateUserUseCase {
         throw new AppError("User already exists!" , "USER_ALREADY_EXISTS");
     }
 
+    const passwordHashProvider = new PasswordEncryptProvider();
+    const passwordEncrypted = await passwordHashProvider.generateHash(password);
+
 
     const { id } = await db.user.create({
         data:{
             name,
-            password
+            password:passwordEncrypted
         }
     })
 
