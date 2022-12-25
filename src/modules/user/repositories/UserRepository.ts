@@ -17,15 +17,12 @@ export class UserRepository implements IUserRepository{
         return userCreated
     }
 
-    async getUserOrThrow(username:string) : Promise<User>{
-        try{
-            const getUser = await db.user.findFirstOrThrow( { where: { name : username } } )
-            return getUser
-        }
-        catch{
-            throw new AppError("User not exists!","USER_NOT_EXISTS")
-        }
+    async getFistUser(username:string) : Promise<User | null>{
+        const getUser = await db.user.findFirst( { where: { name : username } } )
+        return getUser
     }
+
+
 
 
 }

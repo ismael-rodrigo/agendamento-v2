@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { LoginUserController } from "../modules/auth/usecases/verifyToken/verifyTokenController";
+import { LoginUserController } from "../modules/user/usecases/loginUser/loginUserController";
+
 
 
 const loginUserController = new LoginUserController()

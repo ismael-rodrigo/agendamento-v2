@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { VerifyTokenDTO } from "../../dtos/verifyTokenDTO";
-import { VerifyTokenUseCase } from "./verifyTokenUseCase";
+import { VerifyTokenUseCase } from "./verifyAccessTokenUseCase";
 
 
 
-export class LoginUserController {
+export class VerifyTokenController {
     async handle(req:Request , res:Response){
         const params: VerifyTokenDTO.params = req.body;
         const verifyToken = new VerifyTokenUseCase()

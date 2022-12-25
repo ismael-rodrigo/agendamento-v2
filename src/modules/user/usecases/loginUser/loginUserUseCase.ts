@@ -1,27 +1,27 @@
 import { AppError } from "../../../../errors/appError";
 import { db } from "../../../../prisma-client/client";
+import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
 import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
+import { IUserRepository } from "../../repositories/IUserRepository";
 
 export class LoginUserUseCase {
-    
+    constructor(
+        private userRepository:IUserRepository,
+        private passwordHashProvider:IPasswordEncryptProvider
+        ){}
 
 
     async execute({name , password} : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
 
-        const passwordEncryptProvider = new PasswordEncryptProvider()
-        const user = await db.user.findFirst({
-            where:{
-                name
-            }
-        })
-        if(!user){
-            throw new AppError("User not exists!","USER_NOT_EXISTS");
-        }
+        const userAlreadyExists = await this.userRepository.getFistUser(name)
 
-        const password_valid = passwordEncryptProvider.verifyHash(user.password , password)
-
+        if(!userAlreadyExists) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
+        const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.password , password);
+        if(!isValidPassword) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
+        
+
         return{
             token:{
                 access:"access",

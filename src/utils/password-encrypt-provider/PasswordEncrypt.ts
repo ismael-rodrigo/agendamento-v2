@@ -10,7 +10,7 @@ export class PasswordEncryptProvider implements IPasswordEncryptProvider {
     }
 
     async verifyHash(hash:string , password:string): Promise<boolean> {
-        const result = await bcrypt.compare(password , hash);
+        const result = await bcrypt.compare(password , hash);   
         return result;
     }
 

@@ -15,8 +15,12 @@ export class CreateUserUseCase {
     
     async execute ({name , password} : CreateUserDTO.params) : Promise<CreateUserDTO.returned> {
 
-    await this.userRepository.getUserOrThrow(name);
+    const userAlreadyExists = await this.userRepository.getFistUser(name);
 
+    if(userAlreadyExists){
+        throw new AppError("User already exists!" , "USER_ALREADY_EXISTS");
+    }
+    
     const password_hashed = await this.passwordHashProvider.generateHash(password);
 
     const result = await this.userRepository.createUser({name, password:password_hashed})
