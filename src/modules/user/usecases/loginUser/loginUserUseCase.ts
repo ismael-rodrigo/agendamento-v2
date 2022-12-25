@@ -1,9 +1,12 @@
 import { AppError } from "../../../../errors/appError";
 import { db } from "../../../../prisma-client/client";
-import { PasswordEncryptProvider } from "../../../../utils/password-encrypt";
+import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 
 export class LoginUserUseCase {
+    
+
+
     async execute({name , password} : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
 
         const passwordEncryptProvider = new PasswordEncryptProvider()

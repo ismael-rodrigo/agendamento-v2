@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
+import {IPasswordEncryptProvider} from "./IPasswordEncrypt"
 
-
-export class PasswordEncryptProvider {
+export class PasswordEncryptProvider implements IPasswordEncryptProvider {
     private readonly saltOrRounds:number = 10;
 
     async generateHash(password:string) : Promise<string> {
