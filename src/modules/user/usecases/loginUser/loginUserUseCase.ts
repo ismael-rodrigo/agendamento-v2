@@ -1,4 +1,4 @@
-import { AppError } from "../../../../errors/appError";
+import { AppError } from "../../../../errors/appError"; 
 import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 import { IUserRepository } from "../../repositories/IUserRepository";

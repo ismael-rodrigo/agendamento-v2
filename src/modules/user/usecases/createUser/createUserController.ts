@@ -3,16 +3,12 @@ import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-prov
 import { CreateUserDTO } from "../../dtos/createUserDTO";
 import { UserRepository } from "../../repositories/UserRepository";
 import { CreateUserUseCase } from "./createUserUseCase";
-import { CreateUserValidations } from "./createUserValidations";
 
 
 
 export class CreateUserController {
-    async handle(req:Request , res:Response){
-        const params: CreateUserDTO.params = req.body;
-
-        const userValidations = new CreateUserValidations(params);
-        userValidations.is_valid();
+    async handle( req:Request < {} , {} , CreateUserDTO.params > , res:Response ){
+        const params = req.body;
 
         const userRepository = new UserRepository()
         const passwordEncryptProvider = new PasswordEncryptProvider()

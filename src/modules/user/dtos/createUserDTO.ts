@@ -7,4 +7,5 @@ export namespace CreateUserDTO {
         id: number
         name: string
     }
+
 }
