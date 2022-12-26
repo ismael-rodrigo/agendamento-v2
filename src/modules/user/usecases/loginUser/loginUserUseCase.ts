@@ -1,7 +1,5 @@
 import { AppError } from "../../../../errors/appError";
-import { db } from "../../../../prisma-client/client";
 import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
-import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 import { IUserRepository } from "../../repositories/IUserRepository";
 
