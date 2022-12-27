@@ -10,16 +10,15 @@ export class LoginUserUseCase {
         ){}
 
 
-    async execute({name , password} : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
+    async execute({username , password} : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
 
-        const userAlreadyExists = await this.userRepository.getFistUser(name)
+        const userAlreadyExists = await this.userRepository.getUser(username);
 
         if(!userAlreadyExists) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
         const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.password , password);
         if(!isValidPassword) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
-
         return{
             token:{
                 access:"access",

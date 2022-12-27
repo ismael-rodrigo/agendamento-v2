@@ -1,6 +1,6 @@
 export namespace LoginUserDTO {
     export type params = {
-        name:string
+        username:string
         password:string
     }
     export type returned = {

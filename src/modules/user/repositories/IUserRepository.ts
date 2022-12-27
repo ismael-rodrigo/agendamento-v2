@@ -5,5 +5,5 @@ import { LoginUserDTO } from "../dtos/loginUserDTO"
 
 export interface IUserRepository {
     createUser(params:CreateUserDTO.params) : Promise <CreateUserDTO.returned>
-    getFistUser(username:string) : Promise <User | null>
+    getUser(username:string) : Promise <User | null>
 }

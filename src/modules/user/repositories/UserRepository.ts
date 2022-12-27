@@ -1,29 +1,17 @@
 import { User } from "@prisma/client";
-import { AppError } from "../../../errors/appError";
 import { db } from "../../../prisma-client/client";
-import { PasswordEncryptProvider } from "../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { CreateUserDTO } from "../dtos/createUserDTO";
-import { LoginUserDTO } from "../dtos/loginUserDTO";
 import { IUserRepository } from "./IUserRepository";
 
 export class UserRepository implements IUserRepository{
-    async createUser({ name , password }:CreateUserDTO.params) :Promise <CreateUserDTO.returned>{
-        const userCreated = await db.user.create({
-            data:{
-                name,
-                password
-            }
-        })
-        return userCreated
+    async createUser(params:CreateUserDTO.params) :Promise <CreateUserDTO.returned>{
+        const userCreated = await db.user.create({ data : params , select:{ id:true , username:true }})
+        return userCreated as CreateUserDTO.returned
     }
 
-    async getFistUser(username:string) : Promise<User | null>{
-        const getUser = await db.user.findFirst( { where: { name : username } } )
+    async getUser(username:string) : Promise<User | null>{
+        const getUser = await db.user.findUnique({ where: { username } })
         return getUser
     }
-
-
-
-
 }
 

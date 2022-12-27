@@ -1,10 +1,10 @@
 export namespace CreateUserDTO {
     export type params = {
-        name: string
+        username: string
         password: string
     }
     export type returned = {
         id: number
-        name: string
+        username: string
     }
 }
