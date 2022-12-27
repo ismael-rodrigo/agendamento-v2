@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MiddlewareBodyValidation } from "../middleware/middlewareBodyValidation";
+import { MiddlewareBodyValidation } from "../middlewares/middlewareBodyValidation";
 import { createUserBodySchema } from "../modules/user/bodySchemas/createUserBodySchema";
 import { CreateUserController } from "../modules/user/usecases/createUser/createUserController";
 import { FindAllUsersController } from "../modules/user/usecases/findUsers/findAllUsersController";
