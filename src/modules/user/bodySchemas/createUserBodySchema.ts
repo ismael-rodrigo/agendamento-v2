@@ -3,7 +3,7 @@ import YupPassword from 'yup-password'
 YupPassword(yup)
 
 export const createUserBodySchema:yup.AnyObjectSchema = yup.object().shape({
-    name:yup
+    username:yup
         .string()
         .min(2)
         .max(85),

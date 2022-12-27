@@ -12,7 +12,7 @@ export class CreateUserUseCase {
     
     async execute ({username , password} : CreateUserDTO.params) : Promise<CreateUserDTO.returned> {
 
-    const userAlreadyExists = await this.userRepository.getUser(username);
+    const userAlreadyExists = await this.userRepository.getUserByUsername(username);
 
     if(userAlreadyExists){
         throw new AppError("User already exists!" , "USER_ALREADY_EXISTS");
