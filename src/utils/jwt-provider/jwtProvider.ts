@@ -1,7 +1,8 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import { CreateTokensReturned } from './jtwProvider.types';
+import { IJwtProvider } from './jwtProvider.interface';
 
-export class JwtProvider {
+export class JwtProvider implements IJwtProvider {
     private readonly SECRET_KEY: Secret
     private readonly ACCESS_EXPIRES: string | number | undefined
     private readonly REFRESH_EXPIRES: string | number | undefined

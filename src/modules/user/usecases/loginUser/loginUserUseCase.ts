@@ -1,5 +1,5 @@
 import { AppError } from "../../../../errors/appError"; 
-import { IJwtProvider } from "../../../../utils/jwt-provider/IJwtProvider";
+import { IJwtProvider } from "../../../../utils/jwt-provider/jwtProvider.interface";
 import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 import { IUserRepository } from "../../repositories/IUserRepository";
