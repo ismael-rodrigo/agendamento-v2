@@ -1,16 +1,17 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 
 export class JwtProvider {
-    private readonly SECRET_KEY:string
+    private readonly SECRET_KEY:Secret
     constructor(){
         this.SECRET_KEY = "secret-key";
     }
-    async createToken(payload:object){
-        jwt.sign(payload , this.SECRET_KEY , {expiresIn:"1h"})
-
+    createToken(payload:object , expires:string = "1h"){
+        const token = jwt.sign(payload , this.SECRET_KEY , { expiresIn: expires });
+        return token;
     }
-    verifyToken(){
-
+    verifyToken(token:string) : string | JwtPayload {
+        const result = jwt.verify(token ,this.SECRET_KEY );
+        return result
     }
 
 }
