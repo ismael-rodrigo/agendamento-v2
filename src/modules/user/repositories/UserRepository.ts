@@ -10,7 +10,7 @@ export class UserRepository implements IUserRepository{
     }
 
     async getUserByUsername(username:string){
-        const getUser = await db.user.findFirst({ where: { username } })
+        const getUser = await db.user.findUnique({ where: { username } })
         return getUser
     }
 }
