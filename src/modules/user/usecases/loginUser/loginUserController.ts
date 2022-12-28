@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { JwtProvider } from "../../../../utils/jwt-provider/jwtProvider";
 import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 import { UserRepository } from "../../repositories/UserRepository";
@@ -10,10 +11,11 @@ export class LoginUserController {
 
         const userRepository = new UserRepository()
         const passwordEncryptProvider = new PasswordEncryptProvider()
-    
-        const loginUserUseCase = new LoginUserUseCase(userRepository , passwordEncryptProvider)
-        const result = await loginUserUseCase.execute(params)
+        const jwtProvider = new JwtProvider()
+
+        const loginUserUseCase = new LoginUserUseCase( userRepository , passwordEncryptProvider , jwtProvider )
         
+        const result = await loginUserUseCase.execute(params)
         return res.status(200).json(result);
     }
 }

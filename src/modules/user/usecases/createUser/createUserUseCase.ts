@@ -17,12 +17,10 @@ export class CreateUserUseCase {
     if(userAlreadyExists){
         throw new AppError("User already exists!" , "USER_ALREADY_EXISTS");
     }
-    
     const password_hashed = await this.passwordHashProvider.generateHash(password);
-
     const result = await this.userRepository.createUser({username, password:password_hashed})
-
-    return result as CreateUserDTO.returned
+    
+    return result 
     
 }
 }

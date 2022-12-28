@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { JwtProvider } from "../../../../utils/jwt-provider/jwtProvider";
 import { PasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/PasswordEncrypt";
 import { CreateUserDTO } from "../../dtos/createUserDTO";
 import { UserRepository } from "../../repositories/UserRepository";
