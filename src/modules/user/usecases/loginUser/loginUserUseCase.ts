@@ -1,4 +1,5 @@
 import { AppError } from "../../../../errors/appError"; 
+import { IJwtProvider } from "../../../../utils/jwt-provider/IJwtProvider";
 import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
 import { LoginUserDTO } from "../../dtos/loginUserDTO";
 import { IUserRepository } from "../../repositories/IUserRepository";
@@ -6,7 +7,8 @@ import { IUserRepository } from "../../repositories/IUserRepository";
 export class LoginUserUseCase {
     constructor(
         private userRepository:IUserRepository,
-        private passwordHashProvider:IPasswordEncryptProvider
+        private passwordHashProvider:IPasswordEncryptProvider,
+        private jwtProvider:IJwtProvider
         ){}
 
 
@@ -19,11 +21,8 @@ export class LoginUserUseCase {
         const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.password , password);
         if(!isValidPassword) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
-        return{
-            token:{
-                access:"access",
-                refresh:"refresh"
-            }
-        }
+        const token = this.jwtProvider.createTokens(String(userAlreadyExists.id))
+        return { token:token }
+        
     }
 }
