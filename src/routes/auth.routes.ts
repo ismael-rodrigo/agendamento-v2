@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { MiddlewareBodyValidation } from "../middlewares/middlewareBodyValidation";
+import { BodyValidationMiddleware } from "../middlewares/middleware-body-validation";
 import { loginUserBodySchema } from "../modules/user/bodySchemas/loginUserBodySchema";
-import { LoginUserController } from "../modules/user/usecases/loginUser/loginUserController";
+import { LoginUserController } from "../modules/user/usecases/login-user/loginUserController";
 
 
 
 const loginUserController = new LoginUserController()
-const middlewareBodyValidation = new MiddlewareBodyValidation(loginUserBodySchema)
+const middlewareBodyValidation = new BodyValidationMiddleware(loginUserBodySchema)
 
 const authRoutes = Router()
 

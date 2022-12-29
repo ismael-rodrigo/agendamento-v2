@@ -25,5 +25,10 @@ export class JwtProvider implements IJwtProvider {
         const result = jwt.verify(token ,this.SECRET_KEY );
         return result
     }
+
+    decodeToken(token:string){
+        const result = jwt.decode(token)
+        return result
+    }
     
 }
