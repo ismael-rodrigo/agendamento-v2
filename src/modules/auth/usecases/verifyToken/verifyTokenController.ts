@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { VerifyTokenDTO } from "../../dtos/verifyTokenDTO";
-import { VerifyTokenUseCase } from "./verifyAccessTokenUseCase";
+import { VerifyTokenUseCase } from "./verifyTokenUseCase";
 
 
 
