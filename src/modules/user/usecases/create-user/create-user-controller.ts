@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { CreateUserDTO } from "../../dtos/createUserDTO";
-import { CreateUserUseCase } from "./createUserUseCase";
+import { CreateUserDTO } from "../../dtos/create-user-DTO";
+import { CreateUserUseCase } from "./create-user-use-case";
 import {container} from "tsyringe"
 
 
 export class CreateUserController {
-    async handle( req:Request < {} , {} , CreateUserDTO.params > , res:Response ){
+    async handle( req:Request < {} , {} , CreateUserDTO.params > , res:Response){
 
         const params = req.body;
         const createUserUseCase = container.resolve(CreateUserUseCase)

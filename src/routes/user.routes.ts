@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { BodyValidationMiddleware } from "../middlewares/middleware-body-validation";
-import { AdminValidationMiddleware } from "../middlewares/middleware-is-admin-validation";
-import { createUserBodySchema } from "../modules/user/bodySchemas/createUserBodySchema";
-import { CreateUserController } from "../modules/user/usecases/create-user/createUserController";
+import { BodyValidationMiddleware } from "../middlewares/body-validation-middleware";
+import { AdminValidationMiddleware } from "../middlewares/is-admin-validation-middleware";
+import { createUserBodySchema } from "../modules/user/body-schemas/create-user-body-schema";
+import { CreateUserController } from "../modules/user/usecases/create-user/create-user-controller";
 
 
 const createUserController = new CreateUserController()
@@ -13,8 +13,9 @@ const userRoutes = Router()
 
 userRoutes.post('/' ,  
     middlewareBodyValidation.handle, 
-    adminValidationMiddleware.handle,
+    //adminValidationMiddleware.handle,
     createUserController.handle );
+
 
 
 

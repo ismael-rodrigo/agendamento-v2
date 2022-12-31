@@ -4,9 +4,7 @@ export namespace LoginUserDTO {
         password:string
     }
     export type returned = {
-        token:{
-            access:string
-            refresh:string
-        }
+        access:string
+        refresh:string
     }
 }

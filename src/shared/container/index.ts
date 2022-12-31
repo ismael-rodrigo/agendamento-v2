@@ -1,10 +1,10 @@
 import {container} from "tsyringe"
-import { IUserRepository } from "../../modules/user/repositories/IUserRepository"
-import { UserRepository } from "../../modules/user/repositories/UserRepository"
-import { JwtProvider } from "../../utils/jwt-provider/jwtProvider"
-import { IJwtProvider } from "../../utils/jwt-provider/jwtProvider.interface"
-import { IPasswordEncryptProvider } from "../../utils/password-encrypt-provider/IPasswordEncrypt"
-import { PasswordEncryptProvider } from "../../utils/password-encrypt-provider/PasswordEncrypt"
+import { IUserRepository } from "../../modules/user/repositories/user-repository.interface"
+import { UserRepository } from "../../modules/user/repositories/user-repository"
+import { JwtProvider } from "../../utils/jwt-provider/jwt-provider"
+import { IJwtProvider } from "../../utils/jwt-provider/jwt-provider.interface"
+import { IPasswordEncryptProvider } from "../../utils/password-encrypt-provider/password-encrypt.interface"
+import { PasswordEncryptProvider } from "../../utils/password-encrypt-provider/password-encrypt"
 
 
 container.registerSingleton<IUserRepository>("UserRepository" , UserRepository);

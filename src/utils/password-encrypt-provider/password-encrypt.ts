@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
-import {IPasswordEncryptProvider} from "./IPasswordEncrypt"
+import {IPasswordEncryptProvider} from "./password-encrypt.interface"
 
 export class PasswordEncryptProvider implements IPasswordEncryptProvider {
     private readonly saltOrRounds:number = 10;

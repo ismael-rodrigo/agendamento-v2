@@ -1,6 +1,5 @@
 import { User } from "@prisma/client"
-import {CreateUserDTO } from "../dtos/createUserDTO"
-import { LoginUserDTO } from "../dtos/loginUserDTO"
+import {CreateUserDTO } from "../dtos/create-user-DTO"
 
 
 export interface IUserRepository {

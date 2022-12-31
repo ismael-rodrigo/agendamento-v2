@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { db } from "../../../prisma-client/client";
-import { CreateUserDTO } from "../dtos/createUserDTO";
-import { IUserRepository } from "./IUserRepository";
+import { CreateUserDTO } from "../dtos/create-user-DTO";
+import { IUserRepository } from "./user-repository.interface";
 
 export class UserRepository implements IUserRepository{
     async createUser(params:CreateUserDTO.params) :Promise <CreateUserDTO.returned>{

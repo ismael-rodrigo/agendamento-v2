@@ -1,7 +1,7 @@
 import { AppError } from "../../../../errors/appError";
-import { CreateUserDTO } from "../../dtos/createUserDTO";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/IPasswordEncrypt";
+import { CreateUserDTO } from "../../dtos/create-user-DTO";
+import { IUserRepository } from "../../repositories/user-repository.interface";
+import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/password-encrypt.interface";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
