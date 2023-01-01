@@ -2,7 +2,7 @@ import { Router } from "express";
 import { BodyValidationMiddleware } from "../middlewares/body-validation-middleware";
 import { AdminValidationMiddleware } from "../middlewares/is-admin-validation-middleware";
 import { createUserBodySchema } from "../modules/user/body-schemas/create-user-body-schema";
-import { CreateUserController } from "../modules/user/usecases/create-user/create-user-controller";
+import { CreateUserController } from "../modules/user/controllers/create-user-controller";
 
 
 const createUserController = new CreateUserController()

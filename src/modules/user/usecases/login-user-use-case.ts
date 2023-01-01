@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../errors/appError"; 
-import { IJwtProvider } from "../../../../utils/jwt-provider/jwt-provider.interface";
-import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/password-encrypt.interface";
-import { LoginUserDTO } from "../../dtos/login-user-DTO";
-import { IUserRepository } from "../../repositories/user-repository.interface";
+import { AppError } from "../../../errors/appError"; 
+import { IJwtProvider } from "../../../utils/jwt-provider/jwt-provider.interface";
+import { IPasswordEncryptProvider } from "../../../utils/password-encrypt-provider/password-encrypt.interface";
+import { LoginUserDTO } from "../dtos/login-user-DTO";
+import { IUserRepository } from "../repositories/user-repository.interface";
 
 @injectable()
 export class LoginUserUseCase {

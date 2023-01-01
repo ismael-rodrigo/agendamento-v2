@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { VerifyTokenDTO } from "../../dtos/verify-token-DTO";
-import { VerifyTokenUseCase } from "./verify-token-use-case";
+import { VerifyTokenDTO } from "../dtos/verify-token-DTO";
+import { VerifyTokenUseCase } from "../usecases/verify-token-use-case";
 
 
 

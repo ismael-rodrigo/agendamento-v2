@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { BodyValidationMiddleware } from "../middlewares/body-validation-middleware";
 import { verifyTokenBodySchema } from "../modules/auth/body-schemas/verify-token-body-schema";
-import { VerifyTokenController } from "../modules/auth/usecases/verify-token/verify-token-controller";
+import { VerifyTokenController } from "../modules/auth/controllers/verify-token-controller";
 import { loginUserBodySchema } from "../modules/user/body-schemas/login-user-body-schema";
-import { LoginUserController } from "../modules/user/usecases/login-user/login-user-controller";
+import { LoginUserController } from "../modules/user/controllers/login-user-controller";
 
 
 

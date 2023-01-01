@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../errors/appError"; 
-import { IJwtProvider } from "../../../../utils/jwt-provider/jwt-provider.interface";
-import { IUserRepository } from "../../repositories/user-repository.interface";
+import { AppError } from "../../../errors/appError"; 
+import { IJwtProvider } from "../../../utils/jwt-provider/jwt-provider.interface";
+import { IUserRepository } from "../repositories/user-repository.interface";
 
 @injectable()
 export class CheckUserIsAdminUseCase {

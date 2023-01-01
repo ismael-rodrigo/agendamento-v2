@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { LoginUserDTO } from "../../dtos/login-user-DTO";
-import { LoginUserUseCase } from "./login-user-use-case";
+import { LoginUserDTO } from "../dtos/login-user-DTO";
+import { LoginUserUseCase } from "../usecases/login-user-use-case";
 import {container} from "tsyringe"
 
 
