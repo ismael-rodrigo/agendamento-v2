@@ -13,7 +13,7 @@ const userRoutes = Router()
 
 userRoutes.post('/' ,  
     middlewareBodyValidation.handle, 
-    //adminValidationMiddleware.handle,
+    adminValidationMiddleware.handle,
     createUserController.handle );
 
 

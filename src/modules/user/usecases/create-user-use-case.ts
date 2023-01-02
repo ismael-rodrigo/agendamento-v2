@@ -11,10 +11,10 @@ export class CreateUserUseCase {
         @inject("PasswordEncryptProvider") private passwordHashProvider:IPasswordEncryptProvider
         ){}
     
-    async execute ({username , password} : CreateUserDTO.params) : Promise<CreateUserDTO.returned> {
+    async execute ({ username , password } : CreateUserDTO.params) : Promise<CreateUserDTO.returned> {
 
     const userAlreadyExists = await this.userRepository.getUserByUsername(username);
-
+    
     if(userAlreadyExists){
         throw new AppError("User already exists!" , "USER_ALREADY_EXISTS");
     }

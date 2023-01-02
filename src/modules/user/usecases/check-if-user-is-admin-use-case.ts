@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { JwtPayload } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../errors/appError"; 
 import { IJwtProvider } from "../../../utils/jwt-provider/jwt-provider.interface";
@@ -13,9 +14,12 @@ export class CheckUserIsAdminUseCase {
 
 
     async execute(token:string) : Promise< User >{
-        const resultTokenId = this.jwtProvider.verifyToken(token)
+        const resultToken = this.jwtProvider.verifyToken(token)
+        
+        if(!resultToken.sub) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
 
-        const userAlreadyExists = await this.userRepository.getUserById(Number(resultTokenId));
+        const userAlreadyExists = await this.userRepository.getUserById(resultToken.sub);
+        
         if(!userAlreadyExists) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
         if(!userAlreadyExists.is_admin) throw new AppError("You do not have permission!","NOT_PERMISSION");

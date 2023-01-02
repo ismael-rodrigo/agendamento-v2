@@ -1,0 +1,23 @@
+import "reflect-metadata"
+import "../shared/container"
+import "express-async-errors"
+
+import { container } from "tsyringe";
+import { CreateUserUseCase } from "../modules/user/usecases/create-user-use-case"
+
+const exec = async () => {
+
+
+try{
+    const username = (process.argv[2]);
+    const password = (process.argv[3]);
+    const createUserUseCase = container.resolve(CreateUserUseCase)
+    const result = await createUserUseCase.execute({username , password});
+    console.log(result)
+}
+
+catch (err){
+    console.log(err)
+}}
+
+exec()

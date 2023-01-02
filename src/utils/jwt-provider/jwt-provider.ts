@@ -15,9 +15,9 @@ export class JwtProvider implements IJwtProvider {
         this.REFRESH_EXPIRES= 30
     }
 
-    createTokens(payload:object): CreateTokensReturned{
-        const accessToken = jwt.sign({ payload } , this.ACCESS_SECRET_KEY , { expiresIn:this.ACCESS_EXPIRES } );
-        const refreshToken = jwt.sign({ payload } , this.REFRESH_SECRET_KEY , { expiresIn:this.REFRESH_EXPIRES } );
+    createTokens(payload:string): CreateTokensReturned{
+        const accessToken = jwt.sign({ sub:payload } , this.ACCESS_SECRET_KEY , { expiresIn:this.ACCESS_EXPIRES } );
+        const refreshToken = jwt.sign({ sub:payload } , this.REFRESH_SECRET_KEY , { expiresIn:this.REFRESH_EXPIRES } );
         
         return {
             access:accessToken,
@@ -26,19 +26,18 @@ export class JwtProvider implements IJwtProvider {
     }
     
 
-    verifyToken(token:string) : string | JwtPayload {
+    verifyToken(token:string) : JwtPayload {
         try{
             const result = jwt.verify(token ,this.ACCESS_SECRET_KEY );
-            return result
+            return result as JwtPayload
         }
         catch (JsonWebTokenError) {
             throw new AppError(JsonWebTokenError?JsonWebTokenError:"Erro jwt not defined !" , "JWT_ERROR");
-        }  
-
+        }
     }
 
-    createAccessToken(payload: string | JwtPayload) : string {
-        const accessToken = jwt.sign(payload , this.ACCESS_SECRET_KEY , {expiresIn:this.ACCESS_EXPIRES} );
+    createAccessToken(payload: string ) : string {
+        const accessToken = jwt.sign( { sub:payload } , this.ACCESS_SECRET_KEY , {expiresIn:this.ACCESS_EXPIRES} );
         return accessToken
     }
 

@@ -4,7 +4,7 @@ export namespace CreateUserDTO {
         password: string
     }
     export type returned = {
-        id: number
+        id: string
         username: string
     }
 }
