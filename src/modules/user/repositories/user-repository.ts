@@ -1,12 +1,8 @@
 import { User , PrismaClient} from "@prisma/client";
-import { singleton } from "tsyringe";
-import { db } from "../../../prisma-client/client";
 import { CreateUserDTO } from "../dtos/create-user-DTO";
 import { IUserRepository } from "./user-repository.interface";
 
 
-
-@singleton()
 export class UserRepository implements IUserRepository{
     constructor(private client:PrismaClient){}
 
