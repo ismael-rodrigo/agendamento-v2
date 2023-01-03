@@ -1,5 +1,4 @@
 import { User } from "@prisma/client";
-import { JwtPayload } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../errors/appError"; 
 import { IJwtProvider } from "../../../utils/jwt-provider/jwt-provider.interface";
@@ -22,7 +21,7 @@ export class CheckUserIsAdminUseCase {
         
         if(!userAlreadyExists) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
         
-        if(!userAlreadyExists.is_admin) throw new AppError("You do not have permission!","NOT_PERMISSION");
+        if(!userAlreadyExists.is_admin) throw new AppError("You do not have permission!","NOT_PERMISSION" , 401 );
 
         return userAlreadyExists;
         

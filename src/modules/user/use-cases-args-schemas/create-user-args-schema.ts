@@ -2,7 +2,7 @@ import * as yup from "yup"
 import YupPassword from 'yup-password'
 YupPassword(yup)
 
-export const createUserBodySchema:yup.AnyObjectSchema = yup.object().shape({
+export const createUserArgSchema:yup.AnyObjectSchema = yup.object().shape({
     username:yup
         .string()
         .required()

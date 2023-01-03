@@ -14,7 +14,7 @@ export class LoginUserUseCase {
         ){}
 
 
-    async execute({username , password} : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
+    async execute( { username , password } : LoginUserDTO.params) : Promise<LoginUserDTO.returned>{
         
         const userAlreadyExists = await this.userRepository.getUserByUsername(username);
         if(!userAlreadyExists) throw new AppError("Credentials invalid!","CREDENTIAS_INVALID");
