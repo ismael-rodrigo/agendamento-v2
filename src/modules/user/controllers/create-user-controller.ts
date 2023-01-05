@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserDTO } from "../dtos/create-user-DTO";
-import { CreateUserUseCase } from "../usecases/create-user-use-case";
+import { CreateUserUseCase } from "../use-cases/create-user-use-case";
 import { container } from "tsyringe"
 
 

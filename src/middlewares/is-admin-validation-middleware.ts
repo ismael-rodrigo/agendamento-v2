@@ -1,7 +1,7 @@
 import { NextFunction, Request , Response } from "express";
 import { container } from "tsyringe";
 import { AppError } from "../errors/appError";
-import { CheckUserIsAdminUseCase } from "../modules/user/usecases/check-if-user-is-admin-use-case";
+import { CheckUserIsAdminUseCase } from "../modules/user/use-cases/check-if-user-is-admin-use-case";
 
 
 

@@ -3,7 +3,7 @@ import "../shared/container"
 import "express-async-errors"
 
 import { container } from "tsyringe";
-import { CreateUserUseCase } from "../modules/user/usecases/create-user-use-case"
+import { CreateUserUseCase } from "../modules/user/use-cases/create-user-use-case"
 
 const exec = async () => {
 

@@ -1,6 +1,5 @@
-import { PrismaClient} from "@prisma/client";
+import { PrismaClient, User} from "@prisma/client";
 import { CreateUserDTO } from "../dtos/create-user-DTO";
-import { UserEntity } from "../entities/user.entity";
 import { IUserRepository } from "./user-repository.interface";
 
 
@@ -12,12 +11,12 @@ export class UserRepositoryPrisma implements IUserRepository{
         return userCreated
     }
 
-    async getUserByUsername(username:string): Promise < UserEntity | null>  {
+    async getUserByUsername(username:string): Promise < User | null>  {
         const getUser = await this.client.user.findUnique({ where: { username } })
         return getUser
     }
 
-    async getUserById(id:string):Promise < UserEntity | null> {
+    async getUserById(id:string):Promise < User | null> {
         const getUser = await this.client.user.findUnique({ where: { id } })
         return getUser
     }
