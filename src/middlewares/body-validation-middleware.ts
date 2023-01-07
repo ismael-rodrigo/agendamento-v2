@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { RequestHandler } from "express";
-import { AppError } from '../errors/appError';
+import { AppError } from '../errors-handler/app-error';
 
 
 
@@ -14,7 +14,7 @@ export class BodyValidationMiddleware {
         }
         catch (err) {
             const yupError = err as yup.ValidationError;
-            throw new AppError(yupError.errors , "INVALID_ARGUMENST")
+            throw new AppError(yupError.errors , "INVALID_PARAMS")
         }
        
     }

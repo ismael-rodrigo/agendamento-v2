@@ -1,7 +1,7 @@
 import { HourAvailable } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
-import { VerifyHoursAvailableDTO } from "../dtos/find-hours-available-DTO";
-import { IScheduleRepository } from "../repositories/schedule-repository.interface"
+import { VerifyHoursAvailableDTO } from "../../dtos/find-hours-available-DTO";
+import { IScheduleRepository } from "../../repositories/schedule-repository.interface"
 
 
 

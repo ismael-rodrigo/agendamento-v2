@@ -1,5 +1,6 @@
 import jwt, { Secret, JwtPayload  , JsonWebTokenError} from 'jsonwebtoken';
-import { AppError } from '../../errors/appError';
+import { Either, Left, Right } from '../../errors-handler/either';
+import { JwtError } from '../../errors-handler/errors/jwt-error';
 import { CreateTokensReturned } from './jtw-provider.types';
 import { IJwtProvider } from './jwt-provider.interface';
 
@@ -26,13 +27,14 @@ export class JwtProvider implements IJwtProvider {
     }
     
 
-    verifyToken(token:string) : JwtPayload {
+    verifyToken(token:string) : Either< JwtError, JwtPayload> {
         try{
             const result = jwt.verify(token ,this.ACCESS_SECRET_KEY );
-            return result as JwtPayload
+            return Right.create(result as JwtPayload)
         }
-        catch (JsonWebTokenError) {
-            throw new AppError(JsonWebTokenError?JsonWebTokenError:"Erro jwt not defined !" , "JWT_ERROR");
+        catch (err) {
+            const error = err as JsonWebTokenError 
+            return Left.create( new JwtError(error))
         }
     }
 
@@ -40,9 +42,4 @@ export class JwtProvider implements IJwtProvider {
         const accessToken = jwt.sign( { sub:payload } , this.ACCESS_SECRET_KEY , {expiresIn:this.ACCESS_EXPIRES} );
         return accessToken
     }
-
-
-
-
-
 }

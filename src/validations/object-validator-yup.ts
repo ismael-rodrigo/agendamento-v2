@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { AppError } from '../errors/appError';
+import { AppError } from '../errors-handler/app-error';
 import { IObjectValidator } from './object-validator-yup.interface';
 
 
@@ -11,7 +11,7 @@ export class ObjectValidator implements IObjectValidator {
         }
         catch (err) {
             const yupError = err as yup.ValidationError;
-            throw new AppError(yupError.errors , "INVALID_ARGUMENST")
+            throw new AppError(yupError.errors , "INVALID_PARAMS")
         }
 
     }

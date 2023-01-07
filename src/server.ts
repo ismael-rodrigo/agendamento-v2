@@ -3,7 +3,7 @@ import "./shared/container"
 import "express-async-errors"
 import express from "express";
 import { routes } from "./routes/_index";
-import { errorHandler } from "./errors/errorHandler";
+import { errorHandler } from "./errors-handler/error-middleware-handler";
 
 
 const app = express()

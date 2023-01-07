@@ -1,9 +1,9 @@
 
 import { container, inject, injectable } from "tsyringe";
-import { getDaysArray } from "../../../utils/dates-utils/get-array-of-dates-between-two-dates";
-import { FindDatesDTO } from "../dtos/find-dates-available-DTO";
-import { IScheduleRepository } from "../repositories/schedule-repository.interface"
-import { FindHoursByDateServiceAvailableUseCase } from "./find-hours-availabe-use-case";
+import { getDaysArray } from "../../../../utils/dates-utils/get-array-of-dates-between-two-dates";
+import { FindDatesDTO } from "../../dtos/find-dates-available-DTO";
+import { IScheduleRepository } from "../../repositories/schedule-repository.interface"
+import { FindHoursByDateServiceAvailableUseCase } from "../find-hours-availabe/find-hours-availabe";
 
 
 
