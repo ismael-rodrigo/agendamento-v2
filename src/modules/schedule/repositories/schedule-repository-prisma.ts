@@ -1,5 +1,5 @@
 import { HourAvailable, IntervalDateAvailable, PrismaClient } from "@prisma/client";
-import { VerifyHoursAvailableDTO } from "../dtos/find-hours-available-DTO";
+import { VerifyHoursAvailableDTO } from "../use-cases/find-hours-availabe/find-hours-available-DTO";
 import { IScheduleRepository } from "./schedule-repository.interface";
 
 

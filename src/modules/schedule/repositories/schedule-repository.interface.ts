@@ -1,5 +1,5 @@
 import { HourAvailable, IntervalDateAvailable, Schedule } from "@prisma/client";
-import { VerifyHoursAvailableDTO } from "../dtos/find-hours-available-DTO";
+import { VerifyHoursAvailableDTO } from "../use-cases/find-hours-availabe/find-hours-available-DTO";
 
 export interface IScheduleRepository {
     findCurrentIntervalSchedulesAvailable(service_id:string): Promise <IntervalDateAvailable | null>

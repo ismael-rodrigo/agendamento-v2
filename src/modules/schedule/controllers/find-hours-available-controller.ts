@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { VerifyHoursAvailableDTO } from "../dtos/find-hours-available-DTO";
+import { VerifyHoursAvailableDTO } from "../use-cases/find-hours-availabe/find-hours-available-DTO";
 import { FindHoursByDateServiceAvailableUseCase } from "../use-cases/find-hours-availabe/find-hours-availabe";
 import {container} from "tsyringe"
 
