@@ -1,14 +1,14 @@
 import { Either, Left, Right } from "../../errors-handler/either"
 import { Uuid } from "../../utils/uuid-generator/uuid"
-import { BirthDate } from "./birth-date"
+import { BirthDate } from "../utils/birth-date"
 import { CommomUserData } from "./commom-user-data"
-import { Cpf } from "./cpf"
-import { InvalidCpfError } from "./errors/invalid-cpf-error"
-import { invalidBirthDateError } from "./errors/invalid-date-birth-date"
-import { InvalidNameError } from "./errors/invalid-name-error"
-import { InvalidPhoneError } from "./errors/invalid-phone-error"
-import { Name } from "./name"
-import { Phone } from "./phone"
+import { Cpf } from "../utils/cpf"
+import { InvalidCpfError } from "../utils/errors/invalid-cpf-error"
+import { invalidBirthDateError } from "../utils/errors/invalid-date-birth-date"
+import { InvalidNameError } from "../utils/errors/invalid-name-error"
+import { InvalidPhoneError } from "../utils/errors/invalid-phone-error"
+import { Name } from "../utils/name"
+import { Phone } from "../utils/phone"
 
 
 

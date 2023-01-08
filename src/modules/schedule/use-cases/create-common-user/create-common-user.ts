@@ -1,4 +1,4 @@
-import { CommomUser } from "../../../../entities/CommomUser/common-user";
+import { CommomUser } from "../../../../entities/common-user/common-user";
 import { AppError } from "../../../../errors-handler/app-error";
 import { Left, Right } from "../../../../errors-handler/either";
 import { ICommonUserRepository } from "../../repositories/common-user/common-user-repository.interface";

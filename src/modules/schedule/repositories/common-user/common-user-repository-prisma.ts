@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { CommomUserData } from "../../../../entities/CommomUser/commom-user-data";
+import { CommomUserData } from "../../../../entities/common-user/commom-user-data";
 import { ICommonUserRepository } from "./common-user-repository.interface";
 
 export class CommomUserPrismaRepository implements ICommonUserRepository {

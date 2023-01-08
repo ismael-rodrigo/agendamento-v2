@@ -1,4 +1,4 @@
-import { CommomUserData } from "../../../../entities/CommomUser/commom-user-data"
+import { CommomUserData } from "../../../../entities/common-user/commom-user-data"
 
 
 export interface ICommonUserRepository {

@@ -5,7 +5,6 @@ import { cpf } from 'cpf-cnpj-validator';
 
 export class Cpf {
   private readonly cpf: string
-
   private constructor (cpf: string) {
     this.cpf = cpf
     Object.freeze(this)

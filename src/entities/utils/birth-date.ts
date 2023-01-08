@@ -25,6 +25,8 @@ export class BirthDate {
   static validate (birth_date : Date): boolean {
     if(!birth_date.valueOf()) return false
     if( new Date().getFullYear() - birth_date.getFullYear() <= 0 ) return false
+    if( new Date().getFullYear() - birth_date.getFullYear() > 120 ) return false
+
     return true
   }
 }
