@@ -1,8 +1,10 @@
 import jwt, { Secret, JwtPayload  , JsonWebTokenError} from 'jsonwebtoken';
 import { Either, Left, Right } from '../../errors-handler/either';
 import { JwtError } from '../../errors-handler/errors/jwt-error';
+import { InvalidPayloadError } from './errors/invalid-payload-error';
 import { CreateTokensReturned } from './jtw-provider.types';
 import { IJwtProvider } from './jwt-provider.interface';
+
 
 export class JwtProvider implements IJwtProvider {
     private readonly ACCESS_SECRET_KEY: Secret
@@ -38,8 +40,9 @@ export class JwtProvider implements IJwtProvider {
         }
     }
 
-    createAccessToken(payload: string ) : string {
+    createAccessToken(payload: string ) : Either< InvalidPayloadError, string> {
+        if(!payload) return Left.create(new InvalidPayloadError)
         const accessToken = jwt.sign( { sub:payload } , this.ACCESS_SECRET_KEY , {expiresIn:this.ACCESS_EXPIRES} );
-        return accessToken
+        return Right.create(accessToken)
     }
 }
