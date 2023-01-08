@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { Left, Right } from "../../../../errors-handler/either";
 import { getDaysArray } from "../../../../utils/dates-utils/get-array-of-dates-between-two-dates";
 import { DatesAvailables, FindDatesDTO } from "./find-dates-available-DTO";
-import { IScheduleRepository } from "../../repositories/schedule-repository.interface"
+import { IScheduleRepository } from "../../repositories/schedule/schedule-repository.interface"
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
 
 
@@ -11,7 +11,7 @@ import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-pa
 export class FindDatesServiceAvailableUseCase {
     constructor(@inject("ScheduleRepository") private scheduleRepository: IScheduleRepository  ){}
 
-    async execute( { service_id } : FindDatesDTO.params ) : Promise < FindDatesDTO.returned >
+    async execute( { service_id } : FindDatesDTO.request ) : Promise < FindDatesDTO.response >
     {
         if(!service_id){
             return Left.create(new InvalidParamsError)

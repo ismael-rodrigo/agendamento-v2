@@ -8,8 +8,8 @@ import { PasswordEncryptProvider } from "../../utils/password-encrypt-provider/p
 import { prisma } from "../../prisma-client/client"
 import { IObjectValidator } from "../../validations/object-validator-yup.interface"
 import { ObjectValidator } from "../../validations/object-validator-yup"
-import { IScheduleRepository } from "../../modules/schedule/repositories/schedule-repository.interface"
-import { ScheduleRepositoryPrisma } from "../../modules/schedule/repositories/schedule-repository-prisma"
+import { IScheduleRepository } from "../../modules/schedule/repositories/schedule/schedule-repository.interface"
+import { ScheduleRepositoryPrisma } from "../../modules/schedule/repositories/schedule/schedule-repository-prisma"
 
 
 

@@ -27,7 +27,7 @@ model User {
 
 
 model CommomUser {
-  id String @id @default(uuid())
+  id String @id 
   cpf String @unique
   name String
   phone_number String

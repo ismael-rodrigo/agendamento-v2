@@ -9,7 +9,7 @@ export type DatesAvailables = {
 
 
 export namespace FindDatesDTO {
-    export type params = { service_id: string } 
+    export type request = { service_id: string } 
 
-    export type returned = Either< InvalidParamsError , DatesAvailables[] >
+    export type response = Either< InvalidParamsError , DatesAvailables[] >
 }

@@ -4,7 +4,7 @@ import { IUserRepository } from "../../repositories/user-repository.interface";
 import { IPasswordEncryptProvider } from "../../../../utils/password-encrypt-provider/password-encrypt.interface";
 import { inject, injectable } from "tsyringe";
 import { IObjectValidator } from "../../../../validations/object-validator-yup.interface";
-import { createUserArgSchema } from "../../use-cases-args-schemas/create-user-args-schema";
+import { createUserArgSchema } from "./create-user-args-schema";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { CreateUserResponse } from "./create-user-response";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";

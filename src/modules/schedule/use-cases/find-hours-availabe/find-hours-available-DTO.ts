@@ -11,11 +11,11 @@ export type HoursAvailables = {
 
 
 export namespace VerifyHoursAvailableDTO {
-    export type params = {
+    export type request = {
         service_id: string
         date_consulted: Date
     }
 
-    export type returned = Either < InvalidParamsError , HoursAvailables >
+    export type response = Either < InvalidParamsError , HoursAvailables >
 
 }

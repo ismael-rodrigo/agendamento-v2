@@ -1,5 +1,7 @@
 import { Either, Left, Right } from "../../errors-handler/either"
 import { InvalidNameError } from './errors/invalid-name-error'
+import { cpf } from 'cpf-cnpj-validator'; 
+
 
 export class Cpf {
   private readonly cpf: string
@@ -20,13 +22,9 @@ export class Cpf {
     return this.cpf
   }
 
-  static validate (cpf: string): boolean {
-    var teste = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
-    
-    if (!cpf) return false
-
-    if(!teste.test(cpf)) return false
-
+  static validate (_cpf: string): boolean {
+    if (!_cpf) return false
+    if(!cpf.isValid(_cpf)) return false
     return true
   }
 }

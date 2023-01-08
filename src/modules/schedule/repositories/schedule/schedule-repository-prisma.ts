@@ -1,5 +1,5 @@
 import { HourAvailable, IntervalDateAvailable, PrismaClient } from "@prisma/client";
-import { VerifyHoursAvailableDTO } from "../use-cases/find-hours-availabe/find-hours-available-DTO";
+import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
 import { IScheduleRepository } from "./schedule-repository.interface";
 
 
@@ -15,7 +15,7 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
         return result
     }
 
-    async findHoursAvailableOfService( { date_consulted , service_id }: VerifyHoursAvailableDTO.params ): Promise <HourAvailable[]> {
+    async findHoursAvailableOfService( { date_consulted , service_id }: VerifyHoursAvailableDTO.request ): Promise <HourAvailable[]> {
         const result = await this.client.hourAvailable.findMany({
             where:{
                 service_id: service_id,
