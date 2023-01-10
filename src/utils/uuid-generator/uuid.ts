@@ -5,6 +5,8 @@ export class Uuid {
     private constructor(uuid_generated:string){
         this.uuid = uuid_generated
     }
+
+
     static create(){
         const myuuid = uuidv4();
         return new Uuid(myuuid)

@@ -6,12 +6,15 @@ import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
 export class CreateCommonUser {
     constructor(private commonUserRepo:ICommonUserRepository){}
-    async execute( {cpf ,date_birth , name , phone_number } : CreateCommonUserDTO.request ) {
+    async execute( {cpf ,date_birth , name , phone_number } : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
         const userOrError = CommomUser.create({ cpf , date_birth , name , phone_number })
         if(userOrError.isLeft()){
             return Left.create(new AppError(userOrError.error.detail , userOrError.error.type ))
         }
-        const user_created = await this.commonUserRepo.createUser( userOrError.value.valueObject() )
-        return Right.create(user_created)
+        const user_created = await this.commonUserRepo.createUser(userOrError.value)
+        if(user_created.isLeft()){
+            return Left.create(new AppError(user_created.error.detail , user_created.error.type ))
+        }
+        return Right.create(user_created.value)
     }
 }
