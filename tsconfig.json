@@ -6,7 +6,7 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "target": "es5",
-
+    "typeRoots": ["./src/config.ts"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   }

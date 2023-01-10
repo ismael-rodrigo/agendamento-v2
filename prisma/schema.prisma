@@ -3,147 +3,115 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
-
-generator erd {
-  provider = "prisma-erd-generator"
-}
-
 
 model User {
-  id String @id @default(uuid())
-  username String @unique 
-  password String 
-  is_admin Boolean @default(true)
-
+  id         String   @id @default(uuid())
+  username   String   @unique
+  password   String
+  is_admin   Boolean  @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("users")
 }
 
-
-
 model CommomUser {
-  id String @id 
-  cpf String @unique
-  name String
+  id           String     @id
+  cpf          String     @unique
+  name         String
   phone_number String
-  date_birth DateTime
-
-  schedules Schedule[]  
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  date_birth   DateTime
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @updatedAt
+  schedules    Schedule[]
 
   @@map("commom-users")
 }
 
-
-
 model Schedule {
-  id String @id @default(uuid())
-
-  user_id String
-  user CommomUser @relation(fields: [user_id] , references: [id])
-
+  id         String        @id @default(uuid())
+  user_id    String
   service_id String
-  service Service @relation(fields: [service_id], references: [id])
+  hour_id    String
+  date       DateTime
+  created_at DateTime      @default(now())
+  updated_at DateTime      @updatedAt
+  user       CommomUser    @relation(fields: [user_id], references: [id])
+  service    Service       @relation(fields: [service_id], references: [id])
+  hour       HourAvailable @relation(fields: [hour_id], references: [id])
 
-  hour_id String
-  hour HourAvailable @relation(fields: [hour_id], references: [id])
-
-
-  date DateTime
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-
-  @@unique([ service_id  , date , hour_id ])
-  @@unique([ user_id , service_id  , date  ])
+  @@unique([service_id, date, hour_id])
+  @@unique([user_id, service_id, date])
+  @@index([hour_id])
   @@map("schedules")
 }
 
-
 model Service {
-  id String @id @default(uuid())
-  service_name String
-  hours HourAvailable[]
-  schedules Schedule[]
-  days_disabled DayDisabled[]
-  date_disabled DateDisabled[]
+  id                 String                 @id @default(uuid())
+  service_name       String
+  created_at         DateTime               @default(now())
+  updated_at         DateTime               @updatedAt
+  hours              HourAvailable[]
+  schedules          Schedule[]
+  days_disabled      DayDisabled[]
+  date_disabled      DateDisabled[]
   interval_available IntervalDateAvailable?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
 
   @@map("service")
 }
 
-
 model HourAvailable {
-  id String @id @default(uuid())
-  hour Int 
-  minutes Int
-
+  id         String     @id @default(uuid())
+  hour       Int
+  minutes    Int
   service_id String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  service    Service    @relation(fields: [service_id], references: [id])
+  schedules  Schedule[]
 
-  service Service @relation(fields: [service_id], references: [id])
-  
-  schedules Schedule[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-
+  @@index([service_id])
   @@map("hours_available")
 }
 
-
 model DayDisabled {
-  id String @id @default(uuid())
-
-  day Int
-
-  service Service @relation(fields: [service_id], references: [id])
+  id         String   @id @default(uuid())
+  day        Int
   service_id String
-
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  service    Service  @relation(fields: [service_id], references: [id])
 
   @@unique([id, day])
+  @@index([service_id])
   @@map("days_disabled")
 }
 
 model DateDisabled {
-  id String @id @default(uuid())
-
-  date DateTime
-
-  service Service @relation(fields: [service_id], references: [id])
+  id         String   @id @default(uuid())
+  date       DateTime
   service_id String
-
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  service    Service  @relation(fields: [service_id], references: [id])
 
   @@unique([id, date])
+  @@index([service_id])
   @@map("dates_disabled")
 }
 
 model IntervalDateAvailable {
-  id String @id @default(uuid())
-
+  id          String   @id @default(uuid())
   intial_date DateTime
-  final_date DateTime
-
-  service Service @relation(fields: [service_id], references: [id])
-  service_id String @unique
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  final_date  DateTime
+  service_id  String   @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  service     Service  @relation(fields: [service_id], references: [id])
 
   @@map("interval_available")
 }
