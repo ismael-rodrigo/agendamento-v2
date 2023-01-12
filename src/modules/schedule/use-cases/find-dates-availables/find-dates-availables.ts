@@ -24,7 +24,12 @@ export class FindDatesServiceAvailableUseCase {
 
         const datesIntervaled = getDaysArray(intervalDatesAvailable?.intial_date , intervalDatesAvailable?.final_date)
 
-        const dates = await Promise.all( datesIntervaled.map( async (date) => {
+        if(datesIntervaled.isLeft()){
+            return Left.create(new InvalidParamsError(datesIntervaled.error.detail ,datesIntervaled.error.type ))
+        }
+
+
+        const dates = await Promise.all( datesIntervaled.value.map( async (date) => {
             const allHoursOfService = await this.scheduleRepository.findAllHoursAvailableByServiceId(service_id, date)
             const schedulesCreated = await this.scheduleRepository.findSchedulesByDateAndServiceId(service_id , date)
             if(allHoursOfService.length > schedulesCreated.length ) {

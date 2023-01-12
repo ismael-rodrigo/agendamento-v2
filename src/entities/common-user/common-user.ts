@@ -1,7 +1,7 @@
 import { Either, Left, Right } from "../../errors-handler/either"
 import { Uuid } from "../../utils/uuid-generator/uuid"
 import { BirthDate } from "../utils/birth-date"
-import { CommomUserData, CreateCommomUser } from "./commom-user-data"
+import { CreateCommomUser } from "./commom-user-data"
 import { Cpf } from "../utils/cpf"
 import { InvalidCpfError } from "../utils/errors/invalid-cpf-error"
 import { invalidBirthDateError } from "../utils/errors/invalid-date-birth-date"

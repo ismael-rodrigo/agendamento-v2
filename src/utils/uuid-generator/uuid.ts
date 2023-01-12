@@ -11,6 +11,12 @@ export class Uuid {
         const myuuid = uuidv4();
         return new Uuid(myuuid)
     }
+
+    static validate(uuid:string){
+        const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+        return regexExp.test(uuid)
+    }
+
     get value(){
         return this.uuid
     }

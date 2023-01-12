@@ -7,10 +7,14 @@ import {container} from "tsyringe"
 export class FindHoursAvailableController {
     async handle(req:Request , res:Response){
 
-        const params: VerifyHoursAvailableDTO.params = req.body
+        const params = req.body
         const FindHoursAvailable = container.resolve(FindHoursByDateServiceAvailableUseCase);
         const result = await FindHoursAvailable.execute(params);
 
-        return res.status(200).json(result);
+        if(result.isLeft()){
+            return res.status(result.error.statusCode).json(result.error.getJsonResponse())
+        }
+        return res.status(200).json(result.value);
+        
     }
 }

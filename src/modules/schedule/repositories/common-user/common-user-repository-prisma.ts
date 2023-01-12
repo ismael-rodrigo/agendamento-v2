@@ -8,7 +8,7 @@ import { ICommonUserRepository } from "./common-user-repository.interface";
 
 export class CommomUserPrismaRepository implements ICommonUserRepository {
     constructor(private client: PrismaClient){}
-    async createUser({cpf , date_birth , name , phone_number , id  } :CommomUser) : Promise < Either<AppError, CommomUserData >> {
+    async createUser({cpf , date_birth , name , phone_number , id  } : CommomUser) : Promise < Either<InvalidParamsError, CommomUserData >> {
 
         if( !id.value || !cpf.value || !date_birth.value || !name.value || !phone_number.value ) return Left.create(new InvalidParamsError)
 
