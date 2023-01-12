@@ -7,4 +7,7 @@ export interface IScheduleRepository {
     findSchedulesByDateAndServiceId(service_id: string, date_consulted: Date): Promise <Schedule[]>
     findAllHoursAvailableByServiceId(service_id: string, date_consulted: Date): Promise <HourAvailable[]>
 
+
+    
+
 }
