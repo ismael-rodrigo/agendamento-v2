@@ -1,4 +1,8 @@
 import { HourAvailable, IntervalDateAvailable, PrismaClient } from "@prisma/client";
+import { Schedule } from "../../../../entities/schedule/schedule";
+import { CreateScheduleData, ScheduleData } from "../../../../entities/schedule/schedule-data";
+import { AppError } from "../../../../errors-handler/app-error";
+import { Either, Left, Right } from "../../../../errors-handler/either";
 import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
 import { IScheduleRepository } from "./schedule-repository.interface";
 
@@ -55,7 +59,7 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
     async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date){
         const result = await this.client.schedule.findMany({
             where:{
-                service_id,
+                service_id:service_id,
                 date: date_consulted
             }
         })
@@ -91,7 +95,21 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
         return result
     }
 
-
-
-
+    async createSchedule({date , hour_id , service_id , user_id , id}: Schedule): Promise< Either< AppError , ScheduleData>> {
+        try{
+            const userCreated = await this.client.schedule.create({
+                data:{
+                    date,
+                    id:id.value,
+                    hour_id,
+                    user_id,
+                    service_id
+                }
+            })
+            return Right.create(userCreated)
+        }
+        catch (err) {
+            return Left.create(new AppError('Prisma generic error', 'DB_GENERIC_ERROR'))
+        }
+    }
 }

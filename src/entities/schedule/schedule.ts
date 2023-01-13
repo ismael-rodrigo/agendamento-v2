@@ -2,16 +2,16 @@ import { AppError } from "../../errors-handler/app-error";
 import { Either, Left, Right } from "../../errors-handler/either";
 import { InvalidParamsError } from "../../errors-handler/errors/invalid-params-error";
 import { Uuid } from "../../utils/uuid-generator/uuid";
-import { CreateSchedule } from "./schedule-data";
+import { CreateScheduleData } from "./schedule-data";
 
 export class Schedule {
-    private readonly id:Uuid
-    private readonly user_id :string
-    private readonly service_id :string
-    private readonly hour_id :string
-    private readonly date :Date
+    public readonly id:Uuid
+    public readonly user_id :string
+    public readonly service_id :string
+    public readonly hour_id :string
+    public readonly date :Date
 
-    private constructor({ date , hour_id , service_id , user_id }: CreateSchedule){
+    private constructor({ date , hour_id , service_id , user_id }: CreateScheduleData){
         this.id = Uuid.create()
         this.user_id = user_id
         this.service_id = service_id
@@ -19,7 +19,7 @@ export class Schedule {
         this.date = date
     }
 
-    static create({ date , hour_id , service_id , user_id }: CreateSchedule):Either<InvalidParamsError , Schedule>  {
+    static create({ date , hour_id , service_id , user_id }: CreateScheduleData):Either<InvalidParamsError , Schedule>  {
         if(!hour_id) return Left.create(new InvalidParamsError("Hour id invalid"))
         if(!service_id) return Left.create(new InvalidParamsError("Service id invalid"))
         if(!user_id) return Left.create(new InvalidParamsError("User id invalid"))

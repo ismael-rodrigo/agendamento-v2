@@ -8,7 +8,7 @@ export interface ScheduleData {
     updated_at :Date
 }
 
-export interface CreateSchedule {
+export interface CreateScheduleData {
     user_id :string
     service_id :string
     hour_id :string

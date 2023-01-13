@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { InvalidParamsError } from "../../errors-handler/errors/invalid-params-error";
-import { getFutureDate, getOldDate } from "../../tests/utils/get-dates";
+import { getOldDate } from "../../tests/utils/get-dates";
 import { Schedule } from "./schedule";
-import { CreateSchedule } from "./schedule-data";
+import { CreateScheduleData } from "./schedule-data";
 
 describe('Create schedule entity' , ()=>{
     describe('new schedule with valid params', ()=>{
         it('should be able create new schedule with valid params', ()=>{
-            const validParams:CreateSchedule = {
+            const validParams:CreateScheduleData = {
                 date:new Date(),
                 hour_id:'1231123-1212-1232-1231232',
                 service_id:'1231123-1212-1232-1231232',
@@ -30,7 +30,7 @@ describe('Create schedule entity' , ()=>{
 
     describe('new schedule with invalid params' ,()=>{
         it('should not be able create a schedule with date before nowh', ()=>{
-            const invalidParams:CreateSchedule = {
+            const invalidParams:CreateScheduleData = {
                 date:getOldDate(1),
                 hour_id:'1231123-1212-1232-1231232',
                 service_id:'1231123-1212-1232-1231232',
@@ -44,7 +44,7 @@ describe('Create schedule entity' , ()=>{
         })
 
         it('should not be able create a schedule with invalid Service Id', ()=>{
-            const invalidParams:CreateSchedule = {
+            const invalidParams:CreateScheduleData = {
                 date:new Date,
                 hour_id:'1231123-1212-1232-1231232',
                 service_id:'',
@@ -57,7 +57,7 @@ describe('Create schedule entity' , ()=>{
             expect(schedule.error).instanceOf(InvalidParamsError)
         })
         it('should not be able create a schedule with invalid User Id', ()=>{
-            const invalidParams:CreateSchedule = {
+            const invalidParams:CreateScheduleData = {
                 date:new Date,
                 hour_id:'1231123-1212-1232-1231232',
                 service_id:'1231123-1212-1232-1231232',
@@ -70,7 +70,7 @@ describe('Create schedule entity' , ()=>{
             expect(schedule.error).instanceOf(InvalidParamsError)
         })
         it('should not be able create a schedule with invalid Hour Id', ()=>{
-            const invalidParams:CreateSchedule = {
+            const invalidParams:CreateScheduleData = {
                 date:new Date,
                 hour_id:'',
                 service_id:'1231123-1212-1232-1231232',
@@ -85,7 +85,7 @@ describe('Create schedule entity' , ()=>{
 
         it('should not be able create a schedule with object null', ()=>{
             const nullableObject = {}
-            const schedule = Schedule.create(nullableObject as CreateSchedule)
+            const schedule = Schedule.create(nullableObject as CreateScheduleData)
             expect(schedule.isLeft()).toEqual(true)
             if(!schedule.isLeft()) return
             expect(schedule.error).instanceOf(InvalidParamsError)
