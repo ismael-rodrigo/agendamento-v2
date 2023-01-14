@@ -1,6 +1,5 @@
 import { CommomUserData } from "../../../../entities/common-user/commom-user-data";
 import { CommomUser } from "../../../../entities/common-user/common-user";
-import { AppError } from "../../../../errors-handler/app-error";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
 import { DbGenericError } from "../errors/db-generic-error";
@@ -28,13 +27,13 @@ export class CommomUserInMemoryRepository implements ICommonUserRepository {
     }
 
 
-    async findUser(user_id: string): Promise<Either<DbGenericError, CommomUserData | null>> {
+    async findUserById(user_id: string): Promise<Either<DbGenericError, CommomUserData | null>> {
         try{
             return Right.create(this.commmonUsers[0])
 
         }
         catch (err){
-            return Left.create(new DbGenericError)
+            return Left.create(new DbGenericError('findUser'))
         }
     }
 

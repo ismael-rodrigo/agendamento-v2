@@ -4,6 +4,7 @@ import { CreateScheduleData, ScheduleData } from "../../../../entities/schedule/
 import { AppError } from "../../../../errors-handler/app-error";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
+import { DbGenericError } from "../errors/db-generic-error";
 import { IScheduleRepository } from "./schedule-repository.interface";
 
 
@@ -30,7 +31,7 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
     }
 
 
-    async createSchedule({date , hour_id , service_id , user_id , id}: Schedule): Promise< Either< AppError , ScheduleData>> {
+    async createSchedule({date , hour_id , service_id , user_id , id}: Schedule): Promise< Either< DbGenericError , ScheduleData>> {
         try{
             const userCreated = await this.client.schedule.create({
                 data:{
@@ -44,7 +45,42 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
             return Right.create(userCreated)
         }
         catch (err) {
-            return Left.create(new AppError('Prisma generic error', 'DB_GENERIC_ERROR'))
+            return Left.create(new DbGenericError('createSchedule'))
         }
+    }
+
+    async findUserScheduleInDate(date_consulted: Date , user_id:string):Promise <Either<DbGenericError ,ScheduleData | null>> {
+        try{
+            const schedule = await this.client.schedule.findFirst({
+                where:{
+                    date:date_consulted,
+                    user_id:user_id
+                }
+            })
+            return Right.create(schedule)
+        }
+        catch (err ){
+            return Left.create(new DbGenericError('findUserScheduleInDate'))
+        }
+    }
+
+    async findSpecificSchedule(service_id: string, date_consulted: Date, hour_id: string): Promise<Either<DbGenericError, ScheduleData | null>> {
+        try{
+            const schedule = await this.client.schedule.findUnique({
+                where:{
+                    service_id_date_hour_id:{
+                        service_id:service_id,
+                        date:date_consulted,
+                        hour_id:hour_id
+                    }
+                }
+            })
+
+            return Right.create(schedule)
+        }
+        catch (err ){
+            return Left.create(new DbGenericError('findSpecificSchedule'))
+        }
+
     }
 }

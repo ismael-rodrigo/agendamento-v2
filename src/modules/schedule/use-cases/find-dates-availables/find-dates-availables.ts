@@ -34,6 +34,10 @@ export class FindDatesServiceAvailableUseCase {
         }
 
         const dates = await Promise.all( datesIntervaled.value.map( async (date) => {
+            if(date <= new Date){
+                return { date , is_available: false } as DatesAvailables
+            }
+            
             const allHoursInDate = await this.hoursRepository.findAllHoursInDate(service_id, date)
             if(allHoursInDate.isLeft()) {
                 throw new AppError('Error run as findAllHoursInDate in map', 'findAllHoursInDate')

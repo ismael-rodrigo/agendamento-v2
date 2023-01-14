@@ -22,7 +22,9 @@ export class CreateSchedule {
     
         const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
         if(!intervalAvalilable) return Left.create(new AppError('Interval available not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
-        if(date > intervalAvalilable.final_date || date < intervalAvalilable.intial_date ){
+
+        if(new Date(date) <= new Date()) return Left.create( new InvalidParamsError('Date is befored at current date', 'DATE_PROVIDED_INVALID') )
+        if(new Date(date) > new Date(intervalAvalilable.final_date) || new Date(date) < new Date(intervalAvalilable.intial_date)){
             return Left.create( new InvalidParamsError('Date is out range in available schedules', 'DATE_PROVIDED_INVALID') )
         }
 
@@ -38,6 +40,15 @@ export class CreateSchedule {
         if(hourAlreadyExists.isLeft()) return Left.create(hourAlreadyExists.error)
         if(!hourAlreadyExists.value) return Left.create(new InvalidParamsError('Hour not exists', 'HOUR_NOT_EXISTS'))
 
+        const specificScheduleAlreadyExists = await this.scheduleRepo.findSpecificSchedule( service_id , date , hour_id )
+        if(specificScheduleAlreadyExists.isLeft()) return Left.create(specificScheduleAlreadyExists.error)
+        if(specificScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('Schedule already exists' , 'SCHEDULE_ALREADY_EXISTS'))
+
+        const userScheduleAlreadyExists = await this.scheduleRepo.findUserScheduleInDate(date , user_id)
+        if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
+        if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
+
+    
         const schedule = Schedule.create({
             date, 
             hour_id,

@@ -37,7 +37,7 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
             return Right.create(result)
         }
         catch (err) {
-            return Left.create(new DbGenericError)
+            return Left.create(new DbGenericError('findUserById'))
         }
     }
 

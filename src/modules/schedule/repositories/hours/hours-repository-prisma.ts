@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { HoursData } from "../../../../entities/hours/hours-data";
 import { Either, Left, Right } from "../../../../errors-handler/either";
-import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
 import { DbGenericError } from "../errors/db-generic-error";
 import { IHoursRepository } from "./hours-repository.interface";
 
@@ -13,7 +12,7 @@ export class HoursPrismaRepository implements IHoursRepository {
             return Right.create(hour)
         }
         catch (err) {
-            return Left.create(new DbGenericError)
+            return Left.create(new DbGenericError('findHoursById'))
         }
     }
 

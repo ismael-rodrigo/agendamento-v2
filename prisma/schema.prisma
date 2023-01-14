@@ -61,9 +61,7 @@ model Schedule {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-
   @@unique([ service_id  , date , hour_id ])
-  @@unique([ user_id , service_id  , date  ])
   @@map("schedules")
 }
 
