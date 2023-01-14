@@ -3,7 +3,7 @@ import { CommomUser } from "../../../../entities/common-user/common-user";
 import { AppError } from "../../../../errors-handler/app-error";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
-import { DbGenericError } from "../errors/PrismaError";
+import { DbGenericError } from "../errors/db-generic-error";
 import { ICommonUserRepository } from "./common-user-repository.interface";
 
 

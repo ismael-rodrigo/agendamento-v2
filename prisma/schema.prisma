@@ -44,7 +44,7 @@ model CommomUser {
 
 
 model Schedule {
-  id String @id @default(uuid())
+  id String @id
 
   user_id String
   user CommomUser @relation(fields: [user_id] , references: [id])
@@ -69,7 +69,7 @@ model Schedule {
 
 
 model Service {
-  id String @id @default(uuid())
+  id String @id
   service_name String
   hours HourAvailable[]
   schedules Schedule[]
@@ -95,8 +95,8 @@ model HourAvailable {
   
   schedules Schedule[]
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+     DateTime @default(now())
+     DateTime @updatedAt
 
 
   @@map("hours_available")
