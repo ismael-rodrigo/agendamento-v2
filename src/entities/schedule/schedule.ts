@@ -23,7 +23,7 @@ export class Schedule {
         if(!hour_id) return Left.create(new InvalidParamsError("Hour id invalid"))
         if(!service_id) return Left.create(new InvalidParamsError("Service id invalid"))
         if(!user_id) return Left.create(new InvalidParamsError("User id invalid"))
-        if(date < new Date) return Left.create(new InvalidParamsError("Date invalid"))
+        if(date <= new Date) return Left.create(new InvalidParamsError("Date invalid"))
 
         return Right.create(new Schedule({ date , hour_id , service_id , user_id }))
     }

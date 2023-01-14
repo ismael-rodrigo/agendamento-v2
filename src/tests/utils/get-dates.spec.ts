@@ -11,3 +11,4 @@ test('to decrease date with setted year' , ()=>{
     const yearsDecreased = 10 
     expect(getOldDate(yearsDecreased).getFullYear()).toEqual(new Date().getFullYear() - yearsDecreased)
 })
+

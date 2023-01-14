@@ -93,6 +93,9 @@ CREATE UNIQUE INDEX "commom-users_cpf_key" ON "commom-users"("cpf");
 CREATE UNIQUE INDEX "schedules_service_id_date_hour_id_key" ON "schedules"("service_id", "date", "hour_id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "schedules_user_id_service_id_date_key" ON "schedules"("user_id", "service_id", "date");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "days_disabled_id_day_key" ON "days_disabled"("id", "day");
 
 -- CreateIndex

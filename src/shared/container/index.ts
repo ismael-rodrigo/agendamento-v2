@@ -10,6 +10,12 @@ import { IObjectValidator } from "../../validations/object-validator-yup.interfa
 import { ObjectValidator } from "../../validations/object-validator-yup"
 import { IScheduleRepository } from "../../modules/schedule/repositories/schedule/schedule-repository.interface"
 import { ScheduleRepositoryPrisma } from "../../modules/schedule/repositories/schedule/schedule-repository-prisma"
+import { HoursPrismaRepository } from "../../modules/schedule/repositories/hours/hours-repository-prisma"
+import { IHoursRepository } from "../../modules/schedule/repositories/hours/hours-repository.interface"
+import { ICommonUserRepository } from "../../modules/schedule/repositories/common-user/common-user-repository.interface"
+import { CommomUserPrismaRepository } from "../../modules/schedule/repositories/common-user/common-user-repository-prisma"
+import { IServiceRepository } from "../../modules/schedule/repositories/service/service-repository.interface"
+import { ServicePrismaRepository } from "../../modules/schedule/repositories/service/service-repository-prisma"
 
 
 
@@ -17,6 +23,10 @@ import { ScheduleRepositoryPrisma } from "../../modules/schedule/repositories/sc
 
 container.register<IScheduleRepository>("ScheduleRepository" , {useValue: new ScheduleRepositoryPrisma(prisma)} )
 container.register<IUserRepository>("UserRepository" , { useValue: new UserRepositoryPrisma(prisma) } );
+container.register<IHoursRepository>("HoursRepository" , { useValue: new HoursPrismaRepository(prisma) } );
+container.register<ICommonUserRepository>("CommonUserRepository" , { useValue: new CommomUserPrismaRepository(prisma) } );
+container.register<IServiceRepository>("ServiceRepository" , { useValue: new ServicePrismaRepository(prisma) } );
+
 
 
 

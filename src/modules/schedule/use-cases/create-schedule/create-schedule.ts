@@ -1,23 +1,31 @@
+import { inject, injectable } from "tsyringe";
 import { Schedule } from "../../../../entities/schedule/schedule";
+import { AppError } from "../../../../errors-handler/app-error";
 import { Left, Right } from "../../../../errors-handler/either";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
 import { ICommonUserRepository } from "../../repositories/common-user/common-user-repository.interface";
-import { HoursPrismaRepository } from "../../repositories/hours/hours-repository-prisma";
 import { IHoursRepository } from "../../repositories/hours/hours-repository.interface";
 import { IScheduleRepository } from "../../repositories/schedule/schedule-repository.interface";
 import { IServiceRepository } from "../../repositories/service/service-repository.interface";
 import { CreateScheduleDTO } from "./create-schedule-DTO";
 
+@injectable()
 export class CreateSchedule {
     constructor(
-        private scheduleRepo:IScheduleRepository , 
-        private commonUserRepo:ICommonUserRepository ,
-        private serviceRepo:IServiceRepository ,
-        private hoursRepo:IHoursRepository
+        @inject('ScheduleRepository') private scheduleRepo:IScheduleRepository , 
+        @inject('CommonUserRepository') private commonUserRepo:ICommonUserRepository ,
+        @inject('ServiceRepository') private serviceRepo:IServiceRepository ,
+        @inject('HoursRepository') private hoursRepo:IHoursRepository
         ){}
 
     async execute({ date , hour_id ,service_id , user_id}: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
     
+        const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
+        if(!intervalAvalilable) return Left.create(new AppError('Interval available not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
+        if(date > intervalAvalilable.final_date || date < intervalAvalilable.intial_date ){
+            return Left.create( new InvalidParamsError('Date is out range in available schedules', 'DATE_PROVIDED_INVALID') )
+        }
+
         const userAlreadyExists = await this.commonUserRepo.findUserById(user_id)
         if(userAlreadyExists.isLeft()) return Left.create(userAlreadyExists.error)
         if(!userAlreadyExists.value) return Left.create(new InvalidParamsError('User not exists' , 'USER_NOT_EXISTS'))

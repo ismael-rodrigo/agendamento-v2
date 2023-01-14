@@ -1,14 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { InvalidParamsError } from "../../errors-handler/errors/invalid-params-error";
-import { getOldDate } from "../../tests/utils/get-dates";
+import { getFutureDate, getOldDate } from "../../tests/utils/get-dates";
 import { Schedule } from "./schedule";
 import { CreateScheduleData } from "./schedule-data";
 
 describe('Create schedule entity' , ()=>{
     describe('new schedule with valid params', ()=>{
+
         it('should be able create new schedule with valid params', ()=>{
+            const future_date = new Date()
+            future_date.setDate(new Date().getDate() + 3)
+
             const validParams:CreateScheduleData = {
-                date:new Date(),
+                date:future_date,
                 hour_id:'1231123-1212-1232-1231232',
                 service_id:'1231123-1212-1232-1231232',
                 user_id:'1231123-1212-1232-1231232'

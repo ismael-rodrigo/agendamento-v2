@@ -47,15 +47,4 @@ describe('Generator Array of dates with two dates',()=>{
 
     })
 
-        
-    it('should not be able to create array with start date greater than end date', ()=>{
-
-        const initialDate = getFutureDate('2022-01-01')
-        const fiveDayBeforeInitialDate = getFutureDate('2022-01-01')
-
-        const arrayDates = getDaysArray( initialDate , fiveDayBeforeInitialDate)
-    })
-    
-    
-
 }) 

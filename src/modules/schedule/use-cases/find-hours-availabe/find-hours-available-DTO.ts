@@ -1,4 +1,6 @@
-import { HourAvailable } from "@prisma/client"
+
+import { HoursData } from "../../../../entities/hours/hours-data"
+import { AppError } from "../../../../errors-handler/app-error"
 import { Either } from "../../../../errors-handler/either"
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error"
 
@@ -6,7 +8,7 @@ import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-pa
 
 export type HoursAvailables = {
     date: Date
-    hours:HourAvailable[]
+    hours:HoursData[]
 }
 
 
@@ -16,6 +18,6 @@ export namespace VerifyHoursAvailableDTO {
         date_consulted: Date
     }
 
-    export type response = Either < InvalidParamsError , HoursAvailables >
+    export type response = Either < InvalidParamsError | AppError , HoursAvailables >
 
 }

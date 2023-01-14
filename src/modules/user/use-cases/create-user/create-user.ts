@@ -28,7 +28,10 @@ export class CreateUserUseCase {
     }
     
     const password_hashed = await this.passwordHashProvider.generateHash(password);
-    const result = await this.userRepository.createUser({username, password:password_hashed })
+    if(password_hashed.isLeft()){
+        return Left.create(new InvalidParamsError)
+    }
+    const result = await this.userRepository.createUser({username, password:password_hashed.value })
     
     return Right.create(result) 
     
