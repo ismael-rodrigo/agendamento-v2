@@ -4,7 +4,7 @@ import { CreateScheduleData, ScheduleData } from "../../../../entities/schedule/
 import { AppError } from "../../../../errors-handler/app-error";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
-import { DbGenericError } from "../errors/db-generic-error";
+import { DbGenericError } from "../../../../errors-handler/errors/db-generic-error";
 import { IScheduleRepository } from "./schedule-repository.interface";
 
 

@@ -9,7 +9,7 @@ const adminValidationMiddleware = new AdminValidationMiddleware();
 const userRoutes = Router()
 
 userRoutes.post('/' ,  
-    adminValidationMiddleware.handle,
+    //adminValidationMiddleware.handle,
     createUserController.handle );
 
 

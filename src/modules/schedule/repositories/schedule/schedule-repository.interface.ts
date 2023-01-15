@@ -3,7 +3,7 @@ import { Schedule } from "../../../../entities/schedule/schedule";
 import { ScheduleData } from "../../../../entities/schedule/schedule-data";
 import { AppError } from "../../../../errors-handler/app-error";
 import { Either } from "../../../../errors-handler/either";
-import { DbGenericError } from "../errors/db-generic-error";
+import { DbGenericError } from "../../../../errors-handler/errors/db-generic-error";
 
 export interface IScheduleRepository {
     findCurrentIntervalSchedulesAvailable(service_id:string): Promise <IntervalDateAvailable | null>

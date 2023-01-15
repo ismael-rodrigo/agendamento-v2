@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { HoursData } from "../../../../entities/hours/hours-data";
 import { Either, Left, Right } from "../../../../errors-handler/either";
-import { DbGenericError } from "../errors/db-generic-error";
+import { DbGenericError } from "../../../../errors-handler/errors/db-generic-error";
 import { IHoursRepository } from "./hours-repository.interface";
 
 export class HoursPrismaRepository implements IHoursRepository {

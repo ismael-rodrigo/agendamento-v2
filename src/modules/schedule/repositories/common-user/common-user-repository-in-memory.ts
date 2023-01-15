@@ -2,7 +2,7 @@ import { CommomUserData } from "../../../../entities/common-user/commom-user-dat
 import { CommomUser } from "../../../../entities/common-user/common-user";
 import { Either, Left, Right } from "../../../../errors-handler/either";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
-import { DbGenericError } from "../errors/db-generic-error";
+import { DbGenericError } from "../../../../errors-handler/errors/db-generic-error";
 import { ICommonUserRepository } from "./common-user-repository.interface";
 
 

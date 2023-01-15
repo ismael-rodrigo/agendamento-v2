@@ -1,4 +1,4 @@
-import { AppError } from "../../../../errors-handler/app-error";
+import { AppError } from "../app-error";
 
 export class DbGenericError extends AppError {
     constructor(indetificator?:string){

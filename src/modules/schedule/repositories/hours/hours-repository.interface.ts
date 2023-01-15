@@ -1,7 +1,7 @@
 import { HoursData } from "../../../../entities/hours/hours-data";
 import { Either } from "../../../../errors-handler/either";
 import { VerifyHoursAvailableDTO } from "../../use-cases/find-hours-availabe/find-hours-available-DTO";
-import { DbGenericError } from "../errors/db-generic-error";
+import { DbGenericError } from "../../../../errors-handler/errors/db-generic-error";
 
 export interface IHoursRepository {
     findHoursById(hours_id:string):Promise < Either<DbGenericError , HoursData | null> >

@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { ServiceData } from '../../../../entities/service/service-data'
 import { Either, Left, Right } from '../../../../errors-handler/either'
-import { DbGenericError } from '../errors/db-generic-error'
+import { DbGenericError } from '../../../../errors-handler/errors/db-generic-error'
 import {IServiceRepository} from './service-repository.interface'
 
 

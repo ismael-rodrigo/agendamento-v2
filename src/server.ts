@@ -13,3 +13,5 @@ app.use(routes)
 app.use(errorHandler.handle)
 
 app.listen(3333 , () => console.log("Server is running") )
+
+export {app}
