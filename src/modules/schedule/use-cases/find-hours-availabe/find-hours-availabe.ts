@@ -1,14 +1,9 @@
-import { HourAvailable } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 import { VerifyHoursAvailableDTO } from "./find-hours-available-DTO";
-import { IScheduleRepository } from "../../repositories/schedule/schedule-repository.interface"
 import { Left, Right } from "../../../../errors-handler/either";
 import { InvalidParamsError } from "../../../../errors-handler/errors/invalid-params-error";
 import { IHoursRepository } from "../../repositories/hours/hours-repository.interface";
 import { AppError } from "../../../../errors-handler/app-error";
-
-
-
 
 
 @injectable()

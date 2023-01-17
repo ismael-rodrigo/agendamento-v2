@@ -11,13 +11,19 @@ import { IScheduleRepository } from "./schedule-repository.interface";
 export class ScheduleRepositoryPrisma implements IScheduleRepository {
     constructor(private client:PrismaClient){}
     
-    async findCurrentIntervalSchedulesAvailable(service_id:string) : Promise <IntervalDateAvailable | null> {
-        const result = await this.client.intervalDateAvailable.findUnique({
-            where:{
-                service_id:service_id
-            }
-        })
-        return result
+    async findCurrentIntervalSchedulesAvailable(service_id:string) : Promise <Either< DbGenericError, IntervalDateAvailable | null>> {
+        try{
+            const result = await this.client.intervalDateAvailable.findUnique({
+                where:{
+                    service_id:service_id
+                }
+            })
+            return Right.create(result)
+        }
+        catch (err ){
+            return Left.create(new DbGenericError('findCurrentIntervalSchedulesAvailable'))
+        }
+
     }
 
     async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date){

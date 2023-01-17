@@ -23,11 +23,12 @@ export class FindDatesServiceAvailableUseCase {
         }
 
         const intervalDatesAvailable = await this.scheduleRepository.findCurrentIntervalSchedulesAvailable(service_id)
-        if(!intervalDatesAvailable){
+        if(intervalDatesAvailable.isLeft()) return Left.create(new InvalidParamsError(intervalDatesAvailable.error.detail ,intervalDatesAvailable.error.type ))
+        if(!intervalDatesAvailable.value){
             return Right.create([] as DatesAvailables[])
         }
 
-        const datesIntervaled = getDaysArray(intervalDatesAvailable?.intial_date , intervalDatesAvailable?.final_date)
+        const datesIntervaled = getDaysArray(intervalDatesAvailable.value.intial_date , intervalDatesAvailable.value.final_date)
 
         if(datesIntervaled.isLeft()){
             return Left.create(new InvalidParamsError(datesIntervaled.error.detail ,datesIntervaled.error.type ))

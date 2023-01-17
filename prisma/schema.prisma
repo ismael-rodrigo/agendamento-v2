@@ -69,6 +69,12 @@ model Schedule {
 }
 
 
+model Location{
+  id String @id
+  service Service[]
+}
+
+
 model Service {
   id String @id @default(uuid())
   service_name String
@@ -78,12 +84,15 @@ model Service {
   date_disabled DateDisabled[]
   interval_available IntervalDateAvailable?
 
+  location Location @relation(fields: [location_id], references: [id])
+  location_id String
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("service")
+  @@index([location_id])
 }
-
 
 model HourAvailable {
   id String @id @default(uuid())

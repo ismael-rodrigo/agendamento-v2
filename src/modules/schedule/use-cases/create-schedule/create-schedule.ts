@@ -20,11 +20,16 @@ export class CreateSchedule {
 
     async execute({ date , hour_id ,service_id , user_id}: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
     
+        const serviceAlreadyExists = await this.serviceRepo.findServiceById(service_id)
+        if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
+        if(!serviceAlreadyExists.value) return Left.create(new InvalidParamsError('Service not exists', 'SERVICE_NOT_EXISTS'))
+
         const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
-        if(!intervalAvalilable) return Left.create(new AppError('Interval available not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
+        if(intervalAvalilable.isLeft()) return Left.create(new AppError(intervalAvalilable.error.detail,intervalAvalilable.error.type))
+        if(!intervalAvalilable.value) return Left.create(new AppError('Interval available not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
 
         if(new Date(date) <= new Date()) return Left.create( new InvalidParamsError('Date is befored at current date', 'DATE_PROVIDED_INVALID') )
-        if(new Date(date) > new Date(intervalAvalilable.final_date) || new Date(date) < new Date(intervalAvalilable.intial_date)){
+        if(new Date(date) > new Date(intervalAvalilable.value.final_date) || new Date(date) < new Date(intervalAvalilable.value.intial_date)){
             return Left.create( new InvalidParamsError('Date is out range in available schedules', 'DATE_PROVIDED_INVALID') )
         }
 
@@ -32,10 +37,6 @@ export class CreateSchedule {
         if(userAlreadyExists.isLeft()) return Left.create(userAlreadyExists.error)
         if(!userAlreadyExists.value) return Left.create(new InvalidParamsError('User not exists' , 'USER_NOT_EXISTS'))
         
-        const serviceAlreadyExists = await this.serviceRepo.findServiceById(service_id)
-        if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
-        if(!serviceAlreadyExists.value) return Left.create(new InvalidParamsError('Service not exists', 'SERVICE_NOT_EXISTS'))
-
         const hourAlreadyExists = await this.hoursRepo.findHoursById(hour_id)
         if(hourAlreadyExists.isLeft()) return Left.create(hourAlreadyExists.error)
         if(!hourAlreadyExists.value) return Left.create(new InvalidParamsError('Hour not exists', 'HOUR_NOT_EXISTS'))
