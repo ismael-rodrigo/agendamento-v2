@@ -49,7 +49,7 @@ export class CreateSchedule {
         if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
         if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
 
-    
+        date.setHours(hourAlreadyExists.value.hour ,hourAlreadyExists.value.minutes)
         const schedule = Schedule.create({
             date, 
             hour_id,

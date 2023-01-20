@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-  relationMode = "prisma"
+ // relationMode = "prisma"
 }
 
 //generator erd {
@@ -64,8 +64,7 @@ model Schedule {
 
   @@unique([ service_id  , date , hour_id ])
   @@map("schedules")
-  @@index([user_id])
-  @@index([hour_id])
+
 }
 
 
@@ -91,14 +90,14 @@ model Service {
   updated_at DateTime @updatedAt
 
   @@map("service")
-  @@index([location_id])
+
 }
 
 model HourAvailable {
   id String @id @default(uuid())
   hour Int 
   minutes Int
-
+  is_active Boolean @default(true)
   service_id String
 
   service Service @relation(fields: [service_id], references: [id])
@@ -110,7 +109,7 @@ model HourAvailable {
 
 
   @@map("hours_available")
-  @@index([service_id])
+
 }
 
 
@@ -127,7 +126,7 @@ model DayDisabled {
 
   @@unique([id, day])
   @@map("days_disabled")
-  @@index([service_id])
+
 }
 
 model DateDisabled {
@@ -143,7 +142,7 @@ model DateDisabled {
 
   @@unique([id, date])
   @@map("dates_disabled")
-  @@index([service_id])
+
 }
 
 model IntervalDateAvailable {

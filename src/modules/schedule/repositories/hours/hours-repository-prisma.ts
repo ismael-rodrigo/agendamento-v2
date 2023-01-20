@@ -20,8 +20,9 @@ export class HoursPrismaRepository implements IHoursRepository {
         try{
             const result = await this.client.hourAvailable.findMany({
                 where:{
+                    is_active: true,
                     service_id: service_id,
-            
+                    
                     schedules:{
                         none:{
                             date: date_consulted
