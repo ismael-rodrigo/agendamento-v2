@@ -1,6 +1,6 @@
 import {container} from "tsyringe"
-import { IUserRepository } from "../../modules/user/repositories/user-repository.interface"
-import { UserRepositoryPrisma } from "../../modules/user/repositories/user-repository-prisma"
+import { IUserRepository } from "../../modules/user/domain/port/user-repository.interface"
+import { UserRepositoryPrisma } from "../../modules/user/adapter/repository/user-repository-prisma"
 import { JwtProvider } from "../../utils/jwt-provider/jwt-provider"
 import { IJwtProvider } from "../../utils/jwt-provider/jwt-provider.interface"
 import { IPasswordEncryptProvider } from "../../utils/password-encrypt-provider/password-encrypt.interface"
@@ -8,14 +8,16 @@ import { PasswordEncryptProvider } from "../../utils/password-encrypt-provider/p
 import { prisma } from "../../prisma-client/client"
 import { IObjectValidator } from "../../validations/object-validator-yup.interface"
 import { ObjectValidator } from "../../validations/object-validator-yup"
-import { IScheduleRepository } from "../../modules/schedule/repositories/schedule/schedule-repository.interface"
-import { ScheduleRepositoryPrisma } from "../../modules/schedule/repositories/schedule/schedule-repository-prisma"
-import { HoursPrismaRepository } from "../../modules/schedule/repositories/hours/hours-repository-prisma"
-import { IHoursRepository } from "../../modules/schedule/repositories/hours/hours-repository.interface"
-import { ICommonUserRepository } from "../../modules/schedule/repositories/common-user/common-user-repository.interface"
-import { CommomUserPrismaRepository } from "../../modules/schedule/repositories/common-user/common-user-repository-prisma"
-import { IServiceRepository } from "../../modules/schedule/repositories/service/service-repository.interface"
-import { ServicePrismaRepository } from "../../modules/schedule/repositories/service/service-repository-prisma"
+import { IScheduleRepository } from "../../modules/schedule/domain/port/schedule-repository.interface"
+
+import { IHoursRepository } from "../../modules/schedule/domain/port/hours-repository.interface"
+import { ICommonUserRepository } from "../../modules/schedule/domain/port/common-user-repository.interface"
+import { CommomUserPrismaRepository } from "../../modules/schedule/adapter/repository/common-user/common-user-repository-prisma"
+import { IServiceRepository } from "../../modules/schedule/domain/port/service-repository.interface"
+import { ScheduleRepositoryPrisma } from "../../modules/schedule/adapter/repository/schedule/schedule-repository-prisma"
+import { HoursPrismaRepository } from "../../modules/schedule/adapter/repository/hours/hours-repository-prisma"
+import { ServicePrismaRepository } from "../../modules/schedule/adapter/repository/service/service-repository-prisma"
+
 
 
 

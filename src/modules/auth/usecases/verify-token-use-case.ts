@@ -1,7 +1,5 @@
 import { injectable,inject } from "tsyringe";
 import { IJwtProvider } from "../../../utils/jwt-provider/jwt-provider.interface";
-import { IPasswordEncryptProvider } from "../../../utils/password-encrypt-provider/password-encrypt.interface";
-import { IUserRepository } from "../../user/repositories/user-repository.interface";
 import { VerifyTokenDTO } from "../dtos/verify-token-DTO";
 
 

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { getFutureDate } from "../../../tests/utils/get-dates";
 import { AppError } from "../../errors-handler/app-error";
-import { getFutureDate } from "../../tests/utils/get-dates";
+
 import { getDaysArray } from "./get-array-of-dates-between-two-dates";
 
 describe('Generator Array of dates with two dates',()=>{

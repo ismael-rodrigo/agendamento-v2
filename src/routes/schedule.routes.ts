@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { CreateScheduleController } from "../modules/schedule/controllers/create-schedule-controller";
-import { FindHoursAvailableController } from "../modules/schedule/controllers/find-hours-available-controller";
+import { CreateScheduleController } from "../modules/schedule/http/rest/create-schedule-controller";
+import { FindHoursAvailableController } from "../modules/schedule/http/rest/find-hours-available-controller";
 
 
 
