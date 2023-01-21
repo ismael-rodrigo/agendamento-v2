@@ -1,4 +1,3 @@
-import { Either, Left, Right } from "../../../../../errors-handler/either"
 import { BirthDate } from "../../../../../shared/entities/utils/birth-date"
 import { Cpf } from "../../../../../shared/entities/utils/cpf"
 import { InvalidCpfError } from "../../../../../shared/entities/utils/errors/invalid-cpf-error"
@@ -7,9 +6,10 @@ import { InvalidNameError } from "../../../../../shared/entities/utils/errors/in
 import { InvalidPhoneError } from "../../../../../shared/entities/utils/errors/invalid-phone-error"
 import { Name } from "../../../../../shared/entities/utils/name"
 import { Phone } from "../../../../../shared/entities/utils/phone"
-import { Uuid } from "../../../../../utils/uuid-generator/uuid"
+import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid"
 
 import { CreateCommomUser } from "./commom-user-data"
+import { Either, Left, Right } from "../../../../../shared/errors-handler/either"
 
 
 

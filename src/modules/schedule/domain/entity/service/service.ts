@@ -1,6 +1,7 @@
-import { Left } from "../../../../../errors-handler/either"
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error"
-import { Uuid } from "../../../../../utils/uuid-generator/uuid"
+
+import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid"
+import { Left } from "../../../../../shared/errors-handler/either"
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
 import { CreateService } from "./service-data"
 
 export class Service {

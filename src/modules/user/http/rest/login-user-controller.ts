@@ -1,20 +1,20 @@
-import { Request, Response } from "express";
-import { LoginUserDTO } from "./dtos/login-user-DTO";
+import { Controller } from './../../../_ports/controllers/controller';
 import { LoginUserUseCase } from "../../domain/use-case/login-user/login-user";
-import {container} from "tsyringe"
+import { HttpRequest, HttpResponse } from "../../../_ports/controllers/http";
+import { badRequest, ok } from "../../../_ports/controllers/helper";
 
 
-export class LoginUserController {
-    async handle(req:Request , res:Response){
-
-        const params: LoginUserDTO.params = req.body
-        const loginUserUseCase = container.resolve(LoginUserUseCase);
-        const result = await loginUserUseCase.execute(params);
-
+export class LoginUserController implements Controller {
+    constructor(
+        private readonly loginUserUseCase:LoginUserUseCase
+        ){}
+        
+    async handle(httpRequest:HttpRequest):Promise<HttpResponse> {
+        const params = httpRequest.body
+        const result = await this.loginUserUseCase.execute(params);
         if(result.isLeft()){
-            return res.status(result.error.statusCode).json(result.error.detail)
+            return badRequest(result.error)
         }
-
-        return res.status(200).json(result);
+        return ok(result.value)
     }
 }

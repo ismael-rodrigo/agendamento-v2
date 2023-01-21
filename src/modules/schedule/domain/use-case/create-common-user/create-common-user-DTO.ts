@@ -1,5 +1,5 @@
-import { AppError } from "../../../../../errors-handler/app-error"
-import { Either } from "../../../../../errors-handler/either"
+import { AppError } from "../../../../../shared/errors-handler/app-error"
+import { Either } from "../../../../../shared/errors-handler/either"
 import { CommomUserData, CreateCommomUser } from "../../entity/common-user/commom-user-data"
 
 

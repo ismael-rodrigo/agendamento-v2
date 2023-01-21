@@ -1,21 +1,16 @@
-import { inject, injectable } from "tsyringe";
-import { Left, Right } from "../../../../../errors-handler/either";
-import { AuthenticationError } from "../../../../../errors-handler/errors/authentication-error";
-import { CredentialsInvalidError } from "../../../../../errors-handler/errors/credentials-invalid-error";
-import { IJwtProvider } from "../../../../../utils/jwt-provider/jwt-provider.interface";
+import { IJwtProvider } from "../../../../../shared/adapters/jwt-provider/jwt-provider.interface";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { AuthenticationError } from "../../../../../shared/errors-handler/errors/authentication-error";
+import { CredentialsInvalidError } from "../../../../../shared/errors-handler/errors/credentials-invalid-error";
 import { IUserRepository } from "../../port/user-repository.interface";
+import { CheckIfUserIsAdminResponse } from "./check-if-user-is-admin-data";
 
 
-import { CheckIfUserIsAdminResponse } from "./check-if-user-is-admin-response";
-
-
-@injectable()
 export class CheckUserIsAdminUseCase {
     constructor(
-        @inject("UserRepository") private userRepository:IUserRepository,
-        @inject("JwtProvider") private jwtProvider:IJwtProvider
+        private readonly userRepository:IUserRepository,
+        private readonly jwtProvider:IJwtProvider
         ){}
-
 
     async execute(token:string) : Promise< CheckIfUserIsAdminResponse >{
         const resultToken = this.jwtProvider.verifyToken(token)

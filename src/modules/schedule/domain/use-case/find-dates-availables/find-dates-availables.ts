@@ -1,11 +1,10 @@
-
 import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../../../errors-handler/app-error";
-import { Left, Right } from "../../../../../errors-handler/either";
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error";
-import { getDaysArray } from "../../../../../utils/dates-utils/get-array-of-dates-between-two-dates";
-import { IHoursRepository } from "../../port/hours-repository.interface";
-import { IScheduleRepository } from "../../port/schedule-repository.interface";
+import { getDaysArray } from "../../../../../shared/adapters/dates-utils/get-array-of-dates-between-two-dates";
+import { AppError } from "../../../../../shared/errors-handler/app-error";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
+import { IHoursRepository } from "../../port/repository/hours-repository.interface";
+import { IScheduleRepository } from "../../port/repository/schedule-repository.interface";
 import { DatesAvailables, FindDatesDTO } from "./find-dates-available-DTO";
 
 

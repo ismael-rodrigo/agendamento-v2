@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import { Either, Left, Right } from '../../../../../errors-handler/either'
-import { DbGenericError } from '../../../../../errors-handler/errors/db-generic-error'
+import { Either, Left, Right } from '../../../../../shared/errors-handler/either'
+import { DbGenericError } from '../../../../../shared/errors-handler/errors/db-generic-error'
 import { ServiceData } from '../../../domain/entity/service/service-data'
-import { IServiceRepository } from '../../../domain/port/service-repository.interface'
+import { IServiceRepository } from '../../../domain/port/repository/service-repository.interface'
 
 
 

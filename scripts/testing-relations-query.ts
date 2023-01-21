@@ -4,7 +4,7 @@ import "../shared/container"
 import { container } from "tsyringe"
 import { CommomUserPrismaRepository } from "../src/modules/schedule/adapter/repository/common-user/common-user-repository-prisma"
 import { CreateCommonUser } from "../src/modules/schedule/domain/use-case/create-common-user/create-common-user"
-import { prisma } from "../src/prisma-client/client"
+import { prisma } from "../src/external/prisma-client/client"
 
 
 

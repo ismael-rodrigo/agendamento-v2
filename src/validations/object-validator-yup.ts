@@ -1,5 +1,6 @@
 import * as yup from 'yup'
-import { AppError } from '../errors-handler/app-error';
+import { AppError } from '../shared/errors-handler/app-error';
+
 import { IObjectValidator } from './object-validator-yup.interface';
 
 
