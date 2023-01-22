@@ -3,11 +3,11 @@ import { HttpResponse } from "./http"
 
 
 export const badRequest = (error: AppError): HttpResponse => ({
-  statusCode: 400,
+  statusCode: error.statusCode,
   body: error.detail
 })
 
-export const ok = (data: any): HttpResponse => ({
+export const ok = <L>(data: L): HttpResponse => ({
   statusCode: 200,
   body: data
 })

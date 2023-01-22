@@ -1,4 +1,3 @@
-import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../../shared/errors-handler/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
@@ -9,13 +8,13 @@ import { IScheduleRepository } from "../../port/repository/schedule-repository.i
 import { IServiceRepository } from "../../port/repository/service-repository.interface";
 import { CreateScheduleDTO } from "./create-schedule-DTO";
 
-@injectable()
+
 export class CreateSchedule {
     constructor(
-        @inject('ScheduleRepository') private scheduleRepo:IScheduleRepository , 
-        @inject('CommonUserRepository') private commonUserRepo:ICommonUserRepository ,
-        @inject('ServiceRepository') private serviceRepo:IServiceRepository ,
-        @inject('HoursRepository') private hoursRepo:IHoursRepository
+        private readonly scheduleRepo:IScheduleRepository , 
+        private readonly commonUserRepo:ICommonUserRepository ,
+        private readonly serviceRepo:IServiceRepository ,
+        private readonly hoursRepo:IHoursRepository
         ){}
 
     async execute({ date , hour_id ,service_id , user_id}: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {

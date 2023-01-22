@@ -5,7 +5,7 @@ import { Cpf } from "../../../../../shared/entities/utils/cpf";
 import { Name } from "../../../../../shared/entities/utils/name";
 import { Phone } from "../../../../../shared/entities/utils/phone";
 import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid";
-import { CommomUserInMemoryRepository } from "../../../adapter/repository/common-user/common-user-repository-in-memory";
+import { CommomUserInMemoryRepository } from "../../../../../external/repository/common-user/common-user-repository-in-memory";
 import { CreateCommonUser } from "./create-common-user";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
 

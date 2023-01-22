@@ -1,19 +1,18 @@
-import { Request, Response } from "express";
-import {container} from "tsyringe"
+import { HttpRequest } from './../../../_ports/controllers/http';
+import { Controller } from './../../../_ports/controllers/controller';
+import { badRequest, ok } from "../../../_ports/controllers/helper";
 import { FindHoursByDateServiceAvailableUseCase } from "../../domain/use-case/find-hours-availabe/find-hours-availabe";
 
 
-export class FindHoursAvailableController {
-    async handle(req:Request , res:Response){
+export class FindHoursAvailableController implements Controller{
+    constructor(private readonly findHoursByDateServiceAvailableUseCase: FindHoursByDateServiceAvailableUseCase ){}
 
-        const params = req.body
-        const FindHoursAvailable = container.resolve(FindHoursByDateServiceAvailableUseCase);
-        const result = await FindHoursAvailable.execute(params);
-
+    async handle(httpRequest:HttpRequest){
+        const params = httpRequest.body
+        const result = await this.findHoursByDateServiceAvailableUseCase.execute(params);
         if(result.isLeft()){
-            return res.status(result.error.statusCode).json(result.error.getJsonResponse())
+            return badRequest(result.error)
         }
-        return res.status(200).json(result.value);
-        
+        return ok(result.value);
     }
 }

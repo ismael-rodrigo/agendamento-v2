@@ -1,16 +1,13 @@
+import { makeHoursAvailableController } from './../factories/make-hours-available-controller';
+import { makeScheduleController } from './../factories/make-create-schedule-controller';
+import { adaptRoute } from './../adapters/express-route-adapter';
 import { Router } from "express";
-import { CreateScheduleController } from "../../modules/schedule/http/rest/create-schedule-controller";
-import { FindHoursAvailableController } from "../../modules/schedule/http/rest/find-hours-available-controller";
 
-
-
-const findHoursAvailableController = new FindHoursAvailableController()
-const createScheduleController = new CreateScheduleController() 
 
 const scheduleRoutes = Router()
 
-scheduleRoutes.post('/hours-available' , findHoursAvailableController.handle );
-scheduleRoutes.post('/create' , createScheduleController.handle )
+scheduleRoutes.post('/hours-available' , adaptRoute( makeHoursAvailableController() ) );
+scheduleRoutes.post('/create' , adaptRoute( makeScheduleController() ) )
 
 
 export {scheduleRoutes}

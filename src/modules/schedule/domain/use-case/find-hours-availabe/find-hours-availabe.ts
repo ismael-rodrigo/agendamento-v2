@@ -1,4 +1,3 @@
-import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../../../shared/errors-handler/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
@@ -6,13 +5,10 @@ import { IHoursRepository } from "../../port/repository/hours-repository.interfa
 import { VerifyHoursAvailableDTO } from "./find-hours-available-DTO";
 
 
-
-@injectable()
 export class FindHoursByDateServiceAvailableUseCase {
     constructor( 
-        @inject("HoursRepository") private hoursRepository:IHoursRepository 
+        private hoursRepository:IHoursRepository 
         ){}
-
 
     async execute( { date_consulted , service_id } : VerifyHoursAvailableDTO.request ): Promise<VerifyHoursAvailableDTO.response>
     {

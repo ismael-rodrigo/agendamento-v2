@@ -1,4 +1,3 @@
-
 import { AppError } from "../../../../../shared/errors-handler/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { CommomUser } from "../../entity/common-user/common-user";

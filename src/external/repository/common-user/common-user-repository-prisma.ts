@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../../../shared/errors-handler/errors/db-generic-error";
-import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
-import { CommomUserData } from "../../../domain/entity/common-user/commom-user-data";
-import { CommomUser } from "../../../domain/entity/common-user/common-user";
+import { Either, Left, Right } from "../../../shared/errors-handler/either";
+import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
+import { InvalidParamsError } from "../../../shared/errors-handler/errors/invalid-params-error";
+import { CommomUserData } from "../../../modules/schedule/domain/entity/common-user/commom-user-data";
+import { CommomUser } from "../../../modules/schedule/domain/entity/common-user/common-user";
 
-import { ICommonUserRepository } from "../../../domain/port/repository/common-user-repository.interface";
+import { ICommonUserRepository } from "../../../modules/schedule/domain/port/repository/common-user-repository.interface";
 
 export class CommomUserPrismaRepository implements ICommonUserRepository {
     constructor(private client: PrismaClient){}

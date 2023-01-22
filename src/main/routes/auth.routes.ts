@@ -1,23 +1,12 @@
+import { makeLoginUserController } from './../factories/make-login-user-controller';
 import { Router } from "express";
-import { BodyValidationMiddleware } from "../middlewares/body-validation-middleware";
-import { verifyTokenBodySchema } from "../../modules/auth/http/rest/body-schemas/verify-token-body-schema";
-import { VerifyTokenController } from "../../modules/auth/http/rest/verify-token-controller";
-import { loginUserArgsSchema } from "../../modules/user/domain/use-case/login-user/login-user-args-schema";
-import { LoginUserController } from "../../modules/user/http/rest/login-user-controller";
-
-
-
-const loginUserController = new LoginUserController()
-const LoginbodyValidationMiddleware = new BodyValidationMiddleware(loginUserArgsSchema)
-
-const verifyTokenController = new VerifyTokenController()
-const verifyTokenBodyValidationMiddleware = new BodyValidationMiddleware(verifyTokenBodySchema)
+import { adaptRoute } from "../adapters/express-route-adapter";
 
 
 const authRoutes = Router()
 
-authRoutes.post('/login' , LoginbodyValidationMiddleware.handle , loginUserController.handle)
-authRoutes.post('/verify', verifyTokenBodyValidationMiddleware.handle , verifyTokenController.handle)
+authRoutes.post('/login' , adaptRoute( makeLoginUserController() ))
+//authRoutes.post('/verify', verifyTokenBodyValidationMiddleware.handle , verifyTokenController.handle)
 
 
 
