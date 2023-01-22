@@ -1,4 +1,4 @@
-import { AppError } from "../../errors-handler/app-error";
+import { AppError } from "../../errors-handler/errors/app-error";
 import { Either, Left, Right } from "../../errors-handler/either";
 
 

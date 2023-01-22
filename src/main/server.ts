@@ -3,7 +3,7 @@ import "../shared/container"
 import "express-async-errors"
 import express from "express";
 import { routes } from "./routes/_index";
-import { errorHandler } from "../shared/errors-handler/error-middleware-handler";
+import { errorHandler } from "./middlewares/error-middleware-handler";
 
 
 

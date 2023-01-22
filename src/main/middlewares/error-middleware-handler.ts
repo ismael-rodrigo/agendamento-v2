@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "./app-error";
+import { AppError } from "../../shared/errors-handler/errors/app-error";
 
 class ErrorHandler {
     async handle(err:Error , req:Request , res:Response , next:NextFunction  ){

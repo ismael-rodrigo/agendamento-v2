@@ -1,4 +1,4 @@
-import { AppError } from "../../../../../shared/errors-handler/app-error";
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { CommomUser } from "../../entity/common-user/common-user";
 import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";

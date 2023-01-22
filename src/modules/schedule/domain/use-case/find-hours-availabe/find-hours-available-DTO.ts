@@ -1,5 +1,5 @@
 
-import { AppError } from "../../../../../shared/errors-handler/app-error"
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error"
 import { Either } from "../../../../../shared/errors-handler/either"
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
 import { HoursData } from "../../entity/hours/hours-data"

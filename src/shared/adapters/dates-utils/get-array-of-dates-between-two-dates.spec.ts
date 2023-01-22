@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getFutureDate } from "../../../../tests/utils/get-dates";
-import { AppError } from "../../errors-handler/app-error";
+import { AppError } from "../../errors-handler/errors/app-error";
 
 
 import { getDaysArray } from "./get-array-of-dates-between-two-dates";

@@ -1,4 +1,4 @@
-import { AppError } from '../../../shared/errors-handler/app-error';
+import { AppError } from '../../../shared/errors-handler/errors/app-error';
 import { HttpResponse } from "./http"
 
 

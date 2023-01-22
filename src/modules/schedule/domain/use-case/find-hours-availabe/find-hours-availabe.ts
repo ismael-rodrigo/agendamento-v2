@@ -1,4 +1,4 @@
-import { AppError } from "../../../../../shared/errors-handler/app-error";
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
 import { IHoursRepository } from "../../port/repository/hours-repository.interface";
