@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getOldDate } from "../../../../../../tests/utils/get-dates";
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
+
 
 import { Schedule } from "./schedule";
 import { CreateScheduleData } from "./schedule-data";

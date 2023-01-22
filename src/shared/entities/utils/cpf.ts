@@ -1,7 +1,6 @@
-
-import { Either, Left, Right } from "../../../errors-handler/either"
 import { InvalidNameError } from './errors/invalid-name-error'
 import { cpf } from 'cpf-cnpj-validator'; 
+import { Either, Left, Right } from '../../errors-handler/either';
 
 
 export class Cpf {

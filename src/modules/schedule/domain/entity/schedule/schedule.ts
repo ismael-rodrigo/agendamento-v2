@@ -1,6 +1,6 @@
-import { Either, Left, Right } from "../../../../../errors-handler/either";
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error";
-import { Uuid } from "../../../../../utils/uuid-generator/uuid";
+import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid";
+import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
 import { CreateScheduleData } from "./schedule-data";
 
 export class Schedule {

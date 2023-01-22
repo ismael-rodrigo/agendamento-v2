@@ -1,6 +1,7 @@
-import { AppError } from "../../../../../errors-handler/app-error"
-import { Either } from "../../../../../errors-handler/either"
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error"
+
+import { AppError } from "../../../../../shared/errors-handler/app-error"
+import { Either } from "../../../../../shared/errors-handler/either"
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
 import { HoursData } from "../../entity/hours/hours-data"
 
 

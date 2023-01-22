@@ -1,4 +1,4 @@
-import { Either, Left, Right } from "../../../errors-handler/either"
+import { Either, Left, Right } from '../../errors-handler/either'
 import { InvalidNameError } from './errors/invalid-name-error'
 import { InvalidPhoneError } from "./errors/invalid-phone-error"
 

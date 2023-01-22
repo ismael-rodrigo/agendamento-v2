@@ -1,22 +1,21 @@
-import { Request, Response } from "express";
-import { CreateUserDTO } from "./dtos/create-user-DTO";
-
-import { container } from "tsyringe"
+import { Controller } from './../../../_ports/controllers/controller';
+import { badRequest } from './../../../_ports/controllers/helper';
 import { CreateUserUseCase } from "../../domain/use-case/create-user/create-user";
+import { HttpRequest, HttpResponse } from "../../../_ports/controllers/http";
+import { ok } from '../../../_ports/controllers/helper';
 
 
-export class CreateUserController {
+export class CreateUserController implements Controller{
+    constructor( 
+        private readonly createUserUseCase: CreateUserUseCase   
+        ){}
 
-    async handle( req:Request < {} , {} , CreateUserDTO.params > , res:Response){
-
-        const params = req.body;
-        const createUserUseCase = container.resolve(CreateUserUseCase)
-        const result = await createUserUseCase.execute(params);
-
+    async handle(httpRequest:HttpRequest): Promise <HttpResponse> {
+        const params = httpRequest.body;
+        const result = await this.createUserUseCase.execute(params);
         if(result.isLeft()){
-            return res.status(result.error.statusCode).json(result.error.getJsonResponse())
-        }
-        
-        return res.status(201).json(result);
+            return badRequest(result.error)
+        } 
+        return ok(result.value)
     }
 }

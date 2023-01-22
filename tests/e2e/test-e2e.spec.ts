@@ -1,7 +1,7 @@
 
 import supertest from 'supertest';
 import { describe, expect, it } from "vitest";
-import { app } from '../../src/server';
+import { app } from '../../src/main/server';
 
 
 

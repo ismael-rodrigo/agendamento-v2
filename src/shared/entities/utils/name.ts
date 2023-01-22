@@ -1,5 +1,5 @@
 
-import { Either, Left, Right } from "../../../errors-handler/either"
+import { Either, Left, Right } from '../../errors-handler/either'
 import { InvalidNameError } from './errors/invalid-name-error'
 
 export class Name {

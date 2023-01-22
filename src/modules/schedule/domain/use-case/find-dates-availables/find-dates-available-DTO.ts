@@ -1,5 +1,6 @@
-import { Either } from "../../../../../errors-handler/either"
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error"
+import { Either } from "../../../../../shared/errors-handler/either"
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
+
 
 
 export type DatesAvailables = {

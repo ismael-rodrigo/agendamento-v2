@@ -1,5 +1,4 @@
-import { AppError } from "../../../../errors-handler/app-error";
-
+import { AppError } from "../../../errors-handler/app-error";
 
 export class InvalidNameError extends AppError {
     constructor(name:string){

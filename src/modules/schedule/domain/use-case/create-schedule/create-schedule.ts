@@ -1,21 +1,20 @@
-import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../../shared/errors-handler/app-error";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
 import { Schedule } from "../../entity/schedule/schedule";
-import { AppError } from "../../../../../errors-handler/app-error";
-import { Left, Right } from "../../../../../errors-handler/either";
-import { InvalidParamsError } from "../../../../../errors-handler/errors/invalid-params-error";
-import { ICommonUserRepository } from "../../port/common-user-repository.interface";
-import { IHoursRepository } from "../../port/hours-repository.interface";
-import { IScheduleRepository } from "../../port/schedule-repository.interface";
-import { IServiceRepository } from "../../port/service-repository.interface";
+import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";
+import { IHoursRepository } from "../../port/repository/hours-repository.interface";
+import { IScheduleRepository } from "../../port/repository/schedule-repository.interface";
+import { IServiceRepository } from "../../port/repository/service-repository.interface";
 import { CreateScheduleDTO } from "./create-schedule-DTO";
 
-@injectable()
+
 export class CreateSchedule {
     constructor(
-        @inject('ScheduleRepository') private scheduleRepo:IScheduleRepository , 
-        @inject('CommonUserRepository') private commonUserRepo:ICommonUserRepository ,
-        @inject('ServiceRepository') private serviceRepo:IServiceRepository ,
-        @inject('HoursRepository') private hoursRepo:IHoursRepository
+        private readonly scheduleRepo:IScheduleRepository , 
+        private readonly commonUserRepo:ICommonUserRepository ,
+        private readonly serviceRepo:IServiceRepository ,
+        private readonly hoursRepo:IHoursRepository
         ){}
 
     async execute({ date , hour_id ,service_id , user_id}: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {

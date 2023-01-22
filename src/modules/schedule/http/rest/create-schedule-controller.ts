@@ -1,19 +1,19 @@
-import { Request, Response } from "express";
-import {container} from "tsyringe"
+import { HttpRequest } from './../../../_ports/controllers/http';
+import { Controller } from './../../../_ports/controllers/controller';
 import { CreateSchedule } from "../../domain/use-case/create-schedule/create-schedule";
+import { badRequest, ok } from '../../../_ports/controllers/helper';
 
 
-export class CreateScheduleController {
-    async handle(req:Request , res:Response){
+export class CreateScheduleController implements Controller {
+    constructor(private readonly createSchedule: CreateSchedule){}
 
-        const params = req.body
-        const createSchedule = container.resolve(CreateSchedule);
-        const result = await createSchedule.execute(params);
-
+    async handle(httpRequest:HttpRequest){
+        const params = httpRequest.body
+        const result = await this.createSchedule.execute(params);
         if(result.isLeft()){
-            return res.status(result.error.statusCode).json(result.error.getJsonResponse())
+            return badRequest(result.error)
         }
-        return res.status(200).json(result.value);
+        return ok(result.value);
         
     }
 }

@@ -1,25 +1,20 @@
-import { inject, injectable } from "tsyringe";
-import {  Left, Right } from "../../../../../errors-handler/either";
-import { CredentialsInvalidError } from "../../../../../errors-handler/errors/credentials-invalid-error";
-import { IJwtProvider } from "../../../../../utils/jwt-provider/jwt-provider.interface";
-import { IPasswordEncryptProvider } from "../../../../../utils/password-encrypt-provider/password-encrypt.interface";
-import { LoginUserDTO } from "../../../http/rest/dtos/login-user-DTO";
+import { IJwtProvider } from "../../../../../shared/adapters/jwt-provider/jwt-provider.interface";
+import { IPasswordEncryptProvider } from "../../../../../shared/adapters/password-encrypt-provider/password-encrypt.interface";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { CredentialsInvalidError } from "../../../../../shared/errors-handler/errors/credentials-invalid-error";
 import { IUserRepository } from "../../port/user-repository.interface";
-import { LoginUserResponse } from "./login-user-response";
+import { LoginUserRequest, LoginUserResponse } from "./login-user-data";
 
 
-
-
-@injectable()
 export class LoginUserUseCase {
     constructor(
-        @inject("UserRepository") private userRepository:IUserRepository,
-        @inject("PasswordEncryptProvider") private passwordHashProvider:IPasswordEncryptProvider,
-        @inject("JwtProvider") private jwtProvider:IJwtProvider
+        private readonly userRepository:IUserRepository,
+        private readonly passwordHashProvider:IPasswordEncryptProvider,
+        private readonly jwtProvider:IJwtProvider
         ){}
 
 
-    async execute( { username , password } : LoginUserDTO.params) : Promise< LoginUserResponse > {
+    async execute( { username , password } : LoginUserRequest) : Promise< LoginUserResponse > {
         
         const userAlreadyExists = await this.userRepository.getUserByUsername(username);
         if(!userAlreadyExists) {
