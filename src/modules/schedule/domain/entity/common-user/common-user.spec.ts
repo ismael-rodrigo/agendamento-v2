@@ -1,9 +1,10 @@
 import { describe, expect, it} from 'vitest'
 import { getOldDate } from '../../../../../../tests/utils/get-dates'
-import { InvalidCpfError } from '../../../../../shared/entities/utils/errors/invalid-cpf-error'
-import { invalidBirthDateError } from '../../../../../shared/entities/utils/errors/invalid-date-birth-date'
-import { InvalidNameError } from '../../../../../shared/entities/utils/errors/invalid-name-error'
-import { InvalidPhoneError } from '../../../../../shared/entities/utils/errors/invalid-phone-error'
+import { InvalidCpfError } from '../../../../../shared/entities/errors/invalid-cpf-error'
+import { invalidBirthDateError } from '../../../../../shared/entities/errors/invalid-date-birth-date'
+import { InvalidNameError } from '../../../../../shared/entities/errors/invalid-name-error'
+import { InvalidPhoneError } from '../../../../../shared/entities/errors/invalid-phone-error'
+
 import { CommomUser } from './common-user'
 
 

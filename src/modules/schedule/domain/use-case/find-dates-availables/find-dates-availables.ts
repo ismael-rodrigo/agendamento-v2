@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { getDaysArray } from "../../../../../shared/adapters/dates-utils/get-array-of-dates-between-two-dates";
+import { getDaysArray } from "../../../../../shared/utils/dates-utils/get-array-of-dates-between-two-dates";
 import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";

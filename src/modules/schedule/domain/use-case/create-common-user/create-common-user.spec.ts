@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { getOldDate } from "../../../../../../tests/utils/get-dates";
-import { BirthDate } from "../../../../../shared/entities/utils/birth-date";
-import { Cpf } from "../../../../../shared/entities/utils/cpf";
-import { Name } from "../../../../../shared/entities/utils/name";
-import { Phone } from "../../../../../shared/entities/utils/phone";
-import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid";
+import { BirthDate } from "../../../../../shared/entities/birth-date";
+import { Cpf } from "../../../../../shared/entities/cpf";
+import { Name } from "../../../../../shared/entities/name";
+import { Phone } from "../../../../../shared/entities/phone";
+import { Uuid } from "../../../../../shared/entities/uuid";
 import { CommomUserInMemoryRepository } from "../../../../../external/repository/common-user/common-user-repository-in-memory";
 import { CreateCommonUser } from "./create-common-user";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";

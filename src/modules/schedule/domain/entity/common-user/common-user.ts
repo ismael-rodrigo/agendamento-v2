@@ -1,15 +1,15 @@
-import { BirthDate } from "../../../../../shared/entities/utils/birth-date"
-import { Cpf } from "../../../../../shared/entities/utils/cpf"
-import { InvalidCpfError } from "../../../../../shared/entities/utils/errors/invalid-cpf-error"
-import { invalidBirthDateError } from "../../../../../shared/entities/utils/errors/invalid-date-birth-date"
-import { InvalidNameError } from "../../../../../shared/entities/utils/errors/invalid-name-error"
-import { InvalidPhoneError } from "../../../../../shared/entities/utils/errors/invalid-phone-error"
-import { Name } from "../../../../../shared/entities/utils/name"
-import { Phone } from "../../../../../shared/entities/utils/phone"
-import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid"
+import { BirthDate } from "../../../../../shared/entities/birth-date"
+import { Cpf } from "../../../../../shared/entities/cpf"
+import { Name } from "../../../../../shared/entities/name"
+import { Phone } from "../../../../../shared/entities/phone"
+import { Uuid } from "../../../../../shared/entities/uuid"
 
 import { CreateCommomUser } from "./commom-user-data"
 import { Either, Left, Right } from "../../../../../shared/errors-handler/either"
+import { InvalidNameError } from "../../../../../shared/entities/errors/invalid-name-error"
+import { InvalidCpfError } from "../../../../../shared/entities/errors/invalid-cpf-error"
+import { InvalidPhoneError } from "../../../../../shared/entities/errors/invalid-phone-error"
+import { invalidBirthDateError } from "../../../../../shared/entities/errors/invalid-date-birth-date"
 
 
 

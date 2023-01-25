@@ -1,40 +1,58 @@
-import { Uuid } from "../../../../../shared/adapters/uuid-generator/uuid";
+import { Uuid } from "../../../../../shared/entities/uuid";
 import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
-import { CreateScheduleData } from "./schedule-data";
+import { CreateScheduleData, ScheduleData } from "./schedule-data";
 
 export class Schedule {
     public readonly id:Uuid
-    public readonly user_id :string
-    public readonly service_id :string
-    public readonly hour_id :string
-    public readonly date :Date
+    public readonly user_id: string
+    public readonly service_id: string
+    public readonly hour_id: string
+    public readonly date: Date
 
-    private constructor({ date , hour_id , service_id , user_id }: CreateScheduleData){
-        this.id = Uuid.create()
-        this.user_id = user_id
-        this.service_id = service_id
-        this.hour_id = hour_id
-        this.date = date
+
+    private constructor( id:Uuid, date:Date , hour_id:string , service_id:string , user_id:string ){
+      this.id = id
+      this.user_id = user_id
+      this.service_id = service_id
+      this.hour_id = hour_id
+      this.date = date
     }
 
-    static create({ date , hour_id , service_id , user_id }: CreateScheduleData):Either<InvalidParamsError , Schedule>  {
-        if(!hour_id) return Left.create(new InvalidParamsError("Hour id invalid"))
-        if(!service_id) return Left.create(new InvalidParamsError("Service id invalid"))
-        if(!user_id) return Left.create(new InvalidParamsError("User id invalid"))
-        if(date <= new Date) return Left.create(new InvalidParamsError("Date invalid"))
+    static create({ id, date , hour , service , user_id , intervalAvailable }: CreateScheduleData ) :Either< InvalidParamsError , Schedule>  {
+      if(!date) return Left.create(new InvalidParamsError("Date not valid"))
+      if(!hour) return Left.create(new InvalidParamsError("Hour not valid"))
+      if(!service) return Left.create(new InvalidParamsError("Service not valid"))
+      if(!user_id) return Left.create(new InvalidParamsError("User not valid"))
+      if(!intervalAvailable) return Left.create(new InvalidParamsError("Interval not valid"))
 
-        return Right.create(new Schedule({ date , hour_id , service_id , user_id }))
-    }
 
-    valueObject(){
-        return {
-          id : this.id.value,
-          user_id : this.user_id,
-          service_id : this.service_id,
-          hour_id : this.hour_id,
-          date : this.date
-        }
+      const _id = id ? Uuid.create(id) : Uuid.create()
+
+      if(hour.service_id != service.id){
+        return Left.create(new InvalidParamsError("Hour does not belong to the service informed"))
       }
+      if(intervalAvailable.service_id != service.id){
+        return Left.create(new InvalidParamsError("Interval available does not belong to the service informed"))
+      }
+
+      if(new Date(date) <= new Date() || new Date(date) < new Date(intervalAvailable.intial_date) || new Date(date) > new Date(intervalAvailable.final_date) ){
+        return Left.create(new InvalidParamsError("Date not available"))
+      }
+      const dateCompleted = date
+      dateCompleted.setHours(hour.hour , hour.minutes)
+
+      return Right.create( new Schedule( _id , dateCompleted , hour.id, service.id , user_id ))
+    }
+
+    get value(){
+      return {
+        id : this.id.value,
+        user_id : this.user_id,
+        service_id : this.service_id,
+        hour_id : this.hour_id,
+        date : this.date
+      } as ScheduleData
+    }
 
 }

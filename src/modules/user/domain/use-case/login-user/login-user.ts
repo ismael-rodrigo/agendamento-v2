@@ -1,5 +1,5 @@
-import { IJwtProvider } from "../../../../../shared/adapters/jwt-provider/jwt-provider.interface";
-import { IPasswordEncryptProvider } from "../../../../../shared/adapters/password-encrypt-provider/password-encrypt.interface";
+import { IJwtProvider } from "../../../../_ports/providers/jwt/jwt-provider.interface";
+import { IPasswordEncryptProvider } from "../../../../_ports/providers/password-encrypt/password-encrypt.interface";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { CredentialsInvalidError } from "../../../../../shared/errors-handler/errors/credentials-invalid-error";
 import { IUserRepository } from "../../port/user-repository.interface";

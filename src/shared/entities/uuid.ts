@@ -7,8 +7,8 @@ export class Uuid {
     }
 
 
-    static create(){
-        const myuuid = uuidv4();
+    static create(uuid?:string){
+        const myuuid = uuid ? uuid:uuidv4();
         return new Uuid(myuuid)
     }
 

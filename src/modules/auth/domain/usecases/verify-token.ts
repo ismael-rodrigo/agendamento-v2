@@ -1,5 +1,5 @@
 import { injectable,inject } from "tsyringe";
-import { IJwtProvider } from "../../../../shared/adapters/jwt-provider/jwt-provider.interface";
+import { IJwtProvider } from "../../../_ports/providers/jwt/jwt-provider.interface";
 import { VerifyTokenDTO } from "./dtos/verify-token-DTO";
 
 

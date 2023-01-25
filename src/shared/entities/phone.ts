@@ -1,6 +1,7 @@
-import { Either, Left, Right } from '../../errors-handler/either'
+import { Either, Left, Right } from '../errors-handler/either'
 import { InvalidNameError } from './errors/invalid-name-error'
-import { InvalidPhoneError } from "./errors/invalid-phone-error"
+import { InvalidPhoneError } from './errors/invalid-phone-error'
+
 
 export class Phone {
   private readonly phone: string

@@ -1,4 +1,4 @@
-import { Either } from "../../errors-handler/either"
+import { Either } from "../../../../shared/errors-handler/either"
 import { InvalidPasswordProviderParams } from "./errors/invalid-password-provider-params"
 
 export interface IPasswordEncryptProvider {

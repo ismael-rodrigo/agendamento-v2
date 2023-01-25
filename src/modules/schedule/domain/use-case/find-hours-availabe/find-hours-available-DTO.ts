@@ -2,14 +2,13 @@
 import { AppError } from "../../../../../shared/errors-handler/errors/app-error"
 import { Either } from "../../../../../shared/errors-handler/either"
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
-import { HoursData } from "../../entity/hours/hours-data"
-
+import { HourAvailableData } from "../../entity/hours/hours-data"
 
 
 
 export type HoursAvailables = {
     date: Date
-    hours:HoursData[]
+    hours:HourAvailableData[]
 }
 
 

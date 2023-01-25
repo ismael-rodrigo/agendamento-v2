@@ -1,8 +1,6 @@
 export type Either<T, U> = Left<T> | Right<U>;
 
 
-
-
 export class Left<T> {
     readonly error: T;
 

@@ -1,9 +1,9 @@
 import jwt, { Secret, JwtPayload  , JsonWebTokenError} from 'jsonwebtoken';
 import { Either, Left, Right } from '../../errors-handler/either';
 import { JwtError } from '../../errors-handler/errors/jwt-error';
-import { InvalidPayloadError } from './errors/invalid-payload-error';
-import { CreateTokensReturned } from './jtw-provider.types';
-import { IJwtProvider } from './jwt-provider.interface';
+import { InvalidPayloadError } from '../../../modules/_ports/providers/jwt/errors/invalid-payload-error';
+import { CreateTokensReturned } from '../../../modules/_ports/providers/jwt/jtw-provider.types';
+import { IJwtProvider } from '../../../modules/_ports/providers/jwt/jwt-provider.interface';
 
 
 export class JwtProvider implements IJwtProvider {

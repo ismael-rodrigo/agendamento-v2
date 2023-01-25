@@ -1,5 +1,7 @@
-import { Either, Left, Right } from "../../errors-handler/either"
+
+import { Either, Left, Right } from "../errors-handler/either"
 import { invalidBirthDateError } from "./errors/invalid-date-birth-date"
+
 
 export class BirthDate {
   private readonly birth_date: Date

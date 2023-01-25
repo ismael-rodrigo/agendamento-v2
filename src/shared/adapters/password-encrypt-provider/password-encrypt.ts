@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import { Either, Left, Right } from "../../errors-handler/either";
-import { InvalidPasswordProviderParams } from "./errors/invalid-password-provider-params";
-import {IPasswordEncryptProvider} from "./password-encrypt.interface"
+import { InvalidPasswordProviderParams } from "../../../modules/_ports/providers/password-encrypt/errors/invalid-password-provider-params";
+import {IPasswordEncryptProvider} from "../../../modules/_ports/providers/password-encrypt/password-encrypt.interface"
 
 export class PasswordEncryptProvider implements IPasswordEncryptProvider {
     private readonly saltOrRounds:number = 10;

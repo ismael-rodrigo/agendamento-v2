@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken"
-import { Either } from "../../errors-handler/either"
+import { Either } from "../../../../shared/errors-handler/either"
 import { InvalidPayloadError } from "./errors/invalid-payload-error"
 import { CreateTokensReturned } from "./jtw-provider.types"
 

@@ -2,10 +2,10 @@ import { InvalidNameError } from './../../../../shared/entities/utils/errors/inv
 import { InvalidPasswordError } from './../../../../shared/entities/utils/errors/invalid-password-error';
 import { Left, Either, Right } from './../../../../shared/errors-handler/either';
 import { CreateUserData } from './user-data';
-import { Password } from './../../../../shared/entities/utils/password';
-import { Name } from "../../../../shared/entities/utils/name"
-import { Uuid } from '../../../../shared/adapters/uuid-generator/uuid';
-import { IPasswordEncryptProvider } from '../../../../shared/adapters/password-encrypt-provider/password-encrypt.interface';
+import { Password } from '../../../../shared/entities/password';
+import { Name } from "../../../../shared/entities/name"
+import { Uuid } from '../../../../shared/entities/uuid';
+import { IPasswordEncryptProvider } from '../../../_ports/providers/password-encrypt/password-encrypt.interface';
 
 interface UserConstructorParams {
     id  :Uuid

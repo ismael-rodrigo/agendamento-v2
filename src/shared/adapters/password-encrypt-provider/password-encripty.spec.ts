@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { InvalidPasswordProviderParams } from "./errors/invalid-password-provider-params";
+import { InvalidPasswordProviderParams } from "../../../modules/_ports/providers/password-encrypt/errors/invalid-password-provider-params";
 import { PasswordEncryptProvider } from "./password-encrypt";
 
 

@@ -1,6 +1,6 @@
-import { InvalidNameError } from './errors/invalid-name-error'
 import { cpf } from 'cpf-cnpj-validator'; 
-import { Either, Left, Right } from '../../errors-handler/either';
+import { Either, Left, Right } from '../errors-handler/either';
+import { InvalidNameError } from './errors/invalid-name-error';
 
 
 export class Cpf {
@@ -10,7 +10,7 @@ export class Cpf {
     Object.freeze(this)
   }
 
-  static create (name: string): Either< InvalidNameError, Cpf> {
+  static create (name: string): Either< InvalidNameError , Cpf > {
     if (!Cpf.validate(name)) {
       return Left.create(new InvalidNameError(name))
     }

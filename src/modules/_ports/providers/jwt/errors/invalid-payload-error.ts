@@ -1,4 +1,4 @@
-import { AppError } from "../../../errors-handler/errors/app-error";
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 
 export class InvalidPayloadError extends AppError {
     constructor(){

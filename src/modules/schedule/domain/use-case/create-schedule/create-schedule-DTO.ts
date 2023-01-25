@@ -1,11 +1,17 @@
 import { AppError } from "../../../../../shared/errors-handler/errors/app-error"
 import { Either } from "../../../../../shared/errors-handler/either"
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
-import { CreateScheduleData } from "../../entity/schedule/schedule-data"
+import { CreateScheduleData, ScheduleData } from "../../entity/schedule/schedule-data"
 
 
 
 export namespace CreateScheduleDTO {
-    export type request  = CreateScheduleData
-    export type response = Either< AppError | InvalidParamsError , CreateScheduleData >
+    export type request  = {
+        user_id :string
+        service_id :string
+        hour_id :string
+        date :Date
+    }
+
+    export type response = Either< AppError | InvalidParamsError , ScheduleData >
 }

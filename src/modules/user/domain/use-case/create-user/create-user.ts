@@ -1,4 +1,4 @@
-import { IPasswordEncryptProvider } from "../../../../../shared/adapters/password-encrypt-provider/password-encrypt.interface";
+import { IPasswordEncryptProvider } from "../../../../_ports/providers/password-encrypt/password-encrypt.interface";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
 import { User } from "../../entity/user";

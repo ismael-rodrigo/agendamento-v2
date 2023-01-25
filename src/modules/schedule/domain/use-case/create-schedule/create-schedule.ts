@@ -17,7 +17,7 @@ export class CreateSchedule {
         private readonly hoursRepo:IHoursRepository
         ){}
 
-    async execute({ date , hour_id ,service_id , user_id}: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
+    async execute({ date , hour_id ,service_id , user_id }: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
     
         const serviceAlreadyExists = await this.serviceRepo.findServiceById(service_id)
         if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
@@ -25,12 +25,7 @@ export class CreateSchedule {
 
         const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
         if(intervalAvalilable.isLeft()) return Left.create(new AppError(intervalAvalilable.error.detail,intervalAvalilable.error.type))
-        if(!intervalAvalilable.value) return Left.create(new AppError('Interval available not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
-
-        if(new Date(date) <= new Date()) return Left.create( new InvalidParamsError('Date is befored at current date', 'DATE_PROVIDED_INVALID') )
-        if(new Date(date) > new Date(intervalAvalilable.value.final_date) || new Date(date) < new Date(intervalAvalilable.value.intial_date)){
-            return Left.create( new InvalidParamsError('Date is out range in available schedules', 'DATE_PROVIDED_INVALID') )
-        }
+        if(!intervalAvalilable.value) return Left.create(new AppError('IntervalAvailable not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
 
         const userAlreadyExists = await this.commonUserRepo.findUserById(user_id)
         if(userAlreadyExists.isLeft()) return Left.create(userAlreadyExists.error)
@@ -48,12 +43,12 @@ export class CreateSchedule {
         if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
         if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
 
-        date.setHours(hourAlreadyExists.value.hour ,hourAlreadyExists.value.minutes)
         const schedule = Schedule.create({
-            date, 
-            hour_id,
-            service_id, 
-            user_id
+            date: date, 
+            hour: hourAlreadyExists.value,
+            service:serviceAlreadyExists.value,
+            user_id: user_id ,
+            intervalAvailable:intervalAvalilable.value
         })
 
         if(schedule.isLeft()){
