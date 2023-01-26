@@ -25,7 +25,7 @@ export class Username {
   static validate (name: string): boolean {
     const regexValidation = /^[a-zA-Z0-9_\.]+$/
     if(!regexValidation.test(name)) return false
-    if (!name || name.trim().length < 2 || name.trim().length > 70) {
+    if (!name || name.trim().length < 6 || name.trim().length > 15) {
       return false
     }
     return true

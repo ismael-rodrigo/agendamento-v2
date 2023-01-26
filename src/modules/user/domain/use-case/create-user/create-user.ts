@@ -15,8 +15,11 @@ export class CreateUserUseCase {
     async execute ({ username , password } : CreateUserRequest) : Promise < CreateUserResponse > {
 
     const userAlreadyExists = await this.userRepository.getUserByUsername(username)
-    
-    if(userAlreadyExists){
+    if(userAlreadyExists.isLeft()){
+        return Left.create(userAlreadyExists.error)
+    }
+
+    if(userAlreadyExists.value){
         return Left.create( new InvalidParamsError('User already exists') )
     }
 
