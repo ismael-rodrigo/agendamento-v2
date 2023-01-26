@@ -17,17 +17,20 @@ export class LoginUserUseCase {
     async execute( { username , password } : LoginUserRequest) : Promise< LoginUserResponse > {
         
         const userAlreadyExists = await this.userRepository.getUserByUsername(username);
-        if(!userAlreadyExists) {
+        if(userAlreadyExists.isLeft()){
+            return Left.create(userAlreadyExists.error)
+        }
+        if(!userAlreadyExists.value) {
             return Left.create( new CredentialsInvalidError )
         }
         
-        const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.password , password);
+        const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.value.password , password);
         
         if(!isValidPassword) {
             return Left.create( new CredentialsInvalidError )
         }
         
-        const tokens = this.jwtProvider.createTokens(String(userAlreadyExists.id))
+        const tokens = this.jwtProvider.createTokens(String(userAlreadyExists.value.id))
 
         return Right.create(tokens)
         
