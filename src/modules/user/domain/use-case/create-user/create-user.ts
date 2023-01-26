@@ -17,18 +17,18 @@ export class CreateUserUseCase {
     const userAlreadyExists = await this.userRepository.getUserByUsername(username)
     
     if(userAlreadyExists){
-        return Left.create( new InvalidParamsError )
+        return Left.create( new InvalidParamsError('User already exists') )
     }
 
-    const userOrError = await User.create(this.passwordHashProvider , { username , password })
+    const userOrError = await User.create( this.passwordHashProvider , { username , password })
     if(userOrError.isLeft()){
-        return Left.create(new InvalidParamsError )
+        return Left.create(userOrError.error)
     }
 
 
     const result = await this.userRepository.createUser({ password:userOrError.value.password.value , username:userOrError.value.username.value })
     if(result.isLeft()){
-        return Left.create(new InvalidParamsError)
+        return Left.create(result.error)
     }
     return Right.create(result.value) 
     

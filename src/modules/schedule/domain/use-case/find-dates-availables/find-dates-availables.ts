@@ -1,4 +1,3 @@
-import { inject, injectable } from "tsyringe";
 import { getDaysArray } from "../../../../../shared/utils/dates-utils/get-array-of-dates-between-two-dates";
 import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
@@ -8,12 +7,10 @@ import { IScheduleRepository } from "../../port/repository/schedule-repository.i
 import { DatesAvailables, FindDatesDTO } from "./find-dates-available-DTO";
 
 
-
-@injectable()
 export class FindDatesServiceAvailableUseCase {
     constructor(
-        @inject("ScheduleRepository") private scheduleRepository: IScheduleRepository  ,
-        @inject("HoursRepository") private hoursRepository : IHoursRepository
+        private scheduleRepository: IScheduleRepository  ,
+        private hoursRepository : IHoursRepository
         ){}
 
     async execute( { service_id } : FindDatesDTO.request ) : Promise < FindDatesDTO.response >

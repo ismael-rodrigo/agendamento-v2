@@ -1,13 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../../../shared/errors-handler/errors/db-generic-error";
-import { HoursData } from "../../../domain/entity/hours/hours-data";
-import { IHoursRepository } from "../../../domain/port/repository/hours-repository.interface";
+import { HourAvailableData } from "../../../modules/schedule/domain/entity/hours/hours-data";
+import { IHoursRepository } from "../../../modules/schedule/domain/port/repository/hours-repository.interface";
+import { Either, Left, Right } from "../../../shared/errors-handler/either";
+import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
 
 
 export class HoursPrismaRepository implements IHoursRepository {
     constructor(private client:PrismaClient){}
-    async findHoursById(hours_id: string): Promise< Either < DbGenericError, HoursData | null >> {
+    async findHoursById(hours_id: string): Promise< Either < DbGenericError, HourAvailableData | null >> {
         try{
             const hour = await this.client.hourAvailable.findUnique({ where: { id : hours_id } })
             return Right.create(hour)
@@ -17,7 +17,7 @@ export class HoursPrismaRepository implements IHoursRepository {
         }
     }
 
-    async findHoursAvailableInDate(service_id: string, date_consulted: Date ): Promise <Either< DbGenericError , HoursData[]>> {
+    async findHoursAvailableInDate(service_id: string, date_consulted: Date ): Promise <Either< DbGenericError , HourAvailableData[]>> {
         try{
             const result = await this.client.hourAvailable.findMany({
                 where:{
@@ -59,7 +59,7 @@ export class HoursPrismaRepository implements IHoursRepository {
     }
 
 
-    async findAllHoursInDate(service_id: string, date_consulted: Date): Promise <Either <DbGenericError , HoursData[]>>{
+    async findAllHoursInDate(service_id: string, date_consulted: Date): Promise <Either <DbGenericError , HourAvailableData[]>>{
         try{
             const result = await this.client.hourAvailable.findMany({
                 where:{

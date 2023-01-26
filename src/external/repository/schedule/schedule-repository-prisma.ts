@@ -1,10 +1,10 @@
+import { ScheduleData } from './../../../modules/schedule/domain/entity/schedule/schedule-data';
+import { Schedule } from './../../../modules/schedule/domain/entity/schedule/schedule';
 import {  IntervalDateAvailable, PrismaClient } from "@prisma/client";
-import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../../../shared/errors-handler/errors/db-generic-error";
+import { IScheduleRepository } from "../../../modules/schedule/domain/port/repository/schedule-repository.interface";
+import { Either, Left, Right } from "../../../shared/errors-handler/either";
+import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
 
-import { Schedule } from "../../../domain/entity/schedule/schedule";
-import { ScheduleData } from "../../../domain/entity/schedule/schedule-data";
-import { IScheduleRepository } from "../../../domain/port/repository/schedule-repository.interface";
 
 
 

@@ -1,22 +1,22 @@
-import { InvalidNameError } from './../../../../shared/entities/utils/errors/invalid-name-error';
-import { InvalidPasswordError } from './../../../../shared/entities/utils/errors/invalid-password-error';
+import { Username } from './../../../../shared/entities/username';
 import { Left, Either, Right } from './../../../../shared/errors-handler/either';
 import { CreateUserData } from './user-data';
 import { Password } from '../../../../shared/entities/password';
-import { Name } from "../../../../shared/entities/name"
 import { Uuid } from '../../../../shared/entities/uuid';
 import { IPasswordEncryptProvider } from '../../../_ports/providers/password-encrypt/password-encrypt.interface';
+import { InvalidPasswordError } from '../../../../shared/entities/errors/invalid-password-error';
+import { InvalidNameError } from '../../../../shared/entities/errors/invalid-name-error';
 
 interface UserConstructorParams {
     id  :Uuid
-    username :Name
+    username :Username
     password :Password
     is_admin :boolean
 }
 
 export class User {
     public readonly id:Uuid
-    public readonly username:Name
+    public readonly username:Username
     public readonly password:Password
     public readonly is_admin:boolean
     private constructor(private readonly passwordHasher:IPasswordEncryptProvider , { id , is_admin , password , username } : UserConstructorParams ){
@@ -33,7 +33,7 @@ export class User {
 
         const uuid = Uuid.create()
 
-        const usernameOrError = Name.create(username)
+        const usernameOrError = Username.create(username)
         if(usernameOrError.isLeft()) return Left.create(new InvalidNameError(username))
         return Right.create(new User(passwordHasher , { password:passwordOrError.value , id:uuid , is_admin:false , username:usernameOrError.value}))
 

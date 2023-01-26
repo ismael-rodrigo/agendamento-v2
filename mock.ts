@@ -1,3 +1,2 @@
-import { vitest } from "vitest";
-
-vitest.mock('./src/prisma-client/client')
+import { vitest } from "vitest"
+vitest.mock('./prisma/__mocks__/index.ts')
