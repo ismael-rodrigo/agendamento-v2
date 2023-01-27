@@ -25,12 +25,14 @@ export class LoginUserUseCase {
         }
         
         const isValidPassword = await this.passwordHashProvider.verifyHash(userAlreadyExists.value.password , password);
-        
-        if(!isValidPassword) {
+        if(isValidPassword.isLeft()){
+            return Left.create(isValidPassword.error)
+        }
+        if(!isValidPassword.value) {
             return Left.create( new CredentialsInvalidError )
         }
         
-        const tokens = this.jwtProvider.createTokens(String(userAlreadyExists.value.id))
+        const tokens = this.jwtProvider.createTokens( String( userAlreadyExists.value.id ) )
 
         return Right.create(tokens)
         

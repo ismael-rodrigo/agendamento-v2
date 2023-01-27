@@ -4,4 +4,4 @@ import { CredentialsInvalidError } from "../../../../../shared/errors-handler/er
 
 export type LoginUserRequest = {username:string , password:string}
 
-export type LoginUserResponse = Either< CredentialsInvalidError , {access:string , refresh:string} >
+export type LoginUserResponse = Either< CredentialsInvalidError , { access:string , refresh:string } >
