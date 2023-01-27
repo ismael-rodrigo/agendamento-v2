@@ -1,6 +1,6 @@
-import { IntervalDateAvailableData } from './../intervalAvailable/interval-data';
-import { ServiceData } from './../service/service-data';
-import { HourAvailableData } from './../hours/hours-data';
+import { IntervalDateAvailableData } from '../intervalAvailable/interval-data';
+import { ServiceData } from '../service/service-data';
+import { HourAvailableData } from '../hours/hours-data';
 import { describe, expect, it } from "vitest";
 import { getFutureDate, getOldDate } from "../../../../../../tests/utils/get-dates";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";

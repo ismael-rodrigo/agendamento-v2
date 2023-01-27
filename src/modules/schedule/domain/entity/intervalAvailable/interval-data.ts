@@ -1,5 +1,8 @@
 export interface CreateIntervalDateAvailable {
-
+    id?: string
+    intial_date: Date
+    final_date: Date
+    service_id: string
 }
 
 export interface IntervalDateAvailableData {

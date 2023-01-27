@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "ts-node-dev src/main/server.ts",
     "create:admin": "ts-node-dev src/scripts/create-admin-user.ts",
-    "test": "vitest",
-    "test:e2e": "set NODE_ENV=test && vitest run -c vitest.config.e2e.ts"
+    "test": "set NODE_ENV=test && vitest run -c vitest.config.integration.ts",
+    "test:e2e": "set NODE_ENV=test && vitest run -c vitest.config.e2e.ts",
+    "test:unitary":"set NODE_ENV=test && vitest run -c vitest.config.unity.ts"
   },
+
+  
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^9.3.0",
     "@prisma/client": "^4.8.0",
