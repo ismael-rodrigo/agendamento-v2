@@ -1,260 +1,280 @@
-import { AppError } from './../../../../../shared/errors-handler/errors/app-error';
-import { addHours } from 'date-fns';
-import { addMinutes } from 'date-fns';
-import { Location } from './../../entity/location/location';
+import { PrismaClient } from '@prisma/client';
+import { ContextSchedule } from './../../../../../../tests/utils/populateScheduleContext/context';
+
 import { HoursPrismaRepository } from './../../../../../external/repository/hours/hours-repository-prisma';
 import { ServicePrismaRepository } from './../../../../../external/repository/service/service-repository-prisma';
 import { CommomUserPrismaRepository } from './../../../../../external/repository/common-user/common-user-repository-prisma';
 import { prismaMocked } from './../../../../../../prisma/__mocks__/index';
 import { ScheduleRepositoryPrisma } from './../../../../../external/repository/schedule/schedule-repository-prisma';
 import { CreateSchedule } from './create-schedule';
-import { IntervalDateAvailable } from './../../entity/intervalAvailable/interval-available';
-import { CommomUser } from './../../entity/common-user/common-user';
-import { Service } from './../../entity/service/service';
-import { HourAvailable } from './../../entity/hours/hour-available';
+
 import { describe, expect, it ,beforeEach } from "vitest";
-import { getFutureDate, getOldDate } from '../../../../../../tests/utils/get-dates';
+import { getFutureDate } from '../../../../../../tests/utils/get-dates';
+import { contextSchedule } from '../../../../../../tests/utils/populateScheduleContext/context';
+import { AppError } from '../../../../../shared/errors-handler/errors/app-error';
 
 describe('Create schedule use case test',()=>{
 
 
 
-    describe('should be create new schedule with valid params',()=>{
+    describe('should be create new schedule with valid params',async ()=>{
         let sut:CreateSchedule
-        let service:Service
-        let hourScheduleAvailable:HourAvailable
-        let userUnScheduled:CommomUser
-        let userUnScheduled2:CommomUser
-        let intervalAvailable:IntervalDateAvailable
-        let location:Location
+
+        let context:ContextSchedule
+        let prisma:PrismaClient
         beforeEach(async()=>{
-
-            const prisma = prismaMocked
-
+            prisma = prismaMocked
+            context = await contextSchedule(prisma)
             const schedRepo = new ScheduleRepositoryPrisma(prisma) 
             const commonUserRepo = new CommomUserPrismaRepository(prisma) 
             const serviceRepo =  new ServicePrismaRepository(prisma)
             const hourRepo = new HoursPrismaRepository(prisma)
-
             sut = new CreateSchedule( schedRepo , commonUserRepo , serviceRepo , hourRepo )
-
-            const locationOrError = Location.create({address:'Capital'})
-            expect(locationOrError.isLeft()).toEqual(false)
-            if(locationOrError.isLeft()) return
-            location = locationOrError.value
-
-            await prisma.location.create({
-                data:location.value
-            })
-
-
-            const serviceOrError = Service.create( { service_name:'RG' ,location_id:location.id.value } )
-            expect(serviceOrError.isLeft()).toEqual(false)
-            if(serviceOrError.isLeft()) return
-            service = serviceOrError.value
-            
-            const saveService = await serviceRepo.add(service.value)
-            expect(saveService.isLeft()).toEqual(false)
-            if(saveService.isLeft()) return
-
-
-            const hourScheduleAvailableOrError = HourAvailable.create({
-                hour:10,
-                minutes:10,
-                service_id:service.id.value
-            })
-    
-            expect(hourScheduleAvailableOrError.isLeft()).toEqual(false)
-            if(hourScheduleAvailableOrError.isLeft()) return
-            hourScheduleAvailable = hourScheduleAvailableOrError.value
-            const saveHour = await hourRepo.add(hourScheduleAvailable.value)
-            expect(saveHour.isLeft()).toEqual(false)
-            if(saveHour.isLeft()) return
-
-            const userUnScheduledOrError = CommomUser.create({
-                cpf:'07328011335',
-                name:'ismael Rodrigo',
-                phone_number:'85981050647',
-                date_birth: getOldDate(10)
-            })    
-
-
-            expect(userUnScheduledOrError.isLeft()).toEqual(false)
-            if(userUnScheduledOrError.isLeft()) return
-            userUnScheduled = userUnScheduledOrError.value
-
-            const userUnScheduledOrError2 = CommomUser.create({
-                cpf:'58089497349',
-                name:'Samuel Conrrado',
-                phone_number:'85981050647',
-                date_birth: getOldDate(10)
-            })    
-
-
-            expect(userUnScheduledOrError2.isLeft()).toEqual(false)
-            if(userUnScheduledOrError2.isLeft()) return
-            userUnScheduled2 = userUnScheduledOrError2.value
-
-            await prisma.commomUser.createMany({
-                data:[ userUnScheduled.value , userUnScheduled2.value ]
-            })
-
-
-            const intervalOrError = IntervalDateAvailable.create({
-                intial_date:getFutureDate('2022-01-10'),
-                final_date:getFutureDate('2022-01-20'),
-                service_id:service.id.value,
-            })
-            expect(intervalOrError.isLeft()).toEqual(false)
-            if(intervalOrError.isLeft()) return
-            intervalAvailable = intervalOrError.value
-
-            await prisma.intervalDateAvailable.create({
-                data:intervalAvailable.value
-            })
-
         })
 
 
 
         it('should be create schedule with valid arguments' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
-
+            const dateSched = getFutureDate('2022-05-10')
+            expect(await prisma.schedule.count()).toEqual(0)
             const result = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
             })
-
+            expect(await prisma.schedule.count()).toEqual(1)
             expect(result.isLeft()).toEqual(false)
             if(result.isLeft()) return
-            expect(result.value.date).toEqual(addMinutes(addHours(dateSched , hourScheduleAvailable.hour.value) , hourScheduleAvailable.minutes.value))
+            expect(result.value.date).toEqual(dateSched)
+
+        })
+
+        it('should be create schedules to equal date with unlike hours and users' , async ()=>{
+            const dateSched = getFutureDate('2022-05-10')
+            expect(await prisma.schedule.count()).toEqual(0)
+            const result = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
+            })
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(result.isLeft()).toEqual(false)
+            if(result.isLeft()) return
+            expect(result.value.date).toEqual(dateSched)
+
+            const schedule2 = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailable2OfTheService1.id,
+                service_id: context.service1.id,
+                user_id: context.user2.id
+            })
+
+            expect(await prisma.schedule.count()).toEqual(2)
+            expect(schedule2.isLeft()).toEqual(false)
+            if(schedule2.isLeft()) return
             
         })
 
-        it('should not be create schedule with date after to date limit available' , async ()=>{
-            const dateSched = getFutureDate('2022-01-21')
-
+        it('should be create schedules to equal date with other service and users' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+            expect(await prisma.schedule.count()).toEqual(0)
             const result = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
             })
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(result.isLeft()).toEqual(false)
+            if(result.isLeft()) return
+            expect(result.value.date).toEqual(dateSched)
+
+            const schedule2 = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService2.id,
+                service_id: context.service2.id,
+                user_id: context.user2.id
+            })
+
+            expect(await prisma.schedule.count()).toEqual(2)
+            expect(schedule2.isLeft()).toEqual(false)
+            if(schedule2.isLeft()) return
+            
+        })
+
+
+
+        
+        it('should be create schedule with date equal as limit available (start date)' , async ()=>{
+            const dateSched = getFutureDate('2022-05-02')
+            expect(await prisma.schedule.count()).toEqual(0)
+            const result = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
+            })
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(result.isLeft()).toEqual(false)
+            if(result.isLeft()) return
+            expect(result.value.date).toEqual(dateSched)
+
+        })
+
+        it('should be create schedule with date equal as limit available (end date)' , async ()=>{
+            const dateSched = getFutureDate('2022-05-20')
+            expect(await prisma.schedule.count()).toEqual(0)
+            const result = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
+            })
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(result.isLeft()).toEqual(false)
+            if(result.isLeft()) return
+            expect(result.value.date).toEqual(dateSched)
+
+        })
+        
+
+        it('should not be create schedule with date before to start date limit available' , async ()=>{
+            const dateSched = getFutureDate('2022-05-01')
+            expect(await prisma.schedule.count()).toEqual(0)
+            const result = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
+            })
+            expect(await prisma.schedule.count()).toEqual(0)
             expect(result.isLeft()).toEqual(true)
             if(!result.isLeft()) return
             expect(result.error).toBeInstanceOf(AppError)
             
         })
 
-        it('should not be create schedule with date before to date limit available' , async ()=>{
-            const dateSched = getFutureDate('2022-01-05')
-
+        it('should not be create schedule with date after to end date limit available' , async ()=>{
+            const dateSched = getFutureDate('2022-05-21')
+            expect(await prisma.schedule.count()).toEqual(0)
             const result = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
             })
+            expect(await prisma.schedule.count()).toEqual(0)
             expect(result.isLeft()).toEqual(true)
             if(!result.isLeft()) return
             expect(result.error).toBeInstanceOf(AppError)
         })
 
-        it('should not be create schedule with hourID not valid' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
-
+        it('should not be create schedule with hourID different from the serviceID provided' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+            expect(await prisma.schedule.count()).toEqual(0)
             const result = await sut.execute({
                 date:dateSched,
-                hour_id:"invalid-id",
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
+                hour_id: context.hoursAvailableOfTheService2.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
             })
-            expect(result.isLeft()).toEqual(true)
-            if(!result.isLeft()) return
-            expect(result.error).toBeInstanceOf(AppError)
-            
-        })
-        it('should not be create schedule with serviceID not valid' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
-
-            const result = await sut.execute({
-                date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:"service-id-invalid",
-                user_id:userUnScheduled.id.value
-            })
+            expect(await prisma.schedule.count()).toEqual(0)
             expect(result.isLeft()).toEqual(true)
             if(!result.isLeft()) return
             expect(result.error).toBeInstanceOf(AppError)
             
         })
 
-        it('should not be create schedule with userID not valid' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
-
+        it('should not be create schedule with serviceID invalid' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+            expect(await prisma.schedule.count()).toEqual(0)
             const result = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:"user-id-invalid"
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: "service-id-invalid" ,
+                user_id: context.user1.id
             })
+            expect(await prisma.schedule.count()).toEqual(0)
             expect(result.isLeft()).toEqual(true)
             if(!result.isLeft()) return
             expect(result.error).toBeInstanceOf(AppError)
             
         })
 
-        it('should not be create duplicate schedule on equal date,service and hour with diferents users' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
+        it('should not be create schedule with userID invalid' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+            expect(await prisma.schedule.count()).toEqual(0)
+            const result = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: "user-invalid-id"
+            })
+            expect(await prisma.schedule.count()).toEqual(0)
+            expect(result.isLeft()).toEqual(true)
+            if(!result.isLeft()) return
+            expect(result.error).toBeInstanceOf(AppError)
+            
+        })
 
+        it('should not be user create two schedule on the same day' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+
+            expect(await prisma.schedule.count()).toEqual(0)
             const schedule1 = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
             })
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(schedule1.isLeft()).toEqual(false)
+            if(schedule1.isLeft()) return
+
+
+            const schedule2 = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailable2OfTheService1.id,
+                service_id: context.service1.id,
+                user_id: context.user1.id
+            })
+
+            expect(await prisma.schedule.count()).toEqual(1)
+            expect(schedule2.isLeft()).toEqual(true)
+            if(!schedule2.isLeft()) return
+            expect(schedule2.error).toBeInstanceOf(AppError)
+        })
+
+        it('should not be create duplicate schedule' , async ()=>{
+            const dateSched = getFutureDate('2022-05-15')
+
+            expect(await prisma.schedule.count()).toEqual(0)
+            const schedule1 = await sut.execute({
+                date:dateSched,
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id ,
+                user_id: context.user1.id
+            })
+            expect(await prisma.schedule.count()).toEqual(1)
             expect(schedule1.isLeft()).toEqual(false)
             if(schedule1.isLeft()) return
 
             const schedule2 = await sut.execute({
                 date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled2.id.value
+                hour_id: context.hoursAvailableOfTheService1.id,
+                service_id: context.service1.id,
+                user_id: context.user2.id
             })
 
+            expect(await prisma.schedule.count()).toEqual(1)
             expect(schedule2.isLeft()).toEqual(true)
             if(!schedule2.isLeft()) return
             expect(schedule2.error).toBeInstanceOf(AppError)
-
         })
 
-        it('should not be possible for a user to have two appointments for the same day' , async ()=>{
-            const dateSched = getFutureDate('2022-01-15')
 
-            const schedule1 = await sut.execute({
-                date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
-            })
-            expect(schedule1.isLeft()).toEqual(false)
-            if(schedule1.isLeft()) return
-
-            const schedule2 = await sut.execute({
-                date:dateSched,
-                hour_id:hourScheduleAvailable.id.value,
-                service_id:service.id.value,
-                user_id:userUnScheduled.id.value
-            })
-
-            expect(schedule2.isLeft()).toEqual(true)
-            if(!schedule2.isLeft()) return
-            expect(schedule2.error).toBeInstanceOf(AppError)
-
-        })
 
     })
 

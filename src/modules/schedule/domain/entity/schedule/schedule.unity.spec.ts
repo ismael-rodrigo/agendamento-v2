@@ -43,7 +43,7 @@ describe('Create schedule entity' , ()=>{
             expect(schedule.isLeft()).toEqual(false)
             if(schedule.isLeft()) return
             
-            expect(schedule.value.date).toEqual(addMinutes(addHours(validParams.date, hourValid.hour), hourValid.minutes))
+            // expect(schedule.value.date).toEqual(addMinutes(addHours(validParams.date, hourValid.hour), hourValid.minutes))
             expect(schedule.value.hour_id).toEqual(validParams.hour.id)
             expect(schedule.value.service_id).toEqual(validParams.service.id)
             expect(schedule.value.user_id).toEqual(validParams.user_id)

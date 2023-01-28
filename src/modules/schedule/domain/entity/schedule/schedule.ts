@@ -38,13 +38,13 @@ export class Schedule {
       if(intervalAvailable.service_id != service.id){
         return Left.create(new InvalidParamsError("Interval available does not belong to the service informed"))
       }
-
-      if(!isWithinInterval( date , { start: intervalAvailable.intial_date , end:intervalAvailable.final_date }) || new Date(date)<=new Date()){
+      
+      if(!isWithinInterval( date , { start: intervalAvailable.intial_date , end:intervalAvailable.final_date }) || new Date(date) <= new Date()){
         return Left.create(new InvalidParamsError("Date not available"))
       }
 
-      const dateAdded = addMinutes(addHours(date,hour.hour),hour.minutes)
-      return Right.create( new Schedule( _id , dateAdded , hour.id, service.id , user_id ))
+      //const dateAdded = addMinutes(addHours(date,hour.hour),hour.minutes)
+      return Right.create( new Schedule( _id , date , hour.id, service.id , user_id ))
     }
 
     get value(){

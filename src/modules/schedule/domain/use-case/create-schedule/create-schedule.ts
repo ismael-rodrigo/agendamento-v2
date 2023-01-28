@@ -35,13 +35,6 @@ export class CreateSchedule {
         if(hourAlreadyExists.isLeft()) return Left.create(hourAlreadyExists.error)
         if(!hourAlreadyExists.value) return Left.create(new InvalidParamsError('Hour not exists', 'HOUR_NOT_EXISTS'))
 
-        const specificScheduleAlreadyExists = await this.scheduleRepo.findSpecificSchedule( service_id , date , hour_id )
-        if(specificScheduleAlreadyExists.isLeft()) return Left.create(specificScheduleAlreadyExists.error)
-        if(specificScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('Schedule already exists' , 'SCHEDULE_ALREADY_EXISTS'))
-
-        const userScheduleAlreadyExists = await this.scheduleRepo.findUserScheduleInDate(date , user_id)
-        if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
-        if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
 
         const schedule = Schedule.create({
             date: date, 
@@ -54,6 +47,15 @@ export class CreateSchedule {
         if(schedule.isLeft()){
             return Left.create(schedule.error)
         }
+
+
+        const specificScheduleAlreadyExists = await this.scheduleRepo.findSpecificSchedule( schedule.value.service_id , schedule.value.date , hour_id )
+        if(specificScheduleAlreadyExists.isLeft()) return Left.create(specificScheduleAlreadyExists.error)
+        if(specificScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('Schedule already exists' , 'SCHEDULE_ALREADY_EXISTS'))
+
+        const userScheduleAlreadyExists = await this.scheduleRepo.findUserScheduleInDate( schedule.value.date , schedule.value.user_id)
+        if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
+        if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
 
         const result = await this.scheduleRepo.createSchedule(schedule.value)
         if(result.isLeft()){
