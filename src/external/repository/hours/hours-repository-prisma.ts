@@ -7,6 +7,19 @@ import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic
 
 export class HoursPrismaRepository implements IHoursRepository {
     constructor(private client:PrismaClient){}
+
+
+    async add(data: HourAvailableData): Promise<Either<DbGenericError, HourAvailableData>> {
+        try{
+            const result = await this.client.hourAvailable.create({data})
+            return Right.create(result)
+        }   
+        catch(err ){
+            return Left.create(new DbGenericError('HoursPrismaRepository.add'))
+        }
+    }
+
+
     async findHoursById(hours_id: string): Promise< Either < DbGenericError, HourAvailableData | null >> {
         try{
             const hour = await this.client.hourAvailable.findUnique({ where: { id : hours_id } })

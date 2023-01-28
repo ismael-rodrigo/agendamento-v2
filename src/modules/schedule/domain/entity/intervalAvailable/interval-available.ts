@@ -26,4 +26,13 @@ export class IntervalDateAvailable {
         return Right.create(new IntervalDateAvailable( _id , intial_date , final_date , service_id ) )
     }
 
+    get value(){
+        return {
+            id:this.id.value,
+            intial_date:this.intial_date,
+            final_date:this.final_date,
+            service_id:this.service_id
+        }
+    }
+
 }

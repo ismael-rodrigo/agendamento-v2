@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { ServiceData } from '../../../modules/schedule/domain/entity/service/service-data'
+import { CreateService, ServiceData } from '../../../modules/schedule/domain/entity/service/service-data'
 import { IServiceRepository } from '../../../modules/schedule/domain/port/repository/service-repository.interface'
 import { Either, Left, Right } from '../../../shared/errors-handler/either'
 import { DbGenericError } from '../../../shared/errors-handler/errors/db-generic-error'
@@ -17,6 +17,24 @@ export class ServicePrismaRepository implements IServiceRepository {
         }
         catch (err){
             return Left.create(new DbGenericError)
+        }
+    }
+
+
+    async add({ id , service_name  , location_id}: ServiceData): Promise< Either<DbGenericError, ServiceData>> {
+        try{
+            const result = await this.client.service.create({
+                data: {
+                    id,
+                    service_name,
+                    location_id
+                }
+            })
+
+            return Right.create(result)
+        }
+        catch(err){
+            return Left.create(new DbGenericError('ServicePrismaRepository.add'))
         }
     }
 }

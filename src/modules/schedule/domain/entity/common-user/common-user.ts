@@ -61,7 +61,7 @@ export class CommomUser {
   }
 
 
-  valueObject(){
+  get value(){
     return {
       id: this.id.value ,
       name: this.name.value ,

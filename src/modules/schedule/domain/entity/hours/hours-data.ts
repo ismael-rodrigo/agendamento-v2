@@ -13,7 +13,7 @@ export interface HourAvailableData {
     hour:number
     minutes: number 
     service_id: string
-    
+
     created_at?: Date
     updated_at?: Date
 }

@@ -1,3 +1,5 @@
+import { addHours } from 'date-fns';
+import { addMinutes } from 'date-fns';
 import { IntervalDateAvailableData } from '../intervalAvailable/interval-data';
 import { ServiceData } from '../service/service-data';
 import { HourAvailableData } from '../hours/hours-data';
@@ -20,7 +22,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),
@@ -40,7 +43,7 @@ describe('Create schedule entity' , ()=>{
             expect(schedule.isLeft()).toEqual(false)
             if(schedule.isLeft()) return
             
-            expect(schedule.value.date).toEqual(validParams.date)
+            expect(schedule.value.date).toEqual(addMinutes(addHours(validParams.date, hourValid.hour), hourValid.minutes))
             expect(schedule.value.hour_id).toEqual(validParams.hour.id)
             expect(schedule.value.service_id).toEqual(validParams.service.id)
             expect(schedule.value.user_id).toEqual(validParams.user_id)
@@ -62,7 +65,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),
@@ -94,7 +98,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),
@@ -125,7 +130,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),
@@ -157,7 +163,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),
@@ -188,7 +195,8 @@ describe('Create schedule entity' , ()=>{
             }
             const serviceValid:ServiceData = {
                 service_name:'RG',
-                id:'123'
+                id:'123',
+                location_id:'123'
             }
             const intervalValid:IntervalDateAvailableData = {
                 final_date: getFutureDate('2022-03-20'),

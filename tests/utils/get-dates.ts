@@ -1,10 +1,17 @@
-import {setYear , parseISO, setDate, setDay} from 'date-fns'
+import {setYear , parseISO} from 'date-fns'
+
+
 
 export function getFutureDate (date:string): Date {
-    return setYear( parseISO(date), new Date().getFullYear() + 1 )
+    const dateResult = setYear( parseISO(date), new Date().getFullYear() + 1 )
+    dateResult.setHours(-3)
+    return dateResult
 
 }
 
 export function getOldDate(years_befored:number): Date {
-    return setYear( new Date(), new Date().getFullYear() - years_befored )
+    const dateResult =  setYear( new Date(), new Date().getFullYear() - years_befored )
+    dateResult.setHours(-3)
+
+    return dateResult
 }

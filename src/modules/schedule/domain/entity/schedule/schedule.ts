@@ -1,3 +1,6 @@
+import { addHours, addMinutes, addSeconds, isWithinInterval } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
+import { ptBR } from "date-fns/locale";
 import { Uuid } from "../../../../../shared/entities/uuid";
 import { Either, Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
@@ -36,13 +39,12 @@ export class Schedule {
         return Left.create(new InvalidParamsError("Interval available does not belong to the service informed"))
       }
 
-      if(new Date(date) <= new Date() || new Date(date) < new Date(intervalAvailable.intial_date) || new Date(date) > new Date(intervalAvailable.final_date) ){
+      if(!isWithinInterval( date , { start: intervalAvailable.intial_date , end:intervalAvailable.final_date }) || new Date(date)<=new Date()){
         return Left.create(new InvalidParamsError("Date not available"))
       }
-      const dateCompleted = date
-      dateCompleted.setHours(hour.hour , hour.minutes)
 
-      return Right.create( new Schedule( _id , dateCompleted , hour.id, service.id , user_id ))
+      const dateAdded = addMinutes(addHours(date,hour.hour),hour.minutes)
+      return Right.create( new Schedule( _id , dateAdded , hour.id, service.id , user_id ))
     }
 
     get value(){
