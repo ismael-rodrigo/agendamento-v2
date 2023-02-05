@@ -1,6 +1,7 @@
+import { UnauthorizedError } from './../../../../shared/errors-handler/errors/unauthorized-error';
 import { Username } from './../../../../shared/entities/username';
 import { Left, Either, Right } from './../../../../shared/errors-handler/either';
-import { CreateUserData } from './user-data';
+import { CreateUserData, UserData } from './user-data';
 import { Password } from '../../../../shared/entities/password';
 import { Uuid } from '../../../../shared/entities/uuid';
 import { IPasswordEncryptProvider } from '../../../_ports/providers/password-encrypt/password-encrypt.interface';
@@ -36,9 +37,13 @@ export class User {
         const usernameOrError = Username.create(username)
         if(usernameOrError.isLeft()) return Left.create(new InvalidNameError(username))
         return Right.create(new User(passwordHasher , { password:passwordOrError.value , id:uuid , is_admin:false , username:usernameOrError.value}))
+    }
 
-        
-
+    static isAdmin(userData:UserData){
+        if(!userData.is_admin){
+            return Left.create(new UnauthorizedError)
+        }
+        return Right.create(userData)
     }
 
 }

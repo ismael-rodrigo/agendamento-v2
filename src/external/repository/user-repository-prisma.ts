@@ -8,9 +8,23 @@ import { CreateUserData, UserData } from '../../modules/user/domain/entity/user-
 export class UserRepositoryPrisma implements IUserRepository{
     constructor(private client:PrismaClient){}
 
-    async createUser(params:CreateUserData) : Promise < Either < DbGenericError , UserData >>{
-        const userCreated = await this.client.user.create({ data: params })
-        return Right.create(userCreated)
+    async createUser({id , password ,username ,is_admin}:CreateUserData) : Promise < Either < DbGenericError , UserData >>{
+        try {
+            if(!id){
+                return Left.create(new DbGenericError('Id not provided'))
+            }
+            const userCreated = await this.client.user.create({ data: {
+                id,
+                password,
+                username,
+            } })
+            
+            return Right.create(userCreated)
+        }
+        catch (err){
+            return Left.create(new DbGenericError('UserRepositoryPrisma.createUser'))
+        }
+
     }
 
     async getUserByUsername(username:string):Promise < Either< DbGenericError , User | null>>  {
@@ -19,7 +33,7 @@ export class UserRepositoryPrisma implements IUserRepository{
             return Right.create(getUser)
         }
         catch (err ){
-            return Left.create(new DbGenericError('getUserByUsername'))
+            return Left.create(new DbGenericError('UserRepositoryPrisma.getUserByUsername'))
         }
        
     }
@@ -30,7 +44,7 @@ export class UserRepositoryPrisma implements IUserRepository{
             return Right.create(getUser)    
         }
         catch (err){
-            return Left.create(new DbGenericError('getUserById'))
+            return Left.create(new DbGenericError('UserRepositoryPrisma.getUserById'))
         }
         
     }

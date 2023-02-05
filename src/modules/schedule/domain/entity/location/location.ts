@@ -20,7 +20,7 @@ export class Location {
     }
 
     get value(){
-        return{
+        return {
             id:this.id.value,
             address:this.address,
         }

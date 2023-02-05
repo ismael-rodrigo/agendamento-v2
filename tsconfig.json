@@ -6,8 +6,12 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "target": "es5",
+    
 
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  }
+  },
+
+  "include": ["src"],
+  "exclude": ["node_modules" , "**/*.spec.ts" , "**/*.test.ts" ]
 }

@@ -7,4 +7,6 @@ export interface CreateLocationData {
 export interface LocationData {
     id:string
     address:string
+    created_at?: Date
+    updated_at?: Date
 }

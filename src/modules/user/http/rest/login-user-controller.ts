@@ -1,5 +1,5 @@
 import { Controller } from './../../../_ports/controllers/controller';
-import { LoginUserUseCase } from "../../domain/use-case/login-user/login-user";
+import { LoginUserUseCase } from "../../../auth/domain/usecases/login-user/login-user";
 import { HttpRequest, HttpResponse } from "../../../_ports/controllers/http";
 import { badRequest, ok } from "../../../_ports/controllers/helper";
 

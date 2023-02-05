@@ -2,7 +2,7 @@ import { IJwtProvider } from "../../../../_ports/providers/jwt/jwt-provider.inte
 import { IPasswordEncryptProvider } from "../../../../_ports/providers/password-encrypt/password-encrypt.interface";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { CredentialsInvalidError } from "../../../../../shared/errors-handler/errors/credentials-invalid-error";
-import { IUserRepository } from "../../port/user-repository.interface";
+import { IUserRepository } from "../../../../user/domain/port/user-repository.interface";
 import { LoginUserRequest, LoginUserResponse } from "./login-user-data";
 
 

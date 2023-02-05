@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
     "dev": "ts-node-dev src/main/server.ts",
     "create:admin": "ts-node-dev src/scripts/create-admin-user.ts",
     "test": "set NODE_ENV=test && vitest run -c vitest.config.integration.ts",
@@ -40,6 +42,7 @@
     "moment-range": "^4.0.2",
     "prisma": "^4.8.0",
     "reflect-metadata": "^0.1.13",
+    "rimraf": "^4.1.2",
     "tsyringe": "^4.7.0",
     "uuid": "^9.0.0",
     "yup": "^0.32.11",

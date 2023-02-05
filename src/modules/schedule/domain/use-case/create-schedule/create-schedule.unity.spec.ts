@@ -257,6 +257,7 @@ describe('Create schedule use case test',()=>{
                 service_id: context.service1.id ,
                 user_id: context.user1.id
             })
+
             expect(await prisma.schedule.count()).toEqual(1)
             expect(schedule1.isLeft()).toEqual(false)
             if(schedule1.isLeft()) return
