@@ -23,11 +23,11 @@ export class Schedule {
     }
 
     static create({ id, date , hour , service , user_id , intervalAvailable }: CreateScheduleData ) :Either< InvalidParamsError , Schedule>  {
-      if(!date) return Left.create(new InvalidParamsError("Date not valid"))
-      if(!hour) return Left.create(new InvalidParamsError("Hour not valid"))
-      if(!service) return Left.create(new InvalidParamsError("Service not valid"))
-      if(!user_id) return Left.create(new InvalidParamsError("User not valid"))
-      if(!intervalAvailable) return Left.create(new InvalidParamsError("Interval not valid"))
+      if(!date) return Left.create(new InvalidParamsError("Date not provided"))
+      if(!hour) return Left.create(new InvalidParamsError("Hour not provided"))
+      if(!service) return Left.create(new InvalidParamsError("Service not provided"))
+      if(!user_id) return Left.create(new InvalidParamsError("User not provided"))
+      if(!intervalAvailable) return Left.create(new InvalidParamsError("Interval not provided"))
 
 
       const _id = id ? Uuid.create(id) : Uuid.create()
