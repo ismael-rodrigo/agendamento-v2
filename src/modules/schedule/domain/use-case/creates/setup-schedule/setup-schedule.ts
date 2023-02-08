@@ -1,12 +1,12 @@
-import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
-import { Left, Right } from "../../../../../shared/errors-handler/either";
-import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
-import { Schedule } from "../../entity/schedule/schedule";
-import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";
-import { IHoursRepository } from "../../port/repository/hours-repository.interface";
-import { IScheduleRepository } from "../../port/repository/schedule-repository.interface";
-import { IServiceRepository } from "../../port/repository/service-repository.interface";
-import { CreateScheduleDTO } from "./create-schedule-DTO";
+import { AppError } from "../../../../../../shared/errors-handler/errors/app-error";
+import { Left, Right } from "../../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error";
+import { Schedule } from "../../../entity/schedule/schedule";
+import { ICommonUserRepository } from "../../../port/repository/common-user-repository.interface";
+import { IHoursRepository } from "../../../port/repository/hours-repository.interface";
+import { IScheduleRepository } from "../../../port/repository/schedule-repository.interface";
+import { IServiceRepository } from "../../../port/repository/service-repository.interface";
+import { CreateScheduleDTO } from "./setup-schedule-DTO";
 
 
 export class CreateSchedule {

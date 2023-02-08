@@ -1,7 +1,7 @@
-import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
-import { Left, Right } from "../../../../../shared/errors-handler/either";
-import { CommomUser } from "../../entity/common-user/common-user";
-import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";
+import { AppError } from "../../../../../../shared/errors-handler/errors/app-error";
+import { Left, Right } from "../../../../../../shared/errors-handler/either";
+import { CommomUser } from "../../../entity/common-user/common-user";
+import { ICommonUserRepository } from "../../../port/repository/common-user-repository.interface";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
 export class CreateCommonUser {

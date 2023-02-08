@@ -1,13 +1,13 @@
-import { getDaysArray } from "../../../../../shared/utils/dates-utils/get-array-of-dates-between-two-dates";
-import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
-import { Left, Right } from "../../../../../shared/errors-handler/either";
-import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
-import { IHoursRepository } from "../../port/repository/hours-repository.interface";
-import { IScheduleRepository } from "../../port/repository/schedule-repository.interface";
+import { getDaysArray } from "../../../../../../shared/utils/dates-utils/get-array-of-dates-between-two-dates";
+import { AppError } from "../../../../../../shared/errors-handler/errors/app-error";
+import { Left, Right } from "../../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error";
+import { IHoursRepository } from "../../../port/repository/hours-repository.interface";
+import { IScheduleRepository } from "../../../port/repository/schedule-repository.interface";
 import { DatesAvailables, FindDatesDTO } from "./find-dates-available-DTO";
 
 
-export class FindDatesServiceAvailableUseCase {
+export class FindDatesAvailableUseCase {
     constructor(
         private scheduleRepository: IScheduleRepository  ,
         private hoursRepository : IHoursRepository

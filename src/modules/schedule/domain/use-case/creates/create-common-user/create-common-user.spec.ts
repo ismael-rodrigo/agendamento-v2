@@ -1,11 +1,12 @@
+import { CommomUserInMemoryRepository } from './../../../../../../external/repository/common-user/common-user-repository-in-memory';
 import { beforeEach, describe, expect, it } from "vitest";
-import { getOldDate } from "../../../../../../tests/utils/get-dates";
-import { BirthDate } from "../../../../../shared/entities/birth-date";
-import { Cpf } from "../../../../../shared/entities/cpf";
-import { Name } from "../../../../../shared/entities/name";
-import { Phone } from "../../../../../shared/entities/phone";
-import { Uuid } from "../../../../../shared/entities/uuid";
-import { CommomUserInMemoryRepository } from "../../../../../external/repository/common-user/common-user-repository-in-memory";
+import { getOldDate } from "../../../../../../../tests/utils/get-dates";
+import { BirthDate } from "../../../../../../shared/entities/birth-date";
+import { Cpf } from "../../../../../../shared/entities/cpf";
+import { Name } from "../../../../../../shared/entities/name";
+import { Phone } from "../../../../../../shared/entities/phone";
+import { Uuid } from "../../../../../../shared/entities/uuid";
+
 import { CreateCommonUser } from "./create-common-user";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
