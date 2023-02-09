@@ -1,3 +1,4 @@
+import { ConfigSchedulePrismaRepository } from './../../../../../../external/repository/configs-repository/configs-schedule-prisma';
 import { PrismaClient } from '@prisma/client';
 import { ContextSchedule } from '../../../../../../../tests/utils/populateScheduleContext/context';
 
@@ -29,7 +30,8 @@ describe('Create schedule use case test',()=>{
             const commonUserRepo = new CommomUserPrismaRepository(prisma) 
             const serviceRepo =  new ServicePrismaRepository(prisma)
             const hourRepo = new HoursPrismaRepository(prisma)
-            sut = new CreateSchedule( schedRepo , commonUserRepo , serviceRepo , hourRepo )
+            const configScheduleRepo = new ConfigSchedulePrismaRepository(prisma)
+            sut = new CreateSchedule( configScheduleRepo , schedRepo , commonUserRepo , serviceRepo , hourRepo )
         })
 
 

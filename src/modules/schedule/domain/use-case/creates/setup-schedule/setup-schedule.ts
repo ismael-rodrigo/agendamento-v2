@@ -7,14 +7,17 @@ import { IHoursRepository } from "../../../port/repository/hours-repository.inte
 import { IScheduleRepository } from "../../../port/repository/schedule-repository.interface";
 import { IServiceRepository } from "../../../port/repository/service-repository.interface";
 import { CreateScheduleDTO } from "./setup-schedule-DTO";
+import { IConfigsSchedulesRepository } from "../../../port/repository/configs-schedules-repository.interface";
 
 
 export class CreateSchedule {
     constructor(
+        private readonly configsRepo:IConfigsSchedulesRepository ,
         private readonly scheduleRepo:IScheduleRepository , 
         private readonly commonUserRepo:ICommonUserRepository ,
         private readonly serviceRepo:IServiceRepository ,
-        private readonly hoursRepo:IHoursRepository
+        private readonly hoursRepo:IHoursRepository , 
+        
         ){}
 
     async execute({ date , hour_id ,service_id , user_id }: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
@@ -26,6 +29,15 @@ export class CreateSchedule {
         const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
         if(intervalAvalilable.isLeft()) return Left.create(new AppError(intervalAvalilable.error.detail,intervalAvalilable.error.type))
         if(!intervalAvalilable.value) return Left.create(new AppError('IntervalAvailable not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
+
+
+        const dayDisabledConflict = await this.configsRepo.findDayDisabled( date.getDay() , service_id )
+        if(dayDisabledConflict.isLeft()) return Left.create(dayDisabledConflict.error)
+        if(dayDisabledConflict.value) return Left.create(new InvalidParamsError('Day not available' , 'DAY_NOT_AVAILABLE'))
+
+        const dateDisabledConflict = await this.configsRepo.findDateDisabled( date , service_id )
+        if(dateDisabledConflict.isLeft()) return Left.create(dateDisabledConflict.error)
+        if(dateDisabledConflict.value) return Left.create(new InvalidParamsError('Date not available' , 'DATE_NOT_AVAILABLE'))
 
         const userAlreadyExists = await this.commonUserRepo.findUserById(user_id)
         if(userAlreadyExists.isLeft()) return Left.create(userAlreadyExists.error)
