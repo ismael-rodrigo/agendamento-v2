@@ -29,7 +29,7 @@ export class CreateUserUseCase {
     }
 
 
-    const result = await this.userRepository.createUser({ password:userOrError.value.password.value , username:userOrError.value.username.value })
+    const result = await this.userRepository.createUser( {id:userOrError.value.id.value , password:userOrError.value.password.value , username:userOrError.value.username.value })
     if(result.isLeft()){
         return Left.create(result.error)
     }

@@ -1,5 +1,5 @@
-import { Either } from "../../../../../../shared/errors-handler/either"
-import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error"
+import { Either } from "../../../../../shared/errors-handler/either"
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
 
 
 

@@ -1,3 +1,8 @@
+import { DayDisabledData } from './../../../src/modules/schedule/domain/entity/day-disabled/day-disabled-data';
+import { DateDisabledData } from './../../../src/modules/schedule/domain/entity/date-disabled/date-disabled-data';
+import { DayDisabled } from './../../../src/modules/schedule/domain/entity/day-disabled/day-disabled';
+import { createDateDisabled } from './populateDateDisabled';
+import { createDayDisabled } from './populateDayDisabled';
 import { createUser } from './populateUsers';
 import { createInterval } from './populateIntervals';
 import { createService } from './populateServices';
@@ -16,8 +21,15 @@ export const contextSchedule = async (prisma:PrismaClient)=>{
     const service1 = await createService(location.id , prisma)
     const service2 = await createService(location.id , prisma)
 
-    const intervalOfTheService1 = await createInterval(service1.id ,getFutureDate('2022-05-02'), getFutureDate('2022-05-20') , prisma)
-    const intervalOfTheService2 = await createInterval(service2.id ,getFutureDate('2022-05-10'), getFutureDate('2022-05-25') , prisma)
+    const intervalOfTheService1 = await createInterval(service1.id , getFutureDate('2022-05-02'), getFutureDate('2022-05-20') , prisma)
+    const dayDisabledService1 = await createDayDisabled(service1.id , 0 , prisma)
+    const dayDisabled2Service1 = await createDayDisabled(service1.id , 5 , prisma)
+
+    const dateDisabledService1 = await createDateDisabled(service1.id , getFutureDate('2022-05-10') , prisma)
+    const dateDisabled2Service1 = await createDateDisabled(service1.id , getFutureDate('2022-05-13') , prisma)
+
+    const intervalOfTheService2 = await createInterval(service2.id , getFutureDate('2022-05-10'), getFutureDate('2022-05-25') , prisma)
+
 
     const hoursAvailableOfTheService1 = await createHour(service1.id , 10 , 12 , prisma)
     const hoursAvailable2OfTheService1 = await createHour(service1.id , 12 , 20 , prisma)
@@ -42,6 +54,10 @@ export const contextSchedule = async (prisma:PrismaClient)=>{
         user1,
         user2,
         user3,
+        dayDisabledService1 ,
+        dayDisabled2Service1 ,
+        dateDisabledService1 ,
+        dateDisabled2Service1
     }
 
 
@@ -60,4 +76,8 @@ export interface ContextSchedule {
     user1: CommomUser
     user2: CommomUser
     user3: CommomUser
+    dayDisabledService1 :DayDisabledData
+    dayDisabled2Service1 :DayDisabledData
+    dateDisabledService1 :DateDisabledData
+    dateDisabled2Service1:DateDisabledData
 }

@@ -1,4 +1,4 @@
-import { FindDatesAvailableUseCase } from '../../domain/use-case/finds/find-dates-availables/find-dates-availables';
+import { FindDatesAvailableUseCase } from '../../domain/use-case/find-dates-availables/find-dates-availables';
 import { HttpRequest } from './../../../_ports/controllers/http';
 import { Controller } from './../../../_ports/controllers/controller';
 import { badRequest, ok } from "../../../_ports/controllers/helper";

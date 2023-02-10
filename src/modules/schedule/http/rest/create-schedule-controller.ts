@@ -1,6 +1,6 @@
 import { HttpRequest } from './../../../_ports/controllers/http';
 import { Controller } from './../../../_ports/controllers/controller';
-import { CreateSchedule } from "../../domain/use-case/creates/setup-schedule/setup-schedule";
+import { CreateSchedule } from "../../domain/use-case/setup-schedule/setup-schedule";
 import { badRequest, ok } from '../../../_ports/controllers/helper';
 
 

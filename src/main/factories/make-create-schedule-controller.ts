@@ -1,5 +1,5 @@
 import { prisma } from './../../external/prisma-client/client';
-import { CreateSchedule } from '../../modules/schedule/domain/use-case/creates/setup-schedule/setup-schedule';
+import { CreateSchedule } from '../../modules/schedule/domain/use-case/setup-schedule/setup-schedule';
 import { CreateScheduleController } from './../../modules/schedule/http/rest/create-schedule-controller';
 import { CommomUserPrismaRepository } from '../../external/repository/common-user/common-user-repository-prisma';
 import { ScheduleRepositoryPrisma } from '../../external/repository/schedule/schedule-repository-prisma';

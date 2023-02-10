@@ -1,14 +1,17 @@
-import { CreateUserData } from './../../entity/user-data';
+import { User } from './../../../../user/domain/entity/user';
+
 import { LoginUserUseCase } from './login-user';
 import { prismaMocked } from './../../../../../../prisma/__mocks__/index';
 import { PasswordEncryptProvider } from './../../../../../shared/adapters/password-encrypt-provider/password-encrypt';
 import { describe, expect, it } from "vitest";
-import { User } from "../../entity/user";
+
 import { UserRepositoryPrisma } from '../../../../../external/repository/user-repository-prisma';
 import { JwtProvider } from '../../../../../shared/adapters/jwt-provider/jwt-provider';
 import { CredentialsInvalidError } from '../../../../../shared/errors-handler/errors/credentials-invalid-error';
 import { beforeEach } from 'vitest';
-import { IUserRepository } from '../../port/user-repository.interface';
+import { IUserRepository } from '../../../../user/domain/port/user-repository.interface';
+import { CreateUserData } from '../../../../user/domain/entity/user-data';
+
 
 describe('login user',()=>{
     let userRepo:IUserRepository

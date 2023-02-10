@@ -1,13 +1,13 @@
-import { AppError } from "../../../../../../shared/errors-handler/errors/app-error";
-import { Left, Right } from "../../../../../../shared/errors-handler/either";
-import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error";
-import { Schedule } from "../../../entity/schedule/schedule";
-import { ICommonUserRepository } from "../../../port/repository/common-user-repository.interface";
-import { IHoursRepository } from "../../../port/repository/hours-repository.interface";
-import { IScheduleRepository } from "../../../port/repository/schedule-repository.interface";
-import { IServiceRepository } from "../../../port/repository/service-repository.interface";
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
+import { Schedule } from "../../entity/schedule/schedule";
+import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";
+import { IHoursRepository } from "../../port/repository/hours-repository.interface";
+import { IScheduleRepository } from "../../port/repository/schedule-repository.interface";
+import { IServiceRepository } from "../../port/repository/service-repository.interface";
 import { CreateScheduleDTO } from "./setup-schedule-DTO";
-import { IConfigsSchedulesRepository } from "../../../port/repository/configs-schedules-repository.interface";
+import { IConfigsSchedulesRepository } from "../../port/repository/configs-schedules-repository.interface";
 
 
 export class CreateSchedule {
@@ -26,7 +26,7 @@ export class CreateSchedule {
         if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
         if(!serviceAlreadyExists.value) return Left.create(new InvalidParamsError('Service not exists', 'SERVICE_NOT_EXISTS'))
 
-        const intervalAvalilable = await this.scheduleRepo.findCurrentIntervalSchedulesAvailable(service_id)
+        const intervalAvalilable = await this.configsRepo.findIntervalAvailable(service_id)
         if(intervalAvalilable.isLeft()) return Left.create(new AppError(intervalAvalilable.error.detail,intervalAvalilable.error.type))
         if(!intervalAvalilable.value) return Left.create(new AppError('IntervalAvailable not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
 

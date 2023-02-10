@@ -1,6 +1,6 @@
 import { ScheduleData } from './../../../modules/schedule/domain/entity/schedule/schedule-data';
 import { Schedule } from './../../../modules/schedule/domain/entity/schedule/schedule';
-import {  IntervalDateAvailable, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { IScheduleRepository } from "../../../modules/schedule/domain/port/repository/schedule-repository.interface";
 import { Either, Left, Right } from "../../../shared/errors-handler/either";
 import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
@@ -11,29 +11,20 @@ import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic
 export class ScheduleRepositoryPrisma implements IScheduleRepository {
     constructor(private client:PrismaClient){}
     
-    async findCurrentIntervalSchedulesAvailable(service_id:string) : Promise <Either< DbGenericError, IntervalDateAvailable | null>> {
+    async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date){
         try{
-            const result = await this.client.intervalDateAvailable.findUnique({
+            const result = await this.client.schedule.findMany({
                 where:{
-                    service_id:service_id
+                    service_id:service_id,
+                    date: date_consulted
                 }
-            })
+                })
+
             return Right.create(result)
         }
-        catch (err ){
-            return Left.create(new DbGenericError('findCurrentIntervalSchedulesAvailable'))
+        catch( err){
+            return Left.create(new DbGenericError('ScheduleRepositoryPrisma.findSchedulesByDateAndServiceId'))
         }
-
-    }
-
-    async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date){
-        const result = await this.client.schedule.findMany({
-            where:{
-                service_id:service_id,
-                date: date_consulted
-            }
-        })
-        return result
     }
 
 

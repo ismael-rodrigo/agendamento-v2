@@ -6,8 +6,7 @@ import { ScheduleData } from "../../entity/schedule/schedule-data";
 
 
 export interface IScheduleRepository {
-    findCurrentIntervalSchedulesAvailable(service_id:string): Promise <Either< DbGenericError, IntervalDateAvailable | null>>
-    findSchedulesByDateAndServiceId(service_id: string, date_consulted: Date): Promise <ScheduleData[]>
+    findSchedulesByDateAndServiceId(service_id: string, date_consulted: Date): Promise<Either< DbGenericError , ScheduleData[]>>
     findUserScheduleInDate(date_consulted: Date , user_id:string):Promise <Either<DbGenericError ,ScheduleData | null>>
     findSpecificSchedule(service_id: string, date_consulted: Date , hour_id:string):Promise <Either<DbGenericError , ScheduleData | null>>
     createSchedule(params:Schedule): Promise< Either< DbGenericError , ScheduleData>>

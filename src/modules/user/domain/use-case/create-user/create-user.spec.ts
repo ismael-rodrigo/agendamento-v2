@@ -33,10 +33,13 @@ describe('create user with prisma implementation', ()=>{
                 username:validUsername,
                 password:validPassword
             })
-            expect(result.isLeft()).toEqual(false)
+            
             if(!result.isLeft()) return
+
+            expect(result.isLeft()).toEqual(false)
             expect(result.error).instanceOf(AppError)
             expect( await prismaMocked.user.count()).toBe(1)
+
         })
 
 

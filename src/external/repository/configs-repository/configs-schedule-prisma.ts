@@ -1,3 +1,4 @@
+import { IntervalDateAvailableData } from './../../../modules/schedule/domain/entity/intervalAvailable/interval-data';
 import { Left, Right } from './../../../shared/errors-handler/either';
 import { PrismaClient } from '@prisma/client';
 import { DateDisabled } from '../../../modules/schedule/domain/entity/date-disabled/date-disabled';
@@ -12,13 +13,30 @@ export class ConfigSchedulePrismaRepository implements IConfigsSchedulesReposito
 
     constructor (private prisma:PrismaClient){}
 
+    async findIntervalAvailable(service_id:string) : Promise <Either< DbGenericError, IntervalDateAvailableData | null>> {
+        try{
+            const result = await this.prisma.intervalDateAvailable.findUnique({
+                where:{
+                    service_id:service_id
+                }
+            })
+            return Right.create(result)
+        }
+        catch (err ){
+            return Left.create( new DbGenericError('findCurrentIntervalSchedulesAvailable'))
+        }
+
+    }
+
+
+
     async addDayDisabled(day: DayDisabled): Promise<Either<DbGenericError, DayDisabledData>> {
         throw new Error('Method not implemented.');
     }
     async addDateDisabled(date: DateDisabled): Promise<Either<DbGenericError, DateDisabledData >> {
         throw new Error('Method not implemented.');
     }
-    
+
     async findDayDisabled(day: number, service_id: string): Promise<Either<DbGenericError, DayDisabledData | null>> {
         try {
             const result = await this.prisma.dayDisabled.findFirst({

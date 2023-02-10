@@ -1,6 +1,5 @@
-import { prismaMocked } from '../../prisma/__mocks__/index';
 import supertest from 'supertest';
-import { describe, expect, it } from "vitest";
+import { describe, it } from "vitest";
 import { app } from '../../src/main/server';
 
 

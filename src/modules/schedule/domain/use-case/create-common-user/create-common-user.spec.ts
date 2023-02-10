@@ -1,14 +1,13 @@
-import { CommomUserInMemoryRepository } from './../../../../../../external/repository/common-user/common-user-repository-in-memory';
+import { CommomUserInMemoryRepository } from './../../../../../external/repository/common-user/common-user-repository-in-memory';
 import { beforeEach, describe, expect, it } from "vitest";
-import { getOldDate } from "../../../../../../../tests/utils/get-dates";
-import { BirthDate } from "../../../../../../shared/entities/birth-date";
-import { Cpf } from "../../../../../../shared/entities/cpf";
-import { Name } from "../../../../../../shared/entities/name";
-import { Phone } from "../../../../../../shared/entities/phone";
-import { Uuid } from "../../../../../../shared/entities/uuid";
-
+import { getOldDate } from "../../../../../../tests/utils/get-dates";
 import { CreateCommonUser } from "./create-common-user";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
+import { Uuid } from '../../../../../shared/entities/uuid';
+import { Cpf } from '../../../../../shared/entities/cpf';
+import { Phone } from '../../../../../shared/entities/phone';
+import { BirthDate } from '../../../../../shared/entities/birth-date';
+import { Name } from '../../../../../shared/entities/name';
 
 describe('create common user', ()=>{
     describe('Create common user with valid params',()=>{
