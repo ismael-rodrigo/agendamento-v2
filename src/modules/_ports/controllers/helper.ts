@@ -4,7 +4,7 @@ import { HttpResponse } from "./http"
 
 export const badRequest = (error: AppError): HttpResponse => ({
   statusCode: error.statusCode,
-  body: error.detail
+  body: error.getJsonResponse()
 })
 
 export const ok = <L>(data: L): HttpResponse => ({

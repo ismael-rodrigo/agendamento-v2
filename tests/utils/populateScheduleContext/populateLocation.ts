@@ -6,7 +6,8 @@ export const  createLocation = async (prisma:PrismaClient) =>{
     const locationCreated = await prisma.location.create({
         data:{
             address:'address',
-            id:Uuid.create().value
+            id:Uuid.create().value,
+            name:'Casa do cidadao'
         }
     })
     return locationCreated
