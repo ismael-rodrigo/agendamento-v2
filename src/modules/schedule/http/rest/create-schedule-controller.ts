@@ -14,6 +14,6 @@ export class CreateScheduleController implements Controller {
             return badRequest(result.error)
         }
         return ok(result.value);
-        
+
     }
 }
