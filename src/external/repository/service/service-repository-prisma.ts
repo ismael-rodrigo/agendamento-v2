@@ -9,6 +9,20 @@ import { DbGenericError } from '../../../shared/errors-handler/errors/db-generic
 
 export class ServicePrismaRepository implements IServiceRepository {
     constructor(private client:PrismaClient){}
+
+    async findServicesByLocationId(location_id: string): Promise<Either<DbGenericError, ServiceData[]>> {
+        try{
+            const result = await this.client.service.findMany({
+                where:{
+                    location_id:location_id
+                }
+            })
+            return Right.create(result)
+        }
+        catch(err ){
+            return Left.create(new DbGenericError('ServicePrismaRepository.findServicesByLocationId'))
+        }
+    }
     
     async findServiceById(service_id: string): Promise<Either<DbGenericError, ServiceData | null>> {
         try {
@@ -16,7 +30,7 @@ export class ServicePrismaRepository implements IServiceRepository {
             return Right.create(service)
         }
         catch (err){
-            return Left.create(new DbGenericError)
+            return Left.create(new DbGenericError('ServicePrismaRepository.findServiceById'))
         }
     }
 

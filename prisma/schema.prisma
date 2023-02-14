@@ -71,6 +71,7 @@ model Schedule {
 model Location{
   id String @id
   address String
+  name String
   service Service[]
 }
 

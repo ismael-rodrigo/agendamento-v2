@@ -1,7 +1,8 @@
-import { Either } from "../../../../../../shared/errors-handler/either"
-import { AppError } from "../../../../../../shared/errors-handler/errors/app-error"
-import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error"
-import { HourAvailableData } from "../../../entity/hours/hours-data"
+import { Either } from "../../../../../shared/errors-handler/either"
+import { AppError } from "../../../../../shared/errors-handler/errors/app-error"
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error"
+import { HourAvailableData } from "../../entity/hours/hours-data"
+
 
 
 export type HoursAvailables = {

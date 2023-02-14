@@ -1,8 +1,6 @@
-
-import { Left, Right } from "../../../../../../shared/errors-handler/either";
-import { AppError } from "../../../../../../shared/errors-handler/errors/app-error";
-import { InvalidParamsError } from "../../../../../../shared/errors-handler/errors/invalid-params-error";
-import { IHoursRepository } from "../../../port/repository/hours-repository.interface";
+import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
+import { IHoursRepository } from "../../port/repository/hours-repository.interface";
 import { VerifyHoursAvailableDTO } from "./find-hours-available-DTO";
 
 
@@ -19,15 +17,12 @@ export class FindHoursByDateServiceAvailableUseCase {
         const result = await this.hoursRepository.findHoursAvailableInDate( service_id , date_consulted )
 
         if(result.isLeft()){
-            return Left.create(new AppError(result.error.detail , result.error.type) )
+            return Left.create(result.error)
         }
 
         return Right.create({
             date:date_consulted,
             hours:result.value
         })
-
     }
-
-
 }
