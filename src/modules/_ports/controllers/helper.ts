@@ -12,6 +12,11 @@ export const ok = <L>(data: L): HttpResponse => ({
   body: data
 })
 
+export const created = <L>(data: L): HttpResponse => ({
+  statusCode: 201,
+  body: data
+})
+
 export const serverError = (reason: string): HttpResponse => ({
   statusCode: 500,
   body: new AppError(reason , 'SERVER_ERROR')

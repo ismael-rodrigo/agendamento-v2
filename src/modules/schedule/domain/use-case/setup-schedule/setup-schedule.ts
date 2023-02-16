@@ -27,7 +27,7 @@ export class CreateSchedule {
         if(!serviceAlreadyExists.value) return Left.create(new InvalidParamsError('Service not exists', 'SERVICE_NOT_EXISTS'))
 
         const intervalAvalilable = await this.configsRepo.findIntervalAvailable(service_id)
-        if(intervalAvalilable.isLeft()) return Left.create(new AppError(intervalAvalilable.error.detail,intervalAvalilable.error.type))
+        if(intervalAvalilable.isLeft()) return Left.create(intervalAvalilable.error)
         if(!intervalAvalilable.value) return Left.create(new AppError('IntervalAvailable not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
 
 
