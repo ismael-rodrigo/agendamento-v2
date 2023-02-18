@@ -1,3 +1,5 @@
+import { EmailScheduleStructure } from './make-email-structure';
+import { IEmailService } from './../../../../_ports/providers/email/email-service.interface';
 import { AppError } from "../../../../../shared/errors-handler/errors/app-error";
 import { Left, Right } from "../../../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../../../shared/errors-handler/errors/invalid-params-error";
@@ -18,10 +20,13 @@ export class CreateSchedule {
         private readonly serviceRepo:IServiceRepository ,
         private readonly hoursRepo:IHoursRepository , 
         
+        private readonly emailService:IEmailService
         ){}
 
     async execute({ date , hour_id ,service_id , user_id }: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
-    
+   
+        console.log(date , hour_id ,service_id , user_id)
+
         const serviceAlreadyExists = await this.serviceRepo.findServiceById(service_id)
         if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
         if(!serviceAlreadyExists.value) return Left.create(new InvalidParamsError('Service not exists', 'SERVICE_NOT_EXISTS'))
@@ -31,11 +36,11 @@ export class CreateSchedule {
         if(!intervalAvalilable.value) return Left.create(new AppError('IntervalAvailable not found in service' , 'NOT_INTERVAL_IN_SERVICE'))
 
 
-        const dayDisabledConflict = await this.configsRepo.findDayDisabled( date.getDay() , service_id )
+        const dayDisabledConflict = await this.configsRepo.findDayDisabled( new Date(date).getDay() , service_id )
         if(dayDisabledConflict.isLeft()) return Left.create(dayDisabledConflict.error)
         if(dayDisabledConflict.value) return Left.create(new InvalidParamsError('Day not available' , 'DAY_NOT_AVAILABLE'))
 
-        const dateDisabledConflict = await this.configsRepo.findDateDisabled( date , service_id )
+        const dateDisabledConflict = await this.configsRepo.findDateDisabled( new Date(date) , service_id )
         if(dateDisabledConflict.isLeft()) return Left.create(dateDisabledConflict.error)
         if(dateDisabledConflict.value) return Left.create(new InvalidParamsError('Date not available' , 'DATE_NOT_AVAILABLE'))
 
@@ -49,7 +54,7 @@ export class CreateSchedule {
 
 
         const schedule = Schedule.create({
-            date: date, 
+            date: new Date(date), 
             hour: hourAlreadyExists.value,
             service:serviceAlreadyExists.value,
             user_id: user_id ,
@@ -72,6 +77,16 @@ export class CreateSchedule {
         const result = await this.scheduleRepo.createSchedule(schedule.value)
         if(result.isLeft()){
             return Left.create(result.error)
+        }
+
+        const resultEmailSend = await this.emailService.send( EmailScheduleStructure.make({
+            date:new Date(date),
+            hour:hourAlreadyExists.value,
+            user:userAlreadyExists.value
+        }) )
+
+        if(resultEmailSend.isLeft()){
+            return Left.create(resultEmailSend.error)
         }
 
         return Right.create(result.value)

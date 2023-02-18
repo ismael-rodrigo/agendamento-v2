@@ -32,7 +32,9 @@
     "vitest": "^0.26.3"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.272.0",
     "@prisma/client": "^4.8.0",
+    "aws-sdk": "^2.1318.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "cpf-cnpj-validator": "^1.0.3",

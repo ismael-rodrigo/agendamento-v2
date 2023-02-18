@@ -37,9 +37,9 @@ export const contextSchedule = async (prisma:PrismaClient)=>{
     const hoursAvailableOfTheService2 = await createHour(service2.id , 9 , 40 , prisma)
     const hoursAvailable2OfTheService2 = await createHour(service2.id , 14 , 10 , prisma)
 
-    const user1 = await createUser(prisma)
-    const user2 = await createUser(prisma)
-    const user3 = await createUser(prisma)
+    const user1 = await createUser(prisma , 'ismaelbrasil1@gmail.com')
+    const user2 = await createUser(prisma, 'ismaelbrasil02@gmail.com')
+    const user3 = await createUser(prisma, 'ismaelbrasil03@gmail.com')
 
     return {
         location,

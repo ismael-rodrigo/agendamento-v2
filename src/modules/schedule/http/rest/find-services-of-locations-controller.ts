@@ -2,7 +2,6 @@ import { FindServicesOfLocation } from './../../domain/use-case/find-services-of
 import { HttpRequest } from './../../../_ports/controllers/http';
 import { Controller } from './../../../_ports/controllers/controller';
 import { badRequest, ok } from "../../../_ports/controllers/helper";
-import { FindHoursByDateServiceAvailableUseCase } from '../../domain/use-case/find-hours-availabe/find-hours-availabe';
 
 
 export class FindServicesOfLocationController implements Controller{

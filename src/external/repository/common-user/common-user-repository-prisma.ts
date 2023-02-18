@@ -9,11 +9,38 @@ import { ICommonUserRepository } from "../../../modules/schedule/domain/port/rep
 
 export class CommomUserPrismaRepository implements ICommonUserRepository {
     constructor(private client: PrismaClient){}
-    async createUser({cpf , date_birth , name , phone_number , id  } : CommomUser) : Promise < Either<InvalidParamsError, CommomUserData >> {
+    async findUserByCPF(cpf: string): Promise<Either<DbGenericError, CommomUserData | null>> {
+        try{
+            const result = await this.client.commomUser.findUnique({
+                where:{
+                    cpf
+                }
+            })
+            return Right.create(result)
+        }
+        catch (err) {
+            return Left.create(new DbGenericError('findUserById'))
+        }
+    }
+    async findUserByEmail(email: string): Promise<Either<DbGenericError, CommomUserData | null>> {
+        try{
+            const result = await this.client.commomUser.findUnique({
+                where:{
+                    email
+                }
+            })
+            return Right.create(result)
+        }
+        catch (err) {
+            return Left.create(new DbGenericError('findUserById'))
+        }
+    }
+    async createUser({cpf , date_birth , name , phone_number , id , email } : CommomUser) : Promise < Either<InvalidParamsError, CommomUserData >> {
         if( !id.value || !cpf.value || !date_birth.value || !name.value || !phone_number.value ) return Left.create(new InvalidParamsError)
         try{
             const user_created = await this.client.commomUser.create({
                 data:{
+                    email:email.value,
                     cpf:cpf.value ,
                     date_birth:date_birth.value ,
                     name:name.value ,

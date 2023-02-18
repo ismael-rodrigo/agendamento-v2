@@ -1,3 +1,4 @@
+import { EmailServiceSESImplementation } from './../../external/email/aws-ses';
 import { ConfigSchedulePrismaRepository } from './../../external/repository/configs-repository/configs-schedule-prisma';
 import { prisma } from './../../external/prisma-client/client';
 import { CreateSchedule } from '../../modules/schedule/domain/use-case/setup-schedule/setup-schedule';
@@ -15,13 +16,15 @@ export const makeScheduleController = ():CreateScheduleController =>{
     const serviceRepo = new ServicePrismaRepository(prisma)
     const hoursRepo = new HoursPrismaRepository(prisma)
     const configRepo = new ConfigSchedulePrismaRepository(prisma)
+    const aws = new EmailServiceSESImplementation()
 
     const createScheduleUseCase = new CreateSchedule(
         configRepo,
         scheduleRepo,
         commonUserRepo,
         serviceRepo, 
-        hoursRepo 
+        hoursRepo ,
+        aws
         )
 
     return new CreateScheduleController(createScheduleUseCase)

@@ -1,3 +1,4 @@
+import { Email } from './../../../../../shared/entities/email';
 import { BirthDate } from "../../../../../shared/entities/birth-date"
 import { Cpf } from "../../../../../shared/entities/cpf"
 import { Name } from "../../../../../shared/entities/name"
@@ -19,16 +20,18 @@ import { invalidBirthDateError } from "../../../../../shared/entities/errors/inv
 export class CommomUser {
   public readonly id: Uuid
   public readonly name: Name
+  public readonly email: Email
   public readonly cpf: Cpf
   public readonly phone_number: Phone
   public readonly date_birth : BirthDate
 
-  private constructor (id: Uuid ,name: Name, cpf: Cpf , phone_number:Phone , date_birth : BirthDate) {
+  private constructor (id: Uuid ,name: Name, email:Email ,cpf: Cpf , phone_number:Phone , date_birth : BirthDate) {
     this.id = id
     this.name = name
     this.cpf = cpf
     this.phone_number = phone_number
     this.date_birth = date_birth
+    this.email = email
     Object.freeze(this)
   }
 
@@ -37,27 +40,33 @@ export class CommomUser {
     const cpfOrError = Cpf.create(userData.cpf)
     const phoneOrError = Phone.create(userData.phone_number)
     const birthDateOrError = BirthDate.create(userData.date_birth)
+    const emailOrError = Email.create(userData.email)
     const id_generated = Uuid.create()
 
+    if(emailOrError.isLeft()){
+      return Left.create( emailOrError.error )
+    }
+
     if (nameOrError.isLeft()) {
-      return Left.create( new InvalidNameError(userData.name) )
+      return Left.create( nameOrError.error )
     }
     if (cpfOrError.isLeft()) {
-      return Left.create( new InvalidCpfError(userData.cpf) )
+      return Left.create( cpfOrError.error )
     }
     if (phoneOrError.isLeft()) {
-      return Left.create( new InvalidPhoneError(userData.phone_number) )
+      return Left.create( phoneOrError.error )
     }
     if (birthDateOrError.isLeft()) {
-      return Left.create( new invalidBirthDateError )
+      return Left.create( birthDateOrError.error )
     }
 
     const name = nameOrError.value
-    const email = cpfOrError.value
+    const cpf = cpfOrError.value
     const phone_number = phoneOrError.value
     const birth_date = birthDateOrError.value
+    const email = emailOrError.value
 
-    return Right.create(new CommomUser( id_generated, name, email , phone_number , birth_date ))
+    return Right.create(new CommomUser( id_generated, name, email, cpf , phone_number , birth_date ))
   }
 
 

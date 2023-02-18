@@ -7,6 +7,8 @@ import { CommomUser } from "../../entity/common-user/common-user"
 
 
 export interface ICommonUserRepository {
+    findUserByCPF(cpf:string):Promise <Either <DbGenericError , CommomUserData | null>>
+    findUserByEmail(email:string):Promise <Either <DbGenericError , CommomUserData | null>>
     findUserById(user_id:string): Promise <Either <DbGenericError , CommomUserData | null>>
     createUser(params:CommomUser) : Promise <Either<DbGenericError | InvalidParamsError, CommomUserData >>
 }
