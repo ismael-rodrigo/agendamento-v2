@@ -1,8 +1,8 @@
-import { Right, Left } from './../../shared/errors-handler/either';
+import { Right, Left } from '../../shared/errors-handler/either';
 
 import { Either } from '../../shared/errors-handler/either';
 import { AppError } from '../../shared/errors-handler/errors/app-error';
-import { EmailOptions, IEmailService } from './../../modules/_ports/providers/email/email-service.interface';
+import { EmailOptions, IEmailService } from '../../modules/_ports/providers/email/email-service.interface';
 
 
 import  { SendEmailCommand,  SESClient } from "@aws-sdk/client-ses"

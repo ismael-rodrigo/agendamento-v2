@@ -1,4 +1,4 @@
-import { EmailServiceSESImplementation } from './../../external/email/aws-ses';
+import { EmailServiceSESImplementation } from '../../external/email-service/aws-ses-implementation';
 import { ConfigSchedulePrismaRepository } from './../../external/repository/configs-repository/configs-schedule-prisma';
 import { prisma } from './../../external/prisma-client/client';
 import { CreateSchedule } from '../../modules/schedule/domain/use-case/setup-schedule/setup-schedule';

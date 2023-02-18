@@ -24,8 +24,6 @@ export class CreateSchedule {
         ){}
 
     async execute({ date , hour_id ,service_id , user_id }: CreateScheduleDTO.request): Promise<CreateScheduleDTO.response> {
-   
-        console.log(date , hour_id ,service_id , user_id)
 
         const serviceAlreadyExists = await this.serviceRepo.findServiceById(service_id)
         if(serviceAlreadyExists.isLeft()) return Left.create(serviceAlreadyExists.error)
