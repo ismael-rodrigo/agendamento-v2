@@ -15,7 +15,8 @@ describe('create common user', ()=>{
             cpf:"07328011335",
             date_birth:getOldDate(10),
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com'
         }
 
 
@@ -60,7 +61,8 @@ describe('create common user', ()=>{
                 cpf:"2222222",
                 date_birth:getOldDate(10),
                 name:"Ismael Rodrigo",
-                phone_number:"85981050647"
+                phone_number:"85981050647",
+                email:'ismaelbrasil1@gmail.com'
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -71,7 +73,8 @@ describe('create common user', ()=>{
                 cpf:"07328011335",
                 date_birth: new Date(),
                 name:"Ismael Rodrigo",
-                phone_number:"85981050647"
+                phone_number:"85981050647",
+                email:'ismaelbrasil1@gmail.com'
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -82,7 +85,8 @@ describe('create common user', ()=>{
                 cpf:"07328011335",
                 date_birth: getOldDate(10),
                 name:"21321 123",
-                phone_number:"85981050647"
+                phone_number:"85981050647",
+                email:'ismaelbrasil1@gmail.com'
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -92,7 +96,8 @@ describe('create common user', ()=>{
                 cpf:"07328011335",
                 date_birth: getOldDate(10),
                 name:"Ismael Rodrigo",
-                phone_number:"0000000000000"
+                phone_number:"0000000000000",
+                email:'ismaelbrasil1@gmail.com'
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)

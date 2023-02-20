@@ -11,9 +11,16 @@ export class CommomUserInMemoryRepository implements ICommonUserRepository {
     constructor(){
         this.commmonUsers = []
     }
-    async createUser({cpf , date_birth , name , phone_number , id  } : CommomUser): Promise<Either < InvalidParamsError, CommomUserData>> {
+    findUserByCPF(cpf: string): Promise<Either<DbGenericError, CommomUserData | null>> {
+        throw new Error("Method not implemented.");
+    }
+    findUserByEmail(email: string): Promise<Either<DbGenericError, CommomUserData | null>> {
+        throw new Error("Method not implemented.");
+    }
+    async createUser({cpf , date_birth , name , phone_number , id ,email } : CommomUser): Promise<Either < InvalidParamsError, CommomUserData>> {
         if( !id.value || !cpf.value || !date_birth.value || !name.value || !phone_number.value ) return Left.create(new InvalidParamsError)
         const newCommonUser:CommomUserData = {
+            email:email.value,
             id:id.value,
             cpf:cpf.value,
             name:name.value,

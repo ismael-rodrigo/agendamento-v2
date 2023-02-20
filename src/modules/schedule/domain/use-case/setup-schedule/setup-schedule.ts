@@ -42,6 +42,8 @@ export class CreateSchedule {
         if(dateDisabledConflict.isLeft()) return Left.create(dateDisabledConflict.error)
         if(dateDisabledConflict.value) return Left.create(new InvalidParamsError('Date not available' , 'DATE_NOT_AVAILABLE'))
 
+
+        //remove check user already exists ??
         const userAlreadyExists = await this.commonUserRepo.findUserById(user_id)
         if(userAlreadyExists.isLeft()) return Left.create(userAlreadyExists.error)
         if(!userAlreadyExists.value) return Left.create(new InvalidParamsError('User not exists' , 'USER_NOT_EXISTS'))

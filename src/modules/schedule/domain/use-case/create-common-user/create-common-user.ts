@@ -9,7 +9,7 @@ export class CreateCommonUser {
     async execute( {cpf ,date_birth , name , phone_number , email} : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
         
         
-        const userOrError = CommomUser.create({ cpf , date_birth , name , phone_number ,email})
+        const userOrError = CommomUser.create({ cpf , date_birth , name , phone_number , email})
         if(userOrError.isLeft()){
             return Left.create(userOrError.error)
         }
