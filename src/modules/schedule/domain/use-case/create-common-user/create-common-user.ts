@@ -1,15 +1,20 @@
 
 import { Left, Right } from "../../../../../shared/errors-handler/either";
+import { IPasswordEncryptProvider } from "../../../../_ports/providers/password-encrypt/password-encrypt.interface";
 import { CommomUser } from "../../entity/common-user/common-user";
 import { ICommonUserRepository } from "../../port/repository/common-user-repository.interface";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
 export class CreateCommonUser {
-    constructor(private commonUserRepo:ICommonUserRepository){}
-    async execute( {cpf ,date_birth , name , phone_number , email} : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
+    constructor(
+        private commonUserRepo:ICommonUserRepository,
+        private passwordHasher:IPasswordEncryptProvider
+        
+        ){}
+    async execute( {cpf ,date_birth , name , phone_number , email , password} : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
         
         
-        const userOrError = CommomUser.create({ cpf , date_birth , name , phone_number , email})
+        const userOrError = await CommomUser.create(this.passwordHasher , { cpf , date_birth , name , phone_number , email , password})
         if(userOrError.isLeft()){
             return Left.create(userOrError.error)
         }

@@ -1,3 +1,4 @@
+import { PasswordEncryptProvider } from './../../../../../shared/adapters/password-encrypt-provider/password-encrypt';
 import { describe, expect, it} from 'vitest'
 import { getOldDate } from '../../../../../../tests/utils/get-dates'
 import { InvalidCpfError } from '../../../../../shared/entities/errors/invalid-cpf-error'
@@ -7,16 +8,19 @@ import { InvalidPhoneError } from '../../../../../shared/entities/errors/invalid
 
 import { CommomUser } from './common-user'
 
-
+const passHasher = new PasswordEncryptProvider()
 
 describe('create common user', ()=>{
-    it('create common user with correct values' , ()=>{
+    it('create common user with correct values' , async ()=>{
+        
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher ,{
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(false);
@@ -33,13 +37,16 @@ describe('create common user', ()=>{
 
 describe('not create common user with cpf invalid', ()=>{
 
-    it('should not be able to create common user with cpf null' , ()=>{
+    it('should not be able to create common user with cpf null' , async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+
+        const commonUser = await CommomUser.create(passHasher ,{
             cpf:"",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -47,13 +54,15 @@ describe('not create common user with cpf invalid', ()=>{
         expect(commonUser.error).instanceOf(InvalidCpfError)
     })
 
-    it('should not be able to create common user with cpf invalid' , ()=>{
+    it('should not be able to create common user with cpf invalid' ,async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"00000000000",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -65,14 +74,16 @@ describe('not create common user with cpf invalid', ()=>{
 
 })    
 
-describe('not create common user with name invalid' , ()=>{
-    it('should not be able to create common user with name lenght smaller to 2 character' , ()=>{
+describe('not create common user with name invalid' ,  ()=>{
+    it('should not be able to create common user with name lenght smaller to 2 character' , async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher ,{
             cpf:"07328011335",
             date_birth: brithDate,
             name:"i",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismaerl123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -80,38 +91,44 @@ describe('not create common user with name invalid' , ()=>{
         expect(commonUser.error).instanceOf(InvalidNameError)
     })
 
-    it('should not be able to create common user with name with number character' , ()=>{
+    it('should not be able to create common user with name with number character' , async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher,{
             cpf:"07328011335",
             date_birth: brithDate,
             name:"isma3l",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
         expect(commonUser.error).instanceOf(InvalidNameError)
     })
-    it('should not be able to create common user with name with espaces character' , ()=>{
+    it('should not be able to create common user with name with espaces character' , async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",
             date_birth: brithDate,
             name:"         ",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
         expect(commonUser.error).instanceOf(InvalidNameError)
     })
 
-    it('should not be able to create common user with name with lenght bigger for 70 characters' , ()=>{
+    it('should not be able to create common user with name with lenght bigger for 70 characters' ,async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher ,{
             cpf:"07328011335",
             date_birth: brithDate,
             name:"ismael rodrigo sousa brasil ddddddddddd ddddddddd ddddddddddd dddddddddd",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
@@ -121,13 +138,15 @@ describe('not create common user with name invalid' , ()=>{
 
 describe('not create common user with phone number invalid', ()=>{
 
-    it('should not be able to create common user with phone number null' , ()=>{
+    it('should not be able to create common user with phone number null' ,async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher,{
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:""
+            phone_number:"",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -135,13 +154,15 @@ describe('not create common user with phone number invalid', ()=>{
         expect(commonUser.error).instanceOf(InvalidPhoneError)
     })
 
-    it('should not be able to create common user with (DDD) of phone number invalid' , ()=>{
+    it('should not be able to create common user with (DDD) of phone number invalid' ,async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"00981050647"
+            phone_number:"00981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -149,13 +170,15 @@ describe('not create common user with phone number invalid', ()=>{
         expect(commonUser.error).instanceOf(InvalidPhoneError)
     })
     
-    it('should not be able to create common user with phone number invalid' , ()=>{
+    it('should not be able to create common user with phone number invalid' ,async ()=>{
         const brithDate = getOldDate(10)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85002200220"
+            phone_number:"85002200220",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -168,13 +191,15 @@ describe('not create common user with phone number invalid', ()=>{
     
 describe('not create common user with birth date invalid', ()=>{
 
-    it('should not be able to create common user with years bigger of 120 years' , ()=>{
+    it('should not be able to create common user with years bigger of 120 years' ,async ()=>{
         const brithDate = getOldDate(121)
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -182,13 +207,15 @@ describe('not create common user with birth date invalid', ()=>{
         expect(commonUser.error).instanceOf(invalidBirthDateError)
     })
 
-    it('should not be able to create common user with date birth before or equal to current date' , ()=>{
+    it('should not be able to create common user with date birth before or equal to current date' ,async ()=>{
         const brithDate = new Date()
-        const commonUser = CommomUser.create({
+        const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",
             date_birth: brithDate,
             name:"Ismael Rodrigo",
-            phone_number:"85981050647"
+            phone_number:"85981050647",
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);

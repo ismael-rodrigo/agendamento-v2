@@ -11,10 +11,8 @@ import { InvalidNameError } from "../../../../../shared/entities/errors/invalid-
 import { InvalidCpfError } from "../../../../../shared/entities/errors/invalid-cpf-error"
 import { InvalidPhoneError } from "../../../../../shared/entities/errors/invalid-phone-error"
 import { invalidBirthDateError } from "../../../../../shared/entities/errors/invalid-date-birth-date"
-
-
-
-
+import { Password } from '../../../../../shared/entities/password';
+import { IPasswordEncryptProvider } from '../../../../_ports/providers/password-encrypt/password-encrypt.interface';
 
 
 export class CommomUser {
@@ -24,24 +22,31 @@ export class CommomUser {
   public readonly cpf: Cpf
   public readonly phone_number: Phone
   public readonly date_birth : BirthDate
+  public readonly password: Password
 
-  private constructor (id: Uuid ,name: Name, email:Email ,cpf: Cpf , phone_number:Phone , date_birth : BirthDate) {
+  private constructor (id: Uuid ,name: Name,password:Password , email:Email ,cpf: Cpf , phone_number:Phone , date_birth : BirthDate) {
     this.id = id
     this.name = name
     this.cpf = cpf
     this.phone_number = phone_number
     this.date_birth = date_birth
     this.email = email
+    this.password = password
     Object.freeze(this)
   }
 
-  static create (userData: CreateCommomUser ): Either< InvalidNameError | InvalidCpfError | InvalidPhoneError | invalidBirthDateError , CommomUser > {
+  static async create ( passwordHasher:IPasswordEncryptProvider , userData: CreateCommomUser ): Promise<Either<InvalidNameError | InvalidCpfError | InvalidPhoneError | invalidBirthDateError, CommomUser>> {
     const nameOrError = Name.create(userData.name)
     const cpfOrError = Cpf.create(userData.cpf)
     const phoneOrError = Phone.create(userData.phone_number)
     const birthDateOrError = BirthDate.create(userData.date_birth)
     const emailOrError = Email.create(userData.email)
     const id_generated = Uuid.create()
+    const passwordOrError = await Password.createHashed(passwordHasher , userData.password )
+
+    if(passwordOrError.isLeft()){
+      return Left.create( passwordOrError.error )
+    }
 
     if(emailOrError.isLeft()){
       return Left.create( emailOrError.error )
@@ -65,8 +70,9 @@ export class CommomUser {
     const phone_number = phoneOrError.value
     const birth_date = birthDateOrError.value
     const email = emailOrError.value
+    const password = passwordOrError.value
 
-    return Right.create(new CommomUser( id_generated, name, email, cpf , phone_number , birth_date ))
+    return Right.create(new CommomUser( id_generated, name , password , email, cpf , phone_number , birth_date ))
   }
 
 

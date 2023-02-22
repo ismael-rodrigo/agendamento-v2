@@ -13,6 +13,7 @@ export interface CreateCommomUser {
     cpf :string 
     name :string 
     email: string
+    password: string
     phone_number :string 
     date_birth :Date 
 }

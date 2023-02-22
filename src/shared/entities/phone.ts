@@ -1,5 +1,4 @@
 import { Either, Left, Right } from '../errors-handler/either'
-import { InvalidNameError } from './errors/invalid-name-error'
 import { InvalidPhoneError } from './errors/invalid-phone-error'
 
 
@@ -13,7 +12,7 @@ export class Phone {
 
   static create (phone: string): Either< InvalidPhoneError, Phone> {
     if (!Phone.validate(phone)) {
-      return Left.create(new InvalidNameError(phone))
+      return Left.create(new InvalidPhoneError(phone))
     }
     return Right.create(new Phone(phone))
   }

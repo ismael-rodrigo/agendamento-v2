@@ -12,10 +12,13 @@ export class Name {
   }
 
   static create (name: string): Either<InvalidNameError, Name> {
-    if (!Name.validate(name)) {
-      return Left.create(new InvalidNameError(name))
+
+    if(Name.validate(name)) {
+      return Right.create(new Name(name))
+
     }
-    return Right.create(new Name(name))
+    return Left.create(new InvalidNameError(name))
+
   }
 
   get value (): string {
@@ -23,11 +26,13 @@ export class Name {
   }
 
   static validate (name: string): boolean {
-    if(!/^[a-zA-Z '.-]*$/.test(name)) return false
+    if (
+      !name || 
+      name.trim().length < 2 || 
+      name.trim().length > 70 || 
+      !/^[a-zA-Z '.-]*$/.test(name)
+      ) return false
 
-    if (!name || name.trim().length < 2 || name.trim().length > 70) {
-      return false
-    }
     return true
   }
 }

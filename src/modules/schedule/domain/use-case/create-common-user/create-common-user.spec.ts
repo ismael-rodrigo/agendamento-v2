@@ -1,3 +1,4 @@
+import { PasswordEncryptProvider } from './../../../../../shared/adapters/password-encrypt-provider/password-encrypt';
 import { CommomUserInMemoryRepository } from './../../../../../external/repository/common-user/common-user-repository-in-memory';
 import { beforeEach, describe, expect, it } from "vitest";
 import { getOldDate } from "../../../../../../tests/utils/get-dates";
@@ -16,13 +17,15 @@ describe('create common user', ()=>{
             date_birth:getOldDate(10),
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
-            email:'ismaelbrasil1@gmail.com'
+            email:'ismaelbrasil1@gmail.com',
+            password:'ismael1123'
         }
 
 
         it('should be able to common user with valid params',async ()=>{
             const repoMemory = new CommomUserInMemoryRepository()
-            const sut = new CreateCommonUser(repoMemory)
+            const passwordHasher = new PasswordEncryptProvider()
+            const sut = new CreateCommonUser(repoMemory , passwordHasher)
 
             const resultOrError = await sut.execute(validParams)
 
@@ -53,8 +56,9 @@ describe('create common user', ()=>{
         let sut:CreateCommonUser
         let repoMemory:CommomUserInMemoryRepository
         beforeEach(()=>{
+            const passwordHasher = new PasswordEncryptProvider()
             repoMemory = new CommomUserInMemoryRepository()
-            sut = new CreateCommonUser(repoMemory)
+            sut = new CreateCommonUser(repoMemory , passwordHasher)
         })
         it('should be able to common user with invalid cpf', async ()=>{
             const invalidParams:CreateCommonUserDTO.request = {
@@ -62,7 +66,8 @@ describe('create common user', ()=>{
                 date_birth:getOldDate(10),
                 name:"Ismael Rodrigo",
                 phone_number:"85981050647",
-                email:'ismaelbrasil1@gmail.com'
+                email:'ismaelbrasil1@gmail.com',
+                password:'ismael123'
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -74,7 +79,9 @@ describe('create common user', ()=>{
                 date_birth: new Date(),
                 name:"Ismael Rodrigo",
                 phone_number:"85981050647",
-                email:'ismaelbrasil1@gmail.com'
+                email:'ismaelbrasil1@gmail.com',
+                password:'ismael123'
+
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -86,7 +93,9 @@ describe('create common user', ()=>{
                 date_birth: getOldDate(10),
                 name:"21321 123",
                 phone_number:"85981050647",
-                email:'ismaelbrasil1@gmail.com'
+                email:'ismaelbrasil1@gmail.com',
+                password:'ismael123'
+
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)
@@ -97,7 +106,9 @@ describe('create common user', ()=>{
                 date_birth: getOldDate(10),
                 name:"Ismael Rodrigo",
                 phone_number:"0000000000000",
-                email:'ismaelbrasil1@gmail.com'
+                email:'ismaelbrasil1@gmail.com',
+                password:'ismael123'
+
             }
             const resultOrError = await sut.execute(invalidParams)
             expect(resultOrError.isLeft()).toEqual(true)

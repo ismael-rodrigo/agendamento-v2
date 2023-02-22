@@ -20,7 +20,7 @@ export class User {
     public readonly username:Username
     public readonly password:Password
     public readonly is_admin:boolean
-    private constructor(private readonly passwordHasher:IPasswordEncryptProvider , { id , is_admin , password , username } : UserConstructorParams ){
+    private constructor( { id , is_admin , password , username } : UserConstructorParams ){
         this.id = id
         this.username = username
         this.password = password
@@ -36,7 +36,7 @@ export class User {
 
         const usernameOrError = Username.create(username)
         if(usernameOrError.isLeft()) return Left.create(new InvalidNameError(username))
-        return Right.create(new User(passwordHasher , { password:passwordOrError.value , id:uuid , is_admin:false , username:usernameOrError.value}))
+        return Right.create(new User({ password:passwordOrError.value , id:uuid , is_admin:false , username:usernameOrError.value}))
     }
 
     static isAdmin(userData:UserData){
