@@ -1,13 +1,13 @@
-import { IntervalDateAvailableData } from './../../../modules/schedule/domain/entity/intervalAvailable/interval-data';
-import { Left, Right } from './../../../shared/errors-handler/either';
+import { IntervalDateAvailableData } from '@domain/_entities/intervalAvailable/interval-data';
+import { Left, Right } from '@shared/errors-handler/either';
 import { PrismaClient } from '@prisma/client';
-import { DateDisabled } from '../../../modules/schedule/domain/entity/date-disabled/date-disabled';
-import { DateDisabledData } from '../../../modules/schedule/domain/entity/date-disabled/date-disabled-data';
-import { DayDisabled } from '../../../modules/schedule/domain/entity/day-disabled/day-disabled';
-import { DayDisabledData } from '../../../modules/schedule/domain/entity/day-disabled/day-disabled-data';
-import { Either } from '../../../shared/errors-handler/either';
-import { DbGenericError } from '../../../shared/errors-handler/errors/db-generic-error';
-import { IConfigsSchedulesRepository } from './../../../modules/schedule/domain/port/repository/configs-schedules-repository.interface';
+import { DateDisabled } from '@domain/_entities/date-disabled/date-disabled';
+import { DateDisabledData } from '@domain/_entities/date-disabled/date-disabled-data';
+import { DayDisabled } from '@domain/_entities/day-disabled/day-disabled';
+import { DayDisabledData } from '@domain/_entities/day-disabled/day-disabled-data';
+import { Either } from '@shared/errors-handler/either';
+import { DbGenericError } from '@shared/errors-handler/errors/db-generic-error';
+import { IConfigsSchedulesRepository } from '@domain/_ports/repository/configs-schedules-repository.interface';
 
 export class ConfigSchedulePrismaRepository implements IConfigsSchedulesRepository {
 

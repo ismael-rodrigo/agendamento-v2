@@ -1,9 +1,9 @@
-import { ScheduleData } from './../../../modules/schedule/domain/entity/schedule/schedule-data';
-import { Schedule } from './../../../modules/schedule/domain/entity/schedule/schedule';
+import { ScheduleData } from '@domain/_entities/schedule/schedule-data';
+import { Schedule } from '@domain/_entities/schedule/schedule';
 import { PrismaClient } from "@prisma/client";
-import { IScheduleRepository } from "../../../modules/schedule/domain/port/repository/schedule-repository.interface";
-import { Either, Left, Right } from "../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
+import { IScheduleRepository } from "@domain/_ports/repository/schedule-repository.interface";
+import { Either, Left, Right } from "@shared/errors-handler/either";
+import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 
 
 

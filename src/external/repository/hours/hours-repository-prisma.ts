@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { HourAvailableData } from "../../../modules/schedule/domain/entity/hours/hours-data";
-import { IHoursRepository } from "../../../modules/schedule/domain/port/repository/hours-repository.interface";
-import { Either, Left, Right } from "../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
+import { HourAvailableData } from "@domain/_entities/hours/hours-data";
+import { IHoursRepository } from "@domain/_ports/repository/hours-repository.interface";
+import { Either, Left, Right } from "@shared/errors-handler/either";
+import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 
 
 export class HoursPrismaRepository implements IHoursRepository {

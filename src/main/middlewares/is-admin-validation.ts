@@ -1,8 +1,8 @@
-import { FindUser } from './../../modules/user/domain/use-case/find-user/find-user';
-import { UserIsAdmin } from './../../modules/auth/domain/entity/check-if-user-is-admin/user-is-admin';
+import { FindUser } from "@domain/admin/use-case/find-user/find-user";
+import { User } from "@domain/_entities/user/user";
 import { NextFunction, Request , Response } from "express";
 import { AuthenticationError } from "../../shared/errors-handler/errors/authentication-error";
-import { User } from '../../modules/user/domain/entity/user';
+
 
 
 export class AdminValidationMiddleware {

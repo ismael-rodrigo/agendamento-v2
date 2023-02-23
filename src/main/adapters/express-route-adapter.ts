@@ -1,6 +1,6 @@
-import { Controller } from './../../modules/_ports/controllers/controller';
+import { Controller } from '@domain/_ports/controllers/controller';
 import { Request, Response } from 'express'
-import { HttpRequest } from '../../modules/_ports/controllers/http'
+import { HttpRequest } from '@domain/_ports/controllers/http'
 
 export const adaptRoute = (controller:Controller ) => {
 

@@ -1,9 +1,9 @@
-import { Either, Left, Right } from "../../../shared/errors-handler/either";
-import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
-import { InvalidParamsError } from "../../../shared/errors-handler/errors/invalid-params-error";
-import { CommomUserData } from "../../../modules/schedule/domain/entity/common-user/commom-user-data";
-import { CommomUser } from "../../../modules/schedule/domain/entity/common-user/common-user";
-import { ICommonUserRepository } from "../../../modules/schedule/domain/port/repository/common-user-repository.interface";
+import { Either, Left, Right } from "@shared/errors-handler/either";
+import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
+import { InvalidParamsError } from "@shared/errors-handler/errors/invalid-params-error";
+import { CommomUserData } from "@domain/_entities/common-user/commom-user-data";
+import { CommomUser } from "@domain/_entities/common-user/common-user";
+import { ICommonUserRepository } from "@domain/_ports/repository/common-user-repository.interface";
 
 
 export class CommomUserInMemoryRepository implements ICommonUserRepository {
