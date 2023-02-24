@@ -5,7 +5,7 @@ import { ICommonUserRepository } from "@domain/_ports/repository/common-user-rep
 import { Left, Right } from "@shared/errors-handler/either";
 import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
-export class CreateCommonUser {
+export class RegisterCommonUser {
     constructor(
         private commonUserRepo:ICommonUserRepository,
         private passwordHasher:IPasswordEncryptProvider

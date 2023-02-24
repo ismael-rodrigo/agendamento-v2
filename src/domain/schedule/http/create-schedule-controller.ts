@@ -9,7 +9,13 @@ export class CreateScheduleController implements Controller {
 
     async handle(httpRequest:HttpRequest){
         const params = httpRequest.body
-        const result = await this.createSchedule.execute(params);
+        const user_id = httpRequest.params.user_id
+        const result = await this.createSchedule.execute({
+            service_id: params.service_id,
+            date: params.date,
+            hour_id: params.hour_id,
+            user_id: user_id
+        });
         if(result.isLeft()){
             return badRequest(result.error)
         }

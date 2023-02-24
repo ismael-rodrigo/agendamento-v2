@@ -11,7 +11,7 @@
     "test": "set NODE_ENV=test && vitest run -c vitest.config.integration.ts",
     "test:e2e": "set NODE_ENV=test && vitest run -c vitest.config.e2e.ts",
     "test:unitary": "set NODE_ENV=test && vitest run -c vitest.config.unity.ts",
-    "populate:db": "ts-node-dev scripts/populate-db.ts"
+    "populate:db": "ts-node-dev -r tsconfig-paths/register scripts/populate-db.ts"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^9.3.0",

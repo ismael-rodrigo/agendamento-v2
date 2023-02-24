@@ -11,9 +11,9 @@ export class JwtProvider implements IJwtProvider {
     private readonly REFRESH_SECRET_KEY: Secret
     private readonly ACCESS_EXPIRES: string | number | undefined
     private readonly REFRESH_EXPIRES: string | number | undefined
-    constructor(){
-        this.ACCESS_SECRET_KEY = "access-secret-key"
-        this.REFRESH_SECRET_KEY = "refresh-secret-key";
+    constructor(ACCESS_SECRET_KEY:string , REFRESH_SECRET_KEY:string ){
+        this.ACCESS_SECRET_KEY = ACCESS_SECRET_KEY
+        this.REFRESH_SECRET_KEY = REFRESH_SECRET_KEY
         this.ACCESS_EXPIRES= 60
         this.REFRESH_EXPIRES= 30
     }

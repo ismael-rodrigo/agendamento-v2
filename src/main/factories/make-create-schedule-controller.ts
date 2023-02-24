@@ -16,15 +16,15 @@ export const makeScheduleController = ():CreateScheduleController =>{
     const serviceRepo = new ServicePrismaRepository(prisma)
     const hoursRepo = new HoursPrismaRepository(prisma)
     const configRepo = new ConfigSchedulePrismaRepository(prisma)
-    const aws = new EmailServiceSESImplementation()
+    const awsEmailService = new EmailServiceSESImplementation()
 
     const createScheduleUseCase = new CreateSchedule(
         configRepo,
         scheduleRepo,
         commonUserRepo,
-        serviceRepo, 
+        serviceRepo,  
         hoursRepo ,
-        aws
+        awsEmailService
         )
 
     return new CreateScheduleController(createScheduleUseCase)

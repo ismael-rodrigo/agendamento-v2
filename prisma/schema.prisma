@@ -34,7 +34,7 @@ model CommomUser {
   name String
   phone_number String
   date_birth DateTime
-
+  password String
   schedules Schedule[]  
 
   created_at DateTime @default(now())

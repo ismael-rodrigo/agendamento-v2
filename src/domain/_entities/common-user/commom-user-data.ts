@@ -1,6 +1,7 @@
 export interface CommomUserData {
     id :string
     cpf :string 
+    password:string
     name :string 
     email: string
     phone_number :string 

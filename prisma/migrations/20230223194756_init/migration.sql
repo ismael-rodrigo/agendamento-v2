@@ -16,6 +16,7 @@ CREATE TABLE "commom-users" (
     "name" TEXT NOT NULL,
     "phone_number" TEXT NOT NULL,
     "date_birth" DATETIME NOT NULL,
+    "password" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
 );

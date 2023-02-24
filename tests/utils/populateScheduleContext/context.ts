@@ -1,6 +1,4 @@
-import { DayDisabledData } from './../../../src/modules/schedule/domain/entity/day-disabled/day-disabled-data';
-import { DateDisabledData } from './../../../src/modules/schedule/domain/entity/date-disabled/date-disabled-data';
-import { DayDisabled } from './../../../src/modules/schedule/domain/entity/day-disabled/day-disabled';
+
 import { createDateDisabled } from './populateDateDisabled';
 import { createDayDisabled } from './populateDayDisabled';
 import { createUser } from './populateUsers';
@@ -10,6 +8,8 @@ import { CommomUser, HourAvailable, IntervalDateAvailable, Location, PrismaClien
 import { createLocation } from './populateLocation';
 import { getFutureDate } from '../get-dates';
 import { createHour } from './populateHoursAvailable';
+import { DayDisabledData } from '@domain/_entities/day-disabled/day-disabled-data';
+import { DateDisabledData } from '@domain/_entities/date-disabled/date-disabled-data';
 
 
 

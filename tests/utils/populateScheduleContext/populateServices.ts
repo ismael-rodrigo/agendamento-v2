@@ -1,5 +1,5 @@
+import { Service } from '@domain/_entities/service/service';
 import { PrismaClient } from '@prisma/client';
-import { Service } from "../../../src/modules/schedule/domain/entity/service/service"
 import { AppError } from '../../../src/shared/errors-handler/errors/app-error';
 
 export const createService = async ( location_id:string , prisma:PrismaClient )=>{

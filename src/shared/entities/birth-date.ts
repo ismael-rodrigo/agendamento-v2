@@ -12,7 +12,7 @@ export class BirthDate {
   }
 
   static create (birth_date: Date): Either< invalidBirthDateError, BirthDate> {
-    if (!BirthDate.validate(birth_date)) {
+    if (!BirthDate.validate(new Date(birth_date))) {
       return Left.create(new invalidBirthDateError )
     }
     return Right.create(new BirthDate(birth_date))

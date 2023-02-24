@@ -5,7 +5,7 @@ import { userRoutes } from "./user.routes";
 
 const routes = Router();
 
-routes.use("/users" , userRoutes)
+routes.use("/user" , userRoutes)
 routes.use("/auth" , authRoutes)
 routes.use("/schedule" , scheduleRoutes)
 

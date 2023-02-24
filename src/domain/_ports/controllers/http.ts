@@ -4,5 +4,8 @@ export interface HttpResponse {
   }
   
   export interface HttpRequest {
+    consumer_id?: any
     body?: any
+    params?: any
+    query?: any
   }
