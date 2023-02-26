@@ -1,12 +1,12 @@
-import { PasswordEncryptProvider } from '../../../shared/adapters/password-encrypt-provider/password-encrypt';
-import { describe, expect, it} from 'vitest'
-import { getOldDate } from '../../../../tests/utils/get-dates'
-import { InvalidCpfError } from '../../../shared/entities/errors/invalid-cpf-error'
-import { invalidBirthDateError } from '../../../shared/entities/errors/invalid-date-birth-date'
-import { InvalidNameError } from '../../../shared/entities/errors/invalid-name-error'
-import { InvalidPhoneError } from '../../../shared/entities/errors/invalid-phone-error'
 
+import { describe, expect, it} from 'vitest'
+import { getOldDate } from 'tests/utils/get-dates'
+import { InvalidCpfError } from '@shared/entities/errors/invalid-cpf-error'
+import { invalidBirthDateError } from '@shared/entities/errors/invalid-date-birth-date'
+import { InvalidNameError } from '@shared/entities/errors/invalid-name-error'
+import { InvalidPhoneError } from '@shared/entities/errors/invalid-phone-error'
 import { CommomUser } from './common-user'
+import { PasswordEncryptProvider } from '@external/password-encrypt-provider/password-encrypt'
 
 const passHasher = new PasswordEncryptProvider()
 

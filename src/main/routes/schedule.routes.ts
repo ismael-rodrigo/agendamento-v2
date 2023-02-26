@@ -11,9 +11,9 @@ const scheduleRoutes = Router()
 
 scheduleRoutes.get('/locations' ,adaptRoute( makeFindLocationsController() ) )
 
-scheduleRoutes.post('/services' ,adaptRoute( makeFindServicesOfLocationController() ) )
-scheduleRoutes.post('/dates-available' ,adaptRoute( makeFindDatesAvailableController() ) )
-scheduleRoutes.post('/hours-available' , adaptRoute( makeHoursAvailableController() ) );
+scheduleRoutes.get('/services' , adaptRoute( makeFindServicesOfLocationController() ) )
+scheduleRoutes.get('/dates-available' ,adaptRoute( makeFindDatesAvailableController() ) )
+scheduleRoutes.get('/hours-available' , adaptRoute( makeHoursAvailableController() ) );
 
 
 

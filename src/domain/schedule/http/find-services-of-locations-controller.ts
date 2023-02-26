@@ -8,8 +8,10 @@ export class FindServicesOfLocationController implements Controller{
     constructor(private readonly findServicesOfLocation: FindServicesOfLocation ){}
 
     async handle(httpRequest:HttpRequest){
-        const params = httpRequest.body
-        const result = await this.findServicesOfLocation.execute(params);
+        const query = httpRequest.query
+        const result = await this.findServicesOfLocation.execute({
+            location_id:query.location_id
+        });
         if(result.isLeft()){
             return badRequest(result.error)
         }

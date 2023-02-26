@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { JwtProvider } from "./jwt-provider";
 
 describe('create jwt provider', ()=>{
-    const sut = new JwtProvider()
+    const sut = new JwtProvider('secret-key', 'refresh-key')
     const payload = 'payload-tested'
 
     it('verify instace of jwt provider' , ()=>{

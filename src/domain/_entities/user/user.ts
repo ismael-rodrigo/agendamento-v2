@@ -1,6 +1,6 @@
 import { InvalidNameError } from "../../../shared/entities/errors/invalid-name-error"
 import { InvalidPasswordError } from "../../../shared/entities/errors/invalid-password-error"
-import { Password } from "../../../shared/entities/password"
+import { Password } from "../../../shared/entities/password/password"
 import { Username } from "../../../shared/entities/username"
 import { Uuid } from "../../../shared/entities/uuid"
 import { Either, Left, Right } from "../../../shared/errors-handler/either"

@@ -1,9 +1,9 @@
 import { EmailOptions } from '@domain/_ports/providers/email/email-service.interface';
-import { CommomUserData } from '@domain/_entities/common-user/commom-user-data';
+import { CommonUserData } from '@domain/_entities/common-user/commom-user-data';
 import { HourAvailableData } from '@domain/_entities/hours/hours-data';
 
 export interface makeEmailScheduleStructureParams {
-    user:CommomUserData
+    user:CommonUserData
     hour:HourAvailableData
     date:Date
 }
@@ -12,7 +12,6 @@ export interface makeEmailScheduleStructureParams {
 export class EmailScheduleStructure {
     private constructor(){}
     static make({date , hour , user }:makeEmailScheduleStructureParams):EmailOptions{
-
         const emailOptions:EmailOptions = {
             to: user.email,
             from:'Agendamento realizado com sucesso! '+'<ismael@bael.com.br>',
@@ -20,10 +19,8 @@ export class EmailScheduleStructure {
             text:'Agendamento concluido, parabens!',
             html:this.makeHTML({date , hour , user })
         }
-
         return emailOptions
     }
-
     private static makeHTML({date , hour , user }:makeEmailScheduleStructureParams){
         const html = `
         <html lang="pt-BR" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;">
@@ -88,11 +85,6 @@ export class EmailScheduleStructure {
 
         return html
     }
-
     private static makeText({date , hour , user }:makeEmailScheduleStructureParams){
-
     }
-
-
-
 }

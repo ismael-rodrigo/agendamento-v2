@@ -8,8 +8,10 @@ export class FindDatesAvailableController implements Controller {
     constructor(private readonly findDatesAvailable: FindDatesAvailableUseCase ){}
 
     async handle(httpRequest:HttpRequest){
-        const params = httpRequest.body
-        const result = await this.findDatesAvailable.execute(params);
+        const query = httpRequest.query
+        const result = await this.findDatesAvailable.execute({
+            service_id:query.service_id
+        });
         if(result.isLeft()){
             return badRequest(result.error)
         }

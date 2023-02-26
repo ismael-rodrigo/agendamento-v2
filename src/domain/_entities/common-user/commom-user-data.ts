@@ -1,4 +1,4 @@
-export interface CommomUserData {
+export interface CommonUserData {
     id :string
     cpf :string 
     password:string
@@ -6,11 +6,23 @@ export interface CommomUserData {
     email: string
     phone_number :string 
     date_birth :Date 
-    created_at: Date
-    updated_at: Date
+    created_at?: Date
+    updated_at?: Date
 }
 
-export interface CreateCommomUser {
+export interface CommonUserResponse {
+    id :string
+    cpf :string 
+    name :string 
+    email: string
+    phone_number :string 
+    date_birth :Date 
+    created_at?: Date
+    updated_at?: Date
+}
+
+
+export interface CreateCommonUser {
     cpf :string 
     name :string 
     email: string

@@ -1,3 +1,4 @@
+import { CommonUserData, CommonUserResponse } from '@domain/_entities/common-user/commom-user-data';
 import { Email } from '../../../shared/entities/email';
 import { BirthDate } from "../../../shared/entities/birth-date"
 import { Cpf } from "../../../shared/entities/cpf"
@@ -5,13 +6,13 @@ import { Name } from "../../../shared/entities/name"
 import { Phone } from "../../../shared/entities/phone"
 import { Uuid } from "../../../shared/entities/uuid"
 
-import { CreateCommomUser } from "./commom-user-data"
+import { CreateCommonUser } from "./commom-user-data"
 import { Either, Left, Right } from "../../../shared/errors-handler/either"
 import { InvalidNameError } from "../../../shared/entities/errors/invalid-name-error"
 import { InvalidCpfError } from "../../../shared/entities/errors/invalid-cpf-error"
 import { InvalidPhoneError } from "../../../shared/entities/errors/invalid-phone-error"
 import { invalidBirthDateError } from "../../../shared/entities/errors/invalid-date-birth-date"
-import { Password } from '../../../shared/entities/password';
+import { Password } from '../../../shared/entities/password/password';
 import { IPasswordEncryptProvider } from '../../_ports/providers/password-encrypt/password-encrypt.interface';
 
 
@@ -35,7 +36,7 @@ export class CommomUser {
     Object.freeze(this)
   }
 
-  static async create ( passwordHasher:IPasswordEncryptProvider , userData: CreateCommomUser ): Promise<Either<InvalidNameError | InvalidCpfError | InvalidPhoneError | invalidBirthDateError, CommomUser>> {
+  static async create ( passwordHasher:IPasswordEncryptProvider , userData: CreateCommonUser ): Promise<Either<InvalidNameError | InvalidCpfError | InvalidPhoneError | invalidBirthDateError, CommomUser>> {
     const nameOrError = Name.create(userData.name)
     const cpfOrError = Cpf.create(userData.cpf)
     const phoneOrError = Phone.create(userData.phone_number)
@@ -76,13 +77,26 @@ export class CommomUser {
   }
 
 
-  get value(){
+  get value():CommonUserData{
     return {
+      email:this.email.value,
+      password:this.password.value,
       id: this.id.value ,
       name: this.name.value ,
       cpf: this.cpf.value ,
       phone_number:this.phone_number.value,
       date_birth : this.date_birth.value ,
+    }
+  }
+
+  static responseValue(user:CommonUserData):CommonUserResponse{
+    return {
+      email:user.email,
+      id: user.id ,
+      name: user.name ,
+      cpf: user.cpf ,
+      phone_number:user.phone_number,
+      date_birth : user.date_birth,
     }
   }
 

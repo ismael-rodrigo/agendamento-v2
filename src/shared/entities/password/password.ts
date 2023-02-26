@@ -1,6 +1,6 @@
 import { IPasswordEncryptProvider } from '@domain/_ports/providers/password-encrypt/password-encrypt.interface';
-import { Either, Left, Right } from '../errors-handler/either';
-import { InvalidPasswordError } from './errors/invalid-password-error';
+import { Either, Left, Right } from '../../errors-handler/either';
+import { InvalidPasswordError } from '../errors/invalid-password-error';
 export class Password {
     public readonly value:string
 

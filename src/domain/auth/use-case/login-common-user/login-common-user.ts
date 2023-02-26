@@ -1,15 +1,14 @@
-import { InvalidPasswordError } from './../../../../shared/entities/errors/invalid-password-error';
-import { InvalidParamsError } from './../../../../shared/errors-handler/errors/invalid-params-error';
-import { Either, Left, Right } from './../../../../shared/errors-handler/either';
-import { IPasswordEncryptProvider } from './../../../_ports/providers/password-encrypt/password-encrypt.interface';
-import { IJwtProvider } from './../../../_ports/providers/jwt/jwt-provider.interface';
-import { ICommonUserRepository } from './../../../_ports/repository/common-user-repository.interface';
-import { CreateTokensReturned } from '@domain/_ports/providers/jwt/jtw-provider.types';
+import { InvalidPasswordError } from '@shared/entities/errors/invalid-password-error';
+import { InvalidParamsError } from '@shared/errors-handler/errors/invalid-params-error';
+import { Either, Left, Right } from '@shared/errors-handler/either';
+import { IPasswordEncryptProvider } from '@domain/_ports/providers/password-encrypt/password-encrypt.interface';
+import { IJwtProvider } from '@domain/_ports/providers/jwt/jwt-provider.interface';
+import { ICommonUserRepository } from '@domain/_ports/repository/common-user-repository.interface';
+import { LoginCommonUserRequest, LoginCommonUserResponse } from './login-common-user-DTO';
+import { CommomUser } from '@domain/_entities/common-user/common-user';
 
-export type LoginCommonUserDTO = {
-    cpf:string
-    password:string
-}
+
+
 
 export class LoginCommonUser {
     constructor(
@@ -18,7 +17,7 @@ export class LoginCommonUser {
         private readonly jwtProvider: IJwtProvider
     ){}
 
-    async execute( { cpf , password }:LoginCommonUserDTO ):Promise<Either< InvalidParamsError | InvalidPasswordError , CreateTokensReturned>> {
+    async execute( { cpf , password }:LoginCommonUserRequest ):Promise<Either< InvalidParamsError | InvalidPasswordError , LoginCommonUserResponse>> {
         if(!cpf || !password) return Left.create(new InvalidParamsError)
         const userCpf = await this.commonUserRepo.findUserByCPF(cpf)
         if(userCpf.isLeft()) return Left.create(userCpf.error)
@@ -28,8 +27,14 @@ export class LoginCommonUser {
         if(passwordIsValid.isLeft()) return Left.create(passwordIsValid.error)
         if(!passwordIsValid.value) return Left.create(new InvalidPasswordError)
 
-        const tokens = this.jwtProvider.createTokens(userCpf.value.id)
+        const encryptedTokens = this.jwtProvider.createTokens(userCpf.value.id)
 
-        return Right.create(tokens)
+
+        const response:LoginCommonUserResponse = {
+            user: CommomUser.responseValue(userCpf.value) ,
+            token: encryptedTokens
+        } 
+
+        return Right.create(response)
     }
 }
