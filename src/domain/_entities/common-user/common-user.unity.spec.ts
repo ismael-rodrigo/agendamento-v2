@@ -20,7 +20,7 @@ describe('create common user', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(false);
@@ -46,7 +46,7 @@ describe('not create common user with cpf invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -62,7 +62,7 @@ describe('not create common user with cpf invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -83,7 +83,7 @@ describe('not create common user with name invalid' ,  ()=>{
             name:"i",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismaerl123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -99,7 +99,7 @@ describe('not create common user with name invalid' ,  ()=>{
             name:"isma3l",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
@@ -113,7 +113,7 @@ describe('not create common user with name invalid' ,  ()=>{
             name:"         ",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
@@ -128,7 +128,7 @@ describe('not create common user with name invalid' ,  ()=>{
             name:"ismael rodrigo sousa brasil ddddddddddd ddddddddd ddddddddddd dddddddddd",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
         expect(commonUser.isLeft()).toEqual(true);
         if(!commonUser.isLeft()) return
@@ -146,7 +146,7 @@ describe('not create common user with phone number invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -162,7 +162,7 @@ describe('not create common user with phone number invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"00981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -178,7 +178,7 @@ describe('not create common user with phone number invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85002200220",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -199,7 +199,7 @@ describe('not create common user with birth date invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);
@@ -215,7 +215,7 @@ describe('not create common user with birth date invalid', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael123'
+            password:'Ismael@123'
         })
     
         expect(commonUser.isLeft()).toEqual(true);

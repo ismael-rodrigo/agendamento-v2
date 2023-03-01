@@ -25,12 +25,16 @@ export class Password {
     }
 
     static validate(password:string):boolean{
-        const regexValidation = /^[a-zA-Z0-9!@*#$%&()_\.]+$/
-        if(!regexValidation.test(password)) return false
-        if (!password || password.trim().length < 8 || password.trim().length > 15) {
-          return false
-        }
-        if(!password) return false
+
+        if(
+            !password || 
+            password.trim().length < 8 || 
+            password.trim().length > 15 ||
+            !/[A-Z]/.test(password) ||
+            !/[a-z]/.test(password) ||
+            !/[0-9]/.test(password) 
+            ) return false
+       
         return true
     }
 }
