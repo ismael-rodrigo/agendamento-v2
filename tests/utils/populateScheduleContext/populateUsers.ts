@@ -1,6 +1,6 @@
 import { PasswordEncryptProvider } from './../../../src/external/password-encrypt-provider/password-encrypt';
 import { Password } from '../../../src/shared/entities/password/password';
-import { Uuid } from './../../../src/shared/entities/uuid';
+import { Uuid } from '../../../src/shared/entities/uuid/uuid';
 import { PrismaClient } from '@prisma/client';
 import { cpf } from 'cpf-cnpj-validator';
 import { getOldDate } from '../get-dates';

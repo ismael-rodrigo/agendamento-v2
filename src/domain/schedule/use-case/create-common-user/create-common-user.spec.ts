@@ -3,7 +3,7 @@ import { BirthDate } from '@shared/entities/birth-date'
 import { Cpf } from '@shared/entities/cpf'
 import { Name } from '@shared/entities/name'
 import { Phone } from '@shared/entities/phone'
-import { Uuid } from '@shared/entities/uuid'
+import { Uuid } from '@shared/entities/uuid/uuid'
 
 import { CommomUserInMemoryRepository } from '@external/repository/common-user/common-user-repository-in-memory'
 import { getOldDate } from 'tests/utils/get-dates'

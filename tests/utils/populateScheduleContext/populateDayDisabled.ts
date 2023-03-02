@@ -1,4 +1,4 @@
-import { Uuid } from './../../../src/shared/entities/uuid';
+import { Uuid } from '../../../src/shared/entities/uuid/uuid';
 import { PrismaClient } from '@prisma/client';
 export const createDayDisabled = async (service_id:string , day:number, prisma:PrismaClient)=>{
     return await prisma.dayDisabled.create({

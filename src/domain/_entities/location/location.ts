@@ -1,7 +1,7 @@
 import { InvalidParamsError } from '../../../shared/errors-handler/errors/invalid-params-error';
 import { Either, Left, Right } from '../../../shared/errors-handler/either';
 import { CreateLocationData } from './location-data';
-import { Uuid } from '../../../shared/entities/uuid';
+import { Uuid } from '../../../shared/entities/uuid/uuid';
 
 export class Location {
     public readonly id:Uuid

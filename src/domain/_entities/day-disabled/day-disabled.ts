@@ -1,7 +1,7 @@
 import { InvalidParamsError } from '../../../shared/errors-handler/errors/invalid-params-error';
 import { Left, Either, Right } from '../../../shared/errors-handler/either';
 import { Weekday } from '../../../shared/entities/weekday';
-import { Uuid } from '../../../shared/entities/uuid';
+import { Uuid } from '../../../shared/entities/uuid/uuid';
 import { CreateDayDisabled } from './day-disabled-data';
 import { InvalidWeekday } from '../../../shared/entities/errors/invalid-weekday-error';
 

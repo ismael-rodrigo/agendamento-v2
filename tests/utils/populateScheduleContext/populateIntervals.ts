@@ -1,4 +1,4 @@
-import { Uuid } from './../../../src/shared/entities/uuid';
+import { Uuid } from '../../../src/shared/entities/uuid/uuid';
 import { PrismaClient } from '@prisma/client';
 export const createInterval = async (service_id:string , start:Date, end:Date ,prisma:PrismaClient)=>{
     return await prisma.intervalDateAvailable.create({

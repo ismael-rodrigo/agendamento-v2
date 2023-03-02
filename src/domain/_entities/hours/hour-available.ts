@@ -2,7 +2,7 @@ import { AppError } from '../../../shared/errors-handler/errors/app-error';
 import { Minutes } from '../../../shared/entities/minute';
 import { Hour } from '../../../shared/entities/hour';
 import { Either, Left, Right } from '../../../shared/errors-handler/either';
-import { Uuid } from '../../../shared/entities/uuid';
+import { Uuid } from '../../../shared/entities/uuid/uuid';
 import { CreateHourAvailable, HourAvailableData } from './hours-data';
 
 

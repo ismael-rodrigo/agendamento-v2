@@ -1,6 +1,6 @@
 import { InvalidParamsError } from '../../../shared/errors-handler/errors/invalid-params-error';
 import { Either, Left, Right } from '../../../shared/errors-handler/either';
-import { Uuid } from '../../../shared/entities/uuid';
+import { Uuid } from '../../../shared/entities/uuid/uuid';
 import { CreateDateDisabled } from './date-disabled-data';
 
 

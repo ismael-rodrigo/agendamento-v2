@@ -1,7 +1,7 @@
 import { addHours, addMinutes, addSeconds, isWithinInterval } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { ptBR } from "date-fns/locale";
-import { Uuid } from "../../../shared/entities/uuid";
+import { Uuid } from "../../../shared/entities/uuid/uuid";
 import { Either, Left, Right } from "../../../shared/errors-handler/either";
 import { InvalidParamsError } from "../../../shared/errors-handler/errors/invalid-params-error";
 import { CreateScheduleData, ScheduleData } from "./schedule-data";

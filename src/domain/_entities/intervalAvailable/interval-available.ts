@@ -1,7 +1,7 @@
 import { InvalidParamsError } from '../../../shared/errors-handler/errors/invalid-params-error';
 import { Either, Left, Right } from '../../../shared/errors-handler/either';
 import { CreateIntervalDateAvailable } from './interval-data';
-import { Uuid } from '../../../shared/entities/uuid';
+import { Uuid } from '../../../shared/entities/uuid/uuid';
 
 export class IntervalDateAvailable {
     public readonly id:Uuid

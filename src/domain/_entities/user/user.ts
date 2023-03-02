@@ -2,7 +2,7 @@ import { InvalidNameError } from "../../../shared/entities/errors/invalid-name-e
 import { InvalidPasswordError } from "../../../shared/entities/errors/invalid-password-error"
 import { Password } from "../../../shared/entities/password/password"
 import { Username } from "../../../shared/entities/username"
-import { Uuid } from "../../../shared/entities/uuid"
+import { Uuid } from "../../../shared/entities/uuid/uuid"
 import { Either, Left, Right } from "../../../shared/errors-handler/either"
 import { UnauthorizedError } from "../../../shared/errors-handler/errors/unauthorized-error"
 import { IPasswordEncryptProvider } from "../../_ports/providers/password-encrypt/password-encrypt.interface"
