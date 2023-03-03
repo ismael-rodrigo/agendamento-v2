@@ -1,4 +1,3 @@
-
 import { Either, Left, Right } from '../errors-handler/either'
 import { InvalidUserNameError } from './errors/invalid-username-error'
 

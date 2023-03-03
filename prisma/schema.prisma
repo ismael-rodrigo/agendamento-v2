@@ -100,9 +100,8 @@ model HourAvailable {
   id String @id 
   hour Int 
   minutes Int
-  is_active Boolean @default(true)
   service_id String
-
+  enable Boolean @default(true)
   service Service @relation(fields: [service_id], references: [id])
   
   schedules Schedule[]
