@@ -18,7 +18,7 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
             return Right.create(result)
         }
         catch (err) {
-            return Left.create(new DbGenericError('findUserById'))
+            return Left.create(new DbGenericError('findUserByCPF'))
         }
     }
     async findUserByEmail(email: string): Promise<Either<DbGenericError, CommonUserData | null>> {
@@ -50,7 +50,6 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
             return Right.create(user_created)
         }
         catch (err) {
-            console.log(err)
 
             return Left.create(new DbGenericError('CommomUserPrismaRepository.createUser'))
         }
@@ -67,7 +66,7 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
             return Right.create(result)
         }
         catch (err) {
-            return Left.create(new DbGenericError('findUserById'))
+            return Left.create(new DbGenericError('CommomUserPrismaRepository.findUserById'))
         }
     }
 

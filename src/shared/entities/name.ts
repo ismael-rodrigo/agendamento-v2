@@ -12,13 +12,11 @@ export class Name {
   }
 
   static create (name: string): Either<InvalidNameError, Name> {
-
     if(Name.validate(name)) {
-      return Right.create(new Name(name))
-
+      const nameUpperCase = name.toUpperCase()
+      return Right.create(new Name(nameUpperCase))
     }
     return Left.create(new InvalidNameError(name))
-
   }
 
   get value (): string {
