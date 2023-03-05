@@ -1,3 +1,4 @@
+import { MakeCheckCommonUserExists } from './../factories/make-check-common-user-exists-controller';
 import { makeLoginCommonUserController } from './../factories/make-login-common-user-controller';
 import { JwtCommonUserProvider } from './../../external/jwt-provider/jwt-common-user-provider';
 import { CommonUserAuthenticationMiddleware } from '../middlewares/common-user-authentication';
@@ -14,6 +15,9 @@ const userRoutes = Router()
 
 userRoutes.post('/' ,  
     adaptRoute( makeRegisterCommonUserController() ));
+
+userRoutes.get('/',
+    adaptRoute( MakeCheckCommonUserExists() ))
 
 userRoutes.post('/login' ,  
     adaptRoute( makeLoginCommonUserController() ));

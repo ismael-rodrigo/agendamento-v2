@@ -10,7 +10,6 @@ const scheduleRoutes = Router()
 
 
 scheduleRoutes.get('/locations' ,adaptRoute( makeFindLocationsController() ) )
-
 scheduleRoutes.get('/services' , adaptRoute( makeFindServicesOfLocationController() ) )
 scheduleRoutes.get('/dates-available' ,adaptRoute( makeFindDatesAvailableController() ) )
 scheduleRoutes.get('/hours-available' , adaptRoute( makeHoursAvailableController() ) );
