@@ -14,8 +14,8 @@ export class JwtProvider implements IJwtProvider {
     constructor(ACCESS_SECRET_KEY:string , REFRESH_SECRET_KEY:string ){
         this.ACCESS_SECRET_KEY = ACCESS_SECRET_KEY
         this.REFRESH_SECRET_KEY = REFRESH_SECRET_KEY
-        this.ACCESS_EXPIRES= 60
-        this.REFRESH_EXPIRES= 30
+        this.ACCESS_EXPIRES= 5000
+        this.REFRESH_EXPIRES= 5000
     }
 
     createTokens(payload:string): CreateTokensReturned{

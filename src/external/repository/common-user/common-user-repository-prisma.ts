@@ -23,7 +23,7 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
     }
     async findUserByEmail(email: string): Promise<Either<DbGenericError, CommonUserData | null>> {
         try{
-            const result = await this.client.commomUser.findUnique({
+            const result = await this.client.commomUser.findFirst({
                 where:{
                     email
                 }
@@ -34,15 +34,14 @@ export class CommomUserPrismaRepository implements ICommonUserRepository {
             return Left.create(new DbGenericError('findUserById'))
         }
     }
-    async createUser({cpf , date_birth , name , phone_number , id , email , password} : CommomUser) : Promise < Either<InvalidParamsError, CommonUserData >> {
-        if( !id.value || !cpf.value || !date_birth.value || !name.value || !phone_number.value ) return Left.create(new InvalidParamsError)
+    async createUser({cpf   , name , phone_number , id , email , password} : CommomUser) : Promise < Either<InvalidParamsError, CommonUserData >> {
+        if( !id.value || !cpf.value || !name.value || !phone_number.value ) return Left.create(new InvalidParamsError)
         try{
             const user_created = await this.client.commomUser.create({
                 data:{
                     password:password.value,
                     email:email.value,
                     cpf:cpf.value ,
-                    date_birth:date_birth.value ,
                     name:name.value ,
                     phone_number:phone_number.value , 
                     id:id.value

@@ -22,15 +22,13 @@ export class CommomUser {
   public readonly email: Email
   public readonly cpf: Cpf
   public readonly phone_number: Phone
-  public readonly date_birth : BirthDate
   public readonly password: Password
 
-  private constructor (id: Uuid ,name: Name,password:Password , email:Email ,cpf: Cpf , phone_number:Phone , date_birth : BirthDate) {
+  private constructor (id: Uuid ,name: Name,password:Password , email:Email ,cpf: Cpf , phone_number:Phone ) {
     this.id = id
     this.name = name
     this.cpf = cpf
     this.phone_number = phone_number
-    this.date_birth = date_birth
     this.email = email
     this.password = password
     Object.freeze(this)
@@ -40,7 +38,6 @@ export class CommomUser {
     const nameOrError = Name.create(userData.name)
     const cpfOrError = Cpf.create(userData.cpf)
     const phoneOrError = Phone.create(userData.phone_number)
-    const birthDateOrError = BirthDate.create(userData.date_birth)
     const emailOrError = Email.create(userData.email)
     const id_generated = Uuid.create()
     const passwordOrError = await Password.createHashed(passwordHasher , userData.password )
@@ -62,18 +59,15 @@ export class CommomUser {
     if (phoneOrError.isLeft()) {
       return Left.create( phoneOrError.error )
     }
-    if (birthDateOrError.isLeft()) {
-      return Left.create( birthDateOrError.error )
-    }
+
 
     const name = nameOrError.value
     const cpf = cpfOrError.value
     const phone_number = phoneOrError.value
-    const birth_date = birthDateOrError.value
     const email = emailOrError.value
     const password = passwordOrError.value
 
-    return Right.create(new CommomUser( id_generated, name , password , email, cpf , phone_number , birth_date ))
+    return Right.create(new CommomUser( id_generated, name , password , email, cpf , phone_number  ))
   }
 
 
@@ -85,7 +79,6 @@ export class CommomUser {
       name: this.name.value ,
       cpf: this.cpf.value ,
       phone_number:this.phone_number.value,
-      date_birth : this.date_birth.value ,
     }
   }
 
@@ -96,7 +89,6 @@ export class CommomUser {
       name: user.name ,
       cpf: user.cpf ,
       phone_number:user.phone_number,
-      date_birth : user.date_birth,
     }
   }
 

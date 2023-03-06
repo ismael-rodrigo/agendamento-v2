@@ -1,3 +1,5 @@
+import { LoginCommonUserResponse } from './../../../auth/use-case/login-common-user/login-common-user-DTO';
+import { IJwtProvider } from './../../../_ports/providers/jwt/jwt-provider.interface';
 
 import { CommomUser } from "@domain/_entities/common-user/common-user";
 import { IPasswordEncryptProvider } from "@domain/_ports/providers/password-encrypt/password-encrypt.interface";
@@ -7,13 +9,13 @@ import { CreateCommonUserDTO } from "./create-common-user-DTO";
 
 export class RegisterCommonUser {
     constructor(
-        private commonUserRepo:ICommonUserRepository,
-        private passwordHasher:IPasswordEncryptProvider
-        
+        private readonly commonUserRepo:ICommonUserRepository,
+        private readonly passwordHasher:IPasswordEncryptProvider,
+        private readonly jwtProvider:IJwtProvider
         ){}
-    async execute( { cpf ,date_birth , name , phone_number , email , password } : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
+    async execute( { cpf  , name , phone_number , email , password } : CreateCommonUserDTO.request ): Promise <CreateCommonUserDTO.response> {
         
-        const userOrError = await CommomUser.create(this.passwordHasher , { cpf , date_birth , name , phone_number , email , password })
+        const userOrError = await CommomUser.create(this.passwordHasher , { cpf  , name , phone_number , email , password })
         if(userOrError.isLeft()){
             return Left.create(userOrError.error)
         }
@@ -21,6 +23,15 @@ export class RegisterCommonUser {
         if(user_created.isLeft()){
             return Left.create(user_created.error)
         }
-        return Right.create(user_created.value)
+
+        const tokens = this.jwtProvider.createTokens(userOrError.value.id.value)
+        
+        const response:LoginCommonUserResponse = {
+            user:CommomUser.responseValue(user_created.value),
+            token:tokens
+
+        }
+
+        return Right.create(response)
     }
 }

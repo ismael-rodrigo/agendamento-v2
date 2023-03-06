@@ -1,3 +1,4 @@
+import { JwtCommonUserProvider } from './../../external/jwt-provider/jwt-common-user-provider';
 import { PasswordEncryptProvider } from './../../external/password-encrypt-provider/password-encrypt';
 import { CreateCommonUserController } from './../../domain/schedule/http/create-common-user-controller';
 import { prisma } from '@external/prisma-client/client';
@@ -8,6 +9,7 @@ import { CommomUserPrismaRepository } from '@external/repository/common-user/com
 export const makeRegisterCommonUserController = (): CreateCommonUserController=>{
     const commonUserRepo = new CommomUserPrismaRepository(prisma)
     const passwordHasher = new PasswordEncryptProvider()
-    const registerCommonUser = new RegisterCommonUser(commonUserRepo,passwordHasher)
+    const jwtprovider = new JwtCommonUserProvider()
+    const registerCommonUser = new RegisterCommonUser(commonUserRepo,passwordHasher,jwtprovider)
     return new CreateCommonUserController(registerCommonUser)
 }
