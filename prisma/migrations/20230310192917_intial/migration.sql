@@ -15,7 +15,6 @@ CREATE TABLE "commom-users" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "phone_number" TEXT NOT NULL,
-    "date_birth" DATETIME NOT NULL,
     "password" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL
@@ -57,8 +56,8 @@ CREATE TABLE "hours_available" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "hour" INTEGER NOT NULL,
     "minutes" INTEGER NOT NULL,
-    "is_active" BOOLEAN NOT NULL DEFAULT true,
     "service_id" TEXT NOT NULL,
+    "enable" BOOLEAN NOT NULL DEFAULT true,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
     CONSTRAINT "hours_available_service_id_fkey" FOREIGN KEY ("service_id") REFERENCES "service" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -100,9 +99,6 @@ CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "commom-users_cpf_key" ON "commom-users"("cpf");
-
--- CreateIndex
-CREATE UNIQUE INDEX "commom-users_email_key" ON "commom-users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "schedules_service_id_date_hour_id_key" ON "schedules"("service_id", "date", "hour_id");
