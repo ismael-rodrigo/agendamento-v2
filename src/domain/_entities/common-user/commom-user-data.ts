@@ -27,3 +27,11 @@ export interface CreateCommonUser {
     password: string
     phone_number :string 
 }
+
+export interface UpdateCommonUser {
+    cpf ?:string 
+    name ?:string 
+    email?: string
+    password?: string
+    phone_number ?:string 
+}

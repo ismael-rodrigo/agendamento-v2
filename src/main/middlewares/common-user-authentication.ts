@@ -22,12 +22,7 @@ export class CommonUserAuthenticationMiddleware {
         if(resultToken.isLeft()){
             return res.status(resultToken.error.statusCode).json(resultToken.error.getJsonResponse())
         }
-
-        if(resultToken.value.sub != user_id){
-            const error = new AuthenticationError
-            return res.status(error.statusCode).json(error.getJsonResponse())
-        }
-
+        req.consumer_id = resultToken.value.sub
         return next();
     }
 }

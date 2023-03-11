@@ -2,12 +2,27 @@ import { PrismaClient } from "@prisma/client";
 import { Either, Left, Right } from "@shared/errors-handler/either";
 import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 import { InvalidParamsError } from "@shared/errors-handler/errors/invalid-params-error";
-import { CommonUserData } from "@domain/_entities/common-user/commom-user-data";
+import { CommonUserData, UpdateCommonUser } from "@domain/_entities/common-user/commom-user-data";
 import { CommomUser } from "@domain/_entities/common-user/common-user";
 import { ICommonUserRepository } from "@domain/_ports/repository/common-user-repository.interface";
 
 export class CommomUserPrismaRepository implements ICommonUserRepository {
     constructor(private client: PrismaClient){}
+
+    async update(user_id: string, updates:UpdateCommonUser ): Promise<Either<InvalidParamsError | DbGenericError, CommonUserData>> {
+        try{
+            const result = await this.client.commomUser.update({
+                where:{
+                    id:user_id
+                },
+                data: updates
+            })
+            return Right.create(result)
+        }
+        catch (err) {
+            return Left.create(new DbGenericError('findUserByCPF'))
+        }
+    }
     async findUserByCPF(cpf: string): Promise<Either<DbGenericError, CommonUserData | null>> {
         try{
             const result = await this.client.commomUser.findUnique({

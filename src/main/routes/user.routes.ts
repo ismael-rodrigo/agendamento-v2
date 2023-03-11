@@ -1,3 +1,4 @@
+import { makeChangePasswordCommonUserController } from './../factories/make-change-password-common-user-controller';
 import { MakeCheckCommonUserExists } from './../factories/make-check-common-user-exists-controller';
 import { makeLoginCommonUserController } from './../factories/make-login-common-user-controller';
 import { JwtCommonUserProvider } from './../../external/jwt-provider/jwt-common-user-provider';
@@ -26,9 +27,16 @@ userRoutes.post('/recovery' ,
 userRoutes.post('/login' ,  
     adaptRoute( makeLoginCommonUserController() ));
 
-userRoutes.post('/:user_id/schedule',
+userRoutes.post('/schedule',
     commonUserAuth.handle,
     adaptRoute( makeScheduleController() ))
+
+userRoutes.put('/password',
+    commonUserAuth.handle,
+    adaptRoute( makeChangePasswordCommonUserController() ))
+
+
+
 
 
 export {userRoutes}
