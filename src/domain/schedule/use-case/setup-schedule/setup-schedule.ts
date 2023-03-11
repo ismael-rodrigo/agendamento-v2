@@ -72,7 +72,7 @@ export class CreateSchedule {
 
         const userScheduleAlreadyExists = await this.scheduleRepo.findUserScheduleInDate( schedule.value.date , schedule.value.user_id)
         if(userScheduleAlreadyExists.isLeft()) return Left.create(userScheduleAlreadyExists.error)
-        if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'SCHEDULE_ALREADY_EXISTS'))
+        if(userScheduleAlreadyExists.value) return Left.create(new InvalidParamsError('User schedule already exists for date' , 'USER_ALREADY_SCHEDULE_IN_DATE'))
 
         const result = await this.scheduleRepo.createSchedule(schedule.value)
         if(result.isLeft()){

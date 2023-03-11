@@ -7,6 +7,7 @@ import { adaptRoute } from "../adapters/express-route-adapter";
 import { makeCreateUserController } from "../factories/make-create-user-controller";
 import { makeRegisterCommonUserController } from '@main/factories/make-register-common-user-controller';
 import { makeScheduleController } from '@main/factories/make-create-schedule-controller';
+import { makeRecoveryCommonUserController } from '@main/factories/make-recovery-common-user-controller';
 
 
 const commonUserAuth = new CommonUserAuthenticationMiddleware(new JwtCommonUserProvider())
@@ -18,6 +19,9 @@ userRoutes.post('/' ,
 
 userRoutes.get('/',
     adaptRoute( MakeCheckCommonUserExists() ))
+
+userRoutes.post('/recovery' ,  
+    adaptRoute( makeRecoveryCommonUserController() ));
 
 userRoutes.post('/login' ,  
     adaptRoute( makeLoginCommonUserController() ));

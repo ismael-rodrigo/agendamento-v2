@@ -28,7 +28,7 @@ export class Name {
       !name || 
       name.trim().length < 2 || 
       name.trim().length > 70 || 
-      !/^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$/.test(name)
+      !/^((\b[A-zÀ-ú']{2,40}\b)\s*){2,}$/gm
       ) return false
 
     return true
