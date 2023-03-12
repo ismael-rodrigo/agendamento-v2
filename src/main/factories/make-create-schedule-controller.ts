@@ -1,12 +1,12 @@
 import { EmailServiceSESImplementation } from '../../external/email-service/aws-ses-implementation';
 import { ConfigSchedulePrismaRepository } from './../../external/repository/configs-repository/configs-schedule-prisma';
 import { prisma } from './../../external/prisma-client/client';
-import { CreateScheduleController } from '@domain/schedule/http/create-schedule-controller';
 import { ScheduleRepositoryPrisma } from '../../external/repository/schedule/schedule-repository-prisma';
 import { CommomUserPrismaRepository } from '../../external/repository/common-user/common-user-repository-prisma';
 import { ServicePrismaRepository } from '../../external/repository/service/service-repository-prisma';
 import { HoursPrismaRepository } from '../../external/repository/hours/hours-repository-prisma';
-import { CreateSchedule } from '@domain/schedule/use-case/setup-schedule/setup-schedule';
+import { CreateSchedule } from '@domain/user/use-case/setup-schedule/setup-schedule';
+import { CreateScheduleController } from '@domain/user/http/create-schedule-controller';
 
 
 

@@ -1,4 +1,4 @@
-import { JwtCommonUserProvider } from './../../../../external/jwt-provider/jwt-common-user-provider';
+import { JwtCommonUserProvider } from '../../../../external/jwt-provider/jwt-common-user-provider';
 import { PasswordEncryptProvider } from '@external/password-encrypt-provider/password-encrypt'
 import { BirthDate } from '@shared/entities/birth-date'
 import { Cpf } from '@shared/entities/cpf'
@@ -20,7 +20,7 @@ describe('create common user', ()=>{
             name:"Ismael Rodrigo",
             phone_number:"85981050647",
             email:'ismaelbrasil1@gmail.com',
-            password:'ismael1123'
+            password:'Ismael1123'
         }
 
 
@@ -44,7 +44,7 @@ describe('create common user', ()=>{
             expect(Phone.validate(resultOrError.value.user.phone_number)).toEqual(true)
             expect(resultOrError.value.user.phone_number).toEqual(validParams.phone_number)
             expect(Name.validate(resultOrError.value.user.name)).toEqual(true)
-            expect(resultOrError.value.user.name).toEqual(validParams.name)
+            expect(resultOrError.value.user.name).toEqual(validParams.name.toUpperCase())
 
             expect(repoMemory.commmonUsers.length).toEqual(1)
 

@@ -1,5 +1,5 @@
-import { LoginCommonUserResponse } from './../../../auth/use-case/login-common-user/login-common-user-DTO';
-import { IJwtProvider } from './../../../_ports/providers/jwt/jwt-provider.interface';
+import { LoginCommonUserResponse } from '../../../auth/use-case/login-common-user/login-common-user-DTO';
+import { IJwtProvider } from '../../../_ports/providers/jwt/jwt-provider.interface';
 
 import { CommomUser } from "@domain/_entities/common-user/common-user";
 import { IPasswordEncryptProvider } from "@domain/_ports/providers/password-encrypt/password-encrypt.interface";

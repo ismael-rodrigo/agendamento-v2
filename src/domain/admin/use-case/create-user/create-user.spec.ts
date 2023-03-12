@@ -1,10 +1,10 @@
-import { PasswordEncryptProvider } from './../../../../shared/adapters/password-encrypt-provider/password-encrypt';
 import { prismaMocked } from './../../../../../prisma/__mocks__/index';
 import { UserRepositoryPrisma } from './../../../../external/repository/user-repository-prisma';
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { CreateUserUseCase } from "./create-user";
 import { AppError } from '../../../../shared/errors-handler/errors/app-error';
+import { PasswordEncryptProvider } from '@external/password-encrypt-provider/password-encrypt';
 
 describe('create user with prisma implementation', ()=>{
     describe('create new user with valid params' , ()=>{
@@ -14,7 +14,7 @@ describe('create user with prisma implementation', ()=>{
         it('should be create user with valid params' , async ()=>{
             expect( await prismaMocked.user.count()).toBe(0)
             const validUsername = "ismael123"
-            const validPassword = "ismael@@123"
+            const validPassword = "Ismael@@123"
             const result = await createUserUseCase.execute({
                 username:validUsername,
                 password:validPassword
@@ -29,7 +29,7 @@ describe('create user with prisma implementation', ()=>{
 
         it('should be create user with password caracter especials' , async ()=>{
             const validUsername = "ismael"
-            const validPassword = "i1!#@%$&*()_"
+            const validPassword = "Ii1!#@%$&*()_"
             const result = await createUserUseCase.execute({
                 username:validUsername,
                 password:validPassword
@@ -111,7 +111,7 @@ describe('create user with prisma implementation', ()=>{
 
         it('should be not create user with password lenth bigger to 15 caracter' , async ()=>{
             const validUsername = "ismael"
-            const validPassword = "ismaelrodrigosou"
+            const validPassword = "I123smaelrodrigosou"
             const result = await createUserUseCase.execute({
                 username:validUsername,
                 password:validPassword
@@ -124,7 +124,7 @@ describe('create user with prisma implementation', ()=>{
 
         it('should be not create user with null espaces in password' , async ()=>{
             const validUsername = "ismael"
-            const validPassword = "ismael rodrigo"
+            const validPassword = "I1smael rodrigo"
             const result = await createUserUseCase.execute({
                 username:validUsername,
                 password:validPassword

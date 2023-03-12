@@ -1,17 +1,18 @@
-import { EmailServiceSESImplementation } from './../../../../external/email-service/aws-ses-implementation';
+import { EmailServiceSESImplementation } from '../../../../external/email-service/aws-ses-implementation';
 import { ConfigSchedulePrismaRepository } from '@external/repository/configs-repository/configs-schedule-prisma';
 import { PrismaClient } from '@prisma/client';
-import { ContextSchedule } from 'tests/utils/populateScheduleContext/context';
+import { contextSchedule, ContextSchedule } from 'tests/utils/populateScheduleContext/context';
 import { HoursPrismaRepository } from '@external/repository/hours/hours-repository-prisma';
 import { ServicePrismaRepository } from '@external/repository/service/service-repository-prisma';
 import { CommomUserPrismaRepository } from '@external/repository/common-user/common-user-repository-prisma';
-import { prismaMocked } from 'prisma/__mocks__/index';
+import { prismaMocked } from '../../../../../prisma/__mocks__/index';
 import { ScheduleRepositoryPrisma } from '@external/repository/schedule/schedule-repository-prisma';
 import { CreateSchedule } from './setup-schedule';
+
 import { describe, expect, it ,beforeEach } from "vitest";
-import { getFutureDate } from 'tests/utils/get-dates';
-import { contextSchedule } from 'tests/utils/populateScheduleContext/context';
-import { AppError } from '@shared/errors-handler/errors/app-error';
+import { AppError } from '../../../../shared/errors-handler/errors/app-error';
+import { getFutureDate } from '../../../../../tests/utils/get-dates';
+
 
 describe('Create schedule use case test',()=>{
 
@@ -67,6 +68,8 @@ describe('Create schedule use case test',()=>{
                 service_id: context.service1.id ,
                 user_id: context.user1.id
             })
+            console.log(result)
+
             expect(await prisma.schedule.count()).toEqual(1)
             expect(result.isLeft()).toEqual(false)
             if(result.isLeft()) return

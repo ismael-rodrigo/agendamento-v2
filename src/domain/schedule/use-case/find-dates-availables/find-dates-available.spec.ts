@@ -1,13 +1,16 @@
-import { AppError } from '@shared/errors-handler/errors/app-error';
+
 import { expect } from 'vitest';
 import { FindDatesAvailableUseCase } from './find-dates-availables';
 import { PrismaClient } from '@prisma/client'
 import {describe , it , beforeEach} from 'vitest'
-import { prismaMocked } from 'prisma/__mocks__'
-import { contextSchedule, ContextSchedule } from 'tests/utils/populateScheduleContext/context'
-import { ConfigSchedulePrismaRepository } from '@external/repository/configs-repository/configs-schedule-prisma'
-import { HoursPrismaRepository } from '@external/repository/hours/hours-repository-prisma'
-import { ScheduleRepositoryPrisma } from '@external/repository/schedule/schedule-repository-prisma'
+import { prismaMocked } from '../../../../../prisma/__mocks__'
+
+import { ScheduleRepositoryPrisma } from '@external/repository/schedule/schedule-repository-prisma';
+import { HoursPrismaRepository } from '@external/repository/hours/hours-repository-prisma';
+import { ConfigSchedulePrismaRepository } from '@external/repository/configs-repository/configs-schedule-prisma';
+import { AppError } from '@shared/errors-handler/errors/app-error';
+import { contextSchedule, ContextSchedule } from '../../../../../tests/utils/populateScheduleContext/context';
+
 
 describe('Create schedule use case test',()=>{
 
@@ -15,7 +18,7 @@ describe('Create schedule use case test',()=>{
     describe('should be find dates available with avaible',async ()=>{
         let sut:FindDatesAvailableUseCase
 
-        let context:ContextSchedule
+        let context: ContextSchedule
         let prisma:PrismaClient
         beforeEach(async()=>{
             prisma = prismaMocked

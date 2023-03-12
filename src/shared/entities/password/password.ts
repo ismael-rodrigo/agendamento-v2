@@ -32,7 +32,8 @@ export class Password {
             password.trim().length > 15 ||
             !/[A-Z]/.test(password) ||
             !/[a-z]/.test(password) ||
-            !/[0-9]/.test(password) 
+            !/[0-9]/.test(password) ||
+            /(\s)/.test(password)
             ) return false
        
         return true

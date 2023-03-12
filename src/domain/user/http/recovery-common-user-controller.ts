@@ -1,4 +1,4 @@
-import { RecoveryCommonUserUseCase } from './../use-case/recovery-credentials-common-user/recovery-credentials-common-user';
+import { RecoveryCommonUserUseCase } from '../use-case/recovery-credentials-common-user/recovery-credentials-common-user';
 import { HttpRequest } from '../../_ports/controllers/http';
 import { Controller } from '../../_ports/controllers/controller';
 import { badRequest, ok } from '../../_ports/controllers/helper';

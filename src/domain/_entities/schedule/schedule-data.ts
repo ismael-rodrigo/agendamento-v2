@@ -5,7 +5,9 @@ import { IntervalDateAvailableData } from '../intervalAvailable/interval-data';
 
 export interface ScheduleData {
     id :string
-    user_id :string
+    user_id:string | null
+    unauthenticated_user_id:string | null
+
     service_id :string
     hour_id :string
     date :Date

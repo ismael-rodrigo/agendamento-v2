@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
  // relationMode = "prisma"
 }
@@ -25,7 +25,15 @@ model User {
   @@map("users")
 }
 
-
+model UnauthenticatedUser {
+  id String @id
+  cpf String @unique
+  name String
+  phone_number String
+  schedules Schedule[]
+  
+  @@map("unauthenticated-user")
+} 
 
 model CommomUser {
   id String @id
@@ -47,8 +55,11 @@ model CommomUser {
 model Schedule {
   id String @id
 
-  user_id String
-  user CommomUser @relation(fields: [user_id] , references: [id])
+  user_id String?
+  user CommomUser? @relation(fields: [user_id] , references: [id])
+
+  unauthenticated_user_id String?
+  unauthenticated_user UnauthenticatedUser? @relation(fields: [unauthenticated_user_id] , references: [id])
 
   service_id String
   service Service @relation(fields: [service_id], references: [id])

@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../_ports/controllers/http';
 import { Controller } from '../../_ports/controllers/controller';
 import { badRequest, ok } from '../../_ports/controllers/helper';
-import { RegisterCommonUser } from '../../schedule/use-case/create-common-user/create-common-user';
+import { RegisterCommonUser } from '../../user/use-case/create-common-user/create-common-user';
 import CheckCommonUserAlreadyExists from '../use-case/check-user-already-exists/check-common-user-already-exists';
 
 

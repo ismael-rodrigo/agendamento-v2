@@ -1,7 +1,7 @@
 import { Either, Left, Right } from "@shared/errors-handler/either";
 import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 import { InvalidParamsError } from "@shared/errors-handler/errors/invalid-params-error";
-import { CommonUserData } from "@domain/_entities/common-user/commom-user-data";
+import { CommonUserData, UpdateCommonUser } from "@domain/_entities/common-user/commom-user-data";
 import { CommomUser } from "@domain/_entities/common-user/common-user";
 import { ICommonUserRepository } from "@domain/_ports/repository/common-user-repository.interface";
 
@@ -10,6 +10,9 @@ export class CommomUserInMemoryRepository implements ICommonUserRepository {
     public commmonUsers:CommonUserData[]
     constructor(){
         this.commmonUsers = []
+    }
+    update(user_id: string, updates: UpdateCommonUser): Promise<Either<DbGenericError | InvalidParamsError, CommonUserData>> {
+        throw new Error("Method not implemented.");
     }
     findUserByCPF(cpf: string): Promise<Either<DbGenericError, CommonUserData | null>> {
         throw new Error("Method not implemented.");

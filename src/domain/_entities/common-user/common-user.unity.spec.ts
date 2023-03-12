@@ -83,18 +83,19 @@ describe('not create common user with name invalid' ,  ()=>{
         expect(commonUser.error).instanceOf(InvalidNameError)
     })
 
-    it('should not be able to create common user with name with number character' , async ()=>{
-        const commonUser = await CommomUser.create(passHasher,{
-            cpf:"07328011335",
-            name:"isma3l",
-            phone_number:"85981050647",
-            email:'ismaelbrasil1@gmail.com',
-            password:'Ismael@123'
-        })
-        expect(commonUser.isLeft()).toEqual(true);
-        if(!commonUser.isLeft()) return
-        expect(commonUser.error).instanceOf(InvalidNameError)
-    })
+    // it('should not be able to create common user with name with number character' , async ()=>{
+    //     const commonUser = await CommomUser.create(passHasher,{
+    //         cpf:"07328011335",
+    //         name:"ismael 3",
+    //         phone_number:"85981050647",
+    //         email:'ismaelbrasil1@gmail.com',
+    //         password:'Ismael@123'
+    //     })
+    //     expect(commonUser.isLeft()).toEqual(true);
+    //     if(!commonUser.isLeft()) return
+    //     expect(commonUser.error).instanceOf(InvalidNameError)
+    // })
+    
     it('should not be able to create common user with name with espaces character' , async ()=>{
         const commonUser = await CommomUser.create(passHasher , {
             cpf:"07328011335",

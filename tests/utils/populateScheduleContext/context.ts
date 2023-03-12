@@ -41,7 +41,7 @@ export const contextSchedule = async (prisma:PrismaClient)=>{
     const user2 = await createUser(prisma, 'ismaelbrasil02@gmail.com')
     const user3 = await createUser(prisma, 'ismaelbrasil03@gmail.com')
 
-    return {
+    const result:ContextSchedule = {
         location,
         service1,
         service2,
@@ -59,6 +59,7 @@ export const contextSchedule = async (prisma:PrismaClient)=>{
         dateDisabledService1 ,
         dateDisabled2Service1
     }
+    return result
 
 
 }

@@ -11,7 +11,22 @@ import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 export class ScheduleRepositoryPrisma implements IScheduleRepository {
     constructor(private client:PrismaClient){}
     
-    async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date){
+    async findUnauthenticatedUserScheduleInDate(date_consulted: Date, user_id: string): Promise<Either<DbGenericError, ScheduleData | null>> {
+        try{
+            const schedule = await this.client.schedule.findFirst({
+                where:{
+                    date:date_consulted,
+                    unauthenticated_user_id:user_id
+                }
+            })
+            return Right.create(schedule)
+        }
+        catch (err ){
+            return Left.create(new DbGenericError('ScheduleRepositoryPrisma.findUnauthenticatedUserScheduleInDate'))
+        }
+    }
+    
+    async findSchedulesByDateAndServiceId(service_id: string , date_consulted: Date): Promise<Either< DbGenericError , ScheduleData[]>>{
         try{
             const result = await this.client.schedule.findMany({
                 where:{
@@ -28,20 +43,22 @@ export class ScheduleRepositoryPrisma implements IScheduleRepository {
     }
 
 
-    async createSchedule({date , hour_id , service_id , user_id , id}: Schedule ): Promise< Either< DbGenericError , ScheduleData>> {
+    async createSchedule({date , hour_id , service_id , user_id , id}: Schedule , isAuthUser:boolean ): Promise< Either< DbGenericError , ScheduleData>> {
         try{
             const userCreated = await this.client.schedule.create({
                 data:{
                     date,
                     id:id.value,
                     hour_id,
-                    user_id,
+                    user_id: isAuthUser ? user_id : undefined ,
+                    unauthenticated_user_id: !isAuthUser ? user_id : undefined ,
                     service_id
                 }
             })
             return Right.create(userCreated)
         }
         catch (err) {
+            console.log(err)
             return Left.create(new DbGenericError('createSchedule'))
         }
     }
