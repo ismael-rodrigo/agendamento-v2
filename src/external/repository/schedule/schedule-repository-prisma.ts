@@ -1,4 +1,4 @@
-import { ScheduleData } from '@domain/_entities/schedule/schedule-data';
+import { QueryScheduleData, ScheduleData } from '@domain/_entities/schedule/schedule-data';
 import { Schedule } from '@domain/_entities/schedule/schedule';
 import { PrismaClient } from "@prisma/client";
 import { IScheduleRepository } from "@domain/_ports/repository/schedule-repository.interface";
@@ -10,6 +10,34 @@ import { DbGenericError } from "@shared/errors-handler/errors/db-generic-error";
 
 export class ScheduleRepositoryPrisma implements IScheduleRepository {
     constructor(private client:PrismaClient){}
+    async query(params: QueryScheduleData): Promise<Either<DbGenericError, ScheduleData[]>> {
+        try{
+            const schedule = await this.client.schedule.findMany({
+                where:{    
+                    OR:[{
+                        user:{
+                            cpf:params.cpf
+                        }} ,
+                        {
+                        unauthenticated_user:{
+                            cpf:params.cpf
+                        }
+                        }
+                    ],
+                    service_id:params.service_id,
+                    date:params.date,
+                    service:{
+                        location_id:params.location_id
+                    }
+                }
+                
+            })
+            return Right.create(schedule)
+        }
+        catch (err ){
+            return Left.create(new DbGenericError('ScheduleRepositoryPrisma.findUnauthenticatedUserScheduleInDate'))
+        }
+    }
     
     async findUnauthenticatedUserScheduleInDate(date_consulted: Date, user_id: string): Promise<Either<DbGenericError, ScheduleData | null>> {
         try{

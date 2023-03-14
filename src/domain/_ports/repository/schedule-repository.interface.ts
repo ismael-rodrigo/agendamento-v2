@@ -1,3 +1,4 @@
+import { QueryScheduleData } from './../../_entities/schedule/schedule-data';
 import { Either } from "../../../shared/errors-handler/either";
 import { DbGenericError } from "../../../shared/errors-handler/errors/db-generic-error";
 import { Schedule } from "../../_entities/schedule/schedule";
@@ -10,5 +11,6 @@ export interface IScheduleRepository {
     findUserScheduleInDate(date_consulted: Date , user_id:string):Promise <Either<DbGenericError ,ScheduleData | null>>
     findSpecificSchedule(service_id: string, date_consulted: Date , hour_id:string):Promise <Either<DbGenericError , ScheduleData | null>>
     createSchedule(params:Schedule ,  isAuthUser:boolean): Promise< Either< DbGenericError , ScheduleData>>
+    query(params:QueryScheduleData): Promise<Either< DbGenericError , ScheduleData[]>>
 }
 

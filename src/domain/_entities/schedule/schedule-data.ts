@@ -24,3 +24,9 @@ export interface CreateScheduleData {
     intervalAvailable: IntervalDateAvailableData
 }
 
+export interface QueryScheduleData {
+    cpf?:string
+    date?:Date
+    service_id?:string
+    location_id?:string
+}
